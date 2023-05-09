@@ -109,6 +109,8 @@ class _BarItemPageState extends State<BarItemPage> {
     streamController.sink.add(resources.reversed.toList());
   }
 
+  String? src =
+      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   @override
   Widget build(BuildContext context) {
     String? appBarTitle = "AKIŞ";
@@ -157,7 +159,7 @@ class _BarItemPageState extends State<BarItemPage> {
                 ? ListView.builder(
                     itemCount: resources.data!.length,
                     itemBuilder: (_, index) => Padding(
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(10),
                       child: Card(
                         elevation: 0,
                         child: InkWell(
@@ -194,11 +196,11 @@ class _BarItemPageState extends State<BarItemPage> {
                               borderRadius: BorderRadius.circular(10),
                               color: resources.data![index].email ==
                                       FirebaseAuth.instance.currentUser!.email
-                                  ? Colors.blue.shade300
-                                  : Colors.blue.shade100,
+                                  ? ColorManager.white
+                                  : ColorManager.white,
                             ),
                             width: double.maxFinite,
-                            height: 40.h,
+                            height: 50.h,
                             child: Padding(
                               padding: EdgeInsets.all(10),
                               child: Column(
@@ -206,54 +208,106 @@ class _BarItemPageState extends State<BarItemPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        resources.data![index].title ?? "HATA",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                      resources.data![index].email ==
-                                              FirebaseAuth
-                                                  .instance.currentUser!.email
-                                          ? PopupMenuButton<String>(itemBuilder:
-                                              (BuildContext context) {
-                                              return [
-                                                PopupMenuItem(
-                                                  child: Text("Gönderiyi Sil"),
-                                                  value: "aa",
-                                                  onTap: () {
-                                                    deletePost(resources
-                                                        .data![index].sId);
-                                                  },
-                                                )
-                                              ];
-                                            })
-                                          : SizedBox(),
-                                    ],
+                                  Container(
+                                    height: 10.h,
+                                    decoration: BoxDecoration(
+                                        color: ColorManager.primary,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              padding:
+                                                  EdgeInsets.only(left: 10),
+                                              child: CircleAvatar(
+                                                radius: 20,
+                                                backgroundColor:
+                                                    ColorManager.primary,
+                                                child: CircleAvatar(
+                                                  radius: 35,
+                                                  child: ClipOval(
+                                                    child: Image.network(
+                                                      src!,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 3.w,
+                                            ),
+                                            Text(
+                                              resources.data![index].title ??
+                                                  "HATA",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyLarge
+                                                  ?.copyWith(
+                                                      fontSize: 17,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          ColorManager.white),
+                                            ),
+                                          ],
+                                        ),
+                                        resources.data![index].email ==
+                                                FirebaseAuth
+                                                    .instance.currentUser!.email
+                                            ? PopupMenuButton<String>(
+                                                color: ColorManager.white,
+                                                itemBuilder:
+                                                    (BuildContext context) {
+                                                  return [
+                                                    PopupMenuItem(
+                                                      child:
+                                                          Text("Gönderiyi Sil"),
+                                                      value: "aa",
+                                                      onTap: () {
+                                                        deletePost(resources
+                                                            .data![index].sId);
+                                                      },
+                                                    )
+                                                  ];
+                                                })
+                                            : SizedBox(),
+                                      ],
+                                    ),
                                   ),
                                   SizedBox(
-                                    height: 2.h,
+                                    height: 4.h,
                                   ),
-                                  Text(
-                                    resources.data![index].description ??
-                                        "HATA",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(
-                                            fontSize: 20,
-                                            color: ColorManager.black),
-                                  ),
+                                  resources.data![index].description!.length >
+                                          150
+                                      ? Text(
+                                          "${resources.data![index].description}....." ??
+                                              "HATA",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium
+                                              ?.copyWith(
+                                                  fontSize: 19,
+                                                  color: ColorManager.black),
+                                        )
+                                      : Text(
+                                          "${resources.data![index].description}"),
                                   SizedBox(
                                     height: 3.h,
                                   ),
-                                  Text(resources.data![index].email ?? "HATA"),
+                                  Text(
+                                    resources.data![index].email ?? "HATA",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(color: ColorManager.primary),
+                                  ),
+                                  Text(FirebaseAuth
+                                          .instance.currentUser!.displayName ??
+                                      "HATA"),
                                   Text(resources.data![index].createdAt ??
                                       "HATA"),
                                 ],
