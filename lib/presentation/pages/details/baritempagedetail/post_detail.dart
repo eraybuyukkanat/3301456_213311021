@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,21 +10,23 @@ class PostDetailPage extends StatefulWidget {
       required this.index,
       required this.title,
       required this.description,
-      required this.faculty,
+      required this.email,
       required this.createdAt});
   final int index;
   final String title;
   final String description;
-  final String faculty;
+  final String email;
   final String createdAt;
   @override
   State<PostDetailPage> createState() => _PostDetailPageState();
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
+  String? pageTitle = "Yorumlar";
+  String? src =
+      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   @override
   Widget build(BuildContext context) {
-    String? pageTitle = "Post Detayı";
     return Scaffold(
       appBar: AppBar(
           titleSpacing: 3.h,
@@ -41,7 +44,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
             ),
           ),
           title: Text(
-            pageTitle,
+            pageTitle!,
             style: Theme.of(context)
                 .textTheme
                 .headlineMedium
@@ -64,34 +67,114 @@ class _PostDetailPageState extends State<PostDetailPage> {
                     ),
                   ],
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.blue.shade100,
+                  color: ColorManager.white,
                 ),
                 width: double.maxFinite,
-                height: 200,
+                height: 50.h,
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Container(
+                            height: 10.h,
+                            decoration: BoxDecoration(
+                                color: ColorManager.primary,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 3.w,
+                                    ),
+                                    Text(
+                                      widget.title,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: ColorManager.white),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 3.h,
+                          ),
                           Text(
-                            widget.title,
-                            style: Theme.of(context).textTheme.titleLarge,
+                            "${widget.description}",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(fontSize: 20),
                           ),
                         ],
                       ),
                       SizedBox(
-                        height: 2.h,
-                      ),
-                      Text(widget.description),
-                      SizedBox(
                         height: 3.h,
                       ),
-                      Text(widget.faculty),
-                      Text(widget.createdAt)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            FirebaseAuth.instance.currentUser!.displayName ??
+                                "HATA",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: ColorManager.black, fontSize: 15),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                widget.email,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        color: ColorManager.black,
+                                        fontSize: 15),
+                              ),
+                              Container(
+                                child: CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: ColorManager.primary,
+                                  child: CircleAvatar(
+                                    radius: 35,
+                                    child: ClipOval(
+                                      child: Image.network(
+                                        src!,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            widget.createdAt,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: ColorManager.black, fontSize: 15),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 ),
