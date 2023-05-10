@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/details/baritempagedetail/post_detail.dart';
 import 'package:social_media_app_demo/sources/post/service.dart';
@@ -30,7 +31,8 @@ class BarItemPage extends StatefulWidget {
   State<BarItemPage> createState() => _BarItemPageState();
 }
 
-class _BarItemPageState extends State<BarItemPage> {
+class _BarItemPageState extends State<BarItemPage>
+    with TickerProviderStateMixin {
   String? dropdownValue = facultyList.first;
 
   TextEditingController? _postTitleTextEditingController =
@@ -156,10 +158,10 @@ class _BarItemPageState extends State<BarItemPage> {
           stream: streamController.stream,
           builder: (context, resources) {
             if (resources.data == null) {
-              return Center(
-                  child: CircularProgressIndicator(
-                color: ColorManager.primary,
-              ));
+              return SpinKitFadingCircle(
+                color: ColorManager.black,
+                size: 40.0,
+              );
             }
             return resources.data?.length != 0
                 ? ListView.builder(
