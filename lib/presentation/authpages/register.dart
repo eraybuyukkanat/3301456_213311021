@@ -11,40 +11,31 @@ import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController? _emailTextEditingController = TextEditingController();
   TextEditingController? _passwordTextEditingController =
       TextEditingController();
 
-  login() async {
-    if (!_formKey.currentState!.validate()) return;
-    final email = _emailTextEditingController!.value.text;
-    final password = _passwordTextEditingController!.value.text;
+  register() async {
+    String? email = _emailTextEditingController!.value.text;
+    String? password = _passwordTextEditingController!.value.text;
     try {
-      await Auth().signInWithEmailAndPassword(email, password);
+      await Auth().registerWithEmailAndPassword(email, password);
+      FirebaseAuth.instance.currentUser?.updateDisplayName(email.split('@')[0]);
+
       Navigator.pushNamed(context, "/mainpage");
     } on FirebaseAuthException catch (e) {
       showAlertDialog(e.message.toString(), context);
       _passwordTextEditingController!.clear();
-    }
-  }
-
-  resetPassword() async {
-    String? email = _emailTextEditingController!.value.text;
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      showAlertDialog("Şifre değiştirme bağlantısı gönderildi!", context);
-    } on FirebaseAuthException catch (e) {
-      showAlertDialog(e.message.toString(), context);
     }
   }
 
@@ -98,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 1.h,
               ),
               Text(
-                loginText,
+                signInText,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorManager.black,
                     fontWeight: FontWeight.w400,
@@ -164,28 +155,15 @@ class _LoginScreenState extends State<LoginScreen> {
                               );
                             });
                           }),
-                      TextButton(
-                          onPressed: () {
-                            resetPassword();
-                          },
-                          child: Text(
-                            "Şifrenizi mi unuttunuz?",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorManager.redAccent),
-                          )),
                       SizedBox(
                         height: 3.h,
                       ),
                       widthSizedButton(
                           color: ColorManager.primary,
-                          text: loginText,
-                          onPressed: login),
+                          text: signInText,
+                          onPressed: register),
                       SizedBox(
-                        height: 2.h,
+                        height: 3.h,
                       ),
                       Row(
                         children: [
@@ -193,16 +171,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 40.w,
                             child: widthSizedButton(
                                 color: ColorManager.grey,
-                                text: signInText,
+                                text: loginText,
                                 onPressed: () {
-                                  Navigator.pushNamed(context, "/registerpage");
+                                  Navigator.pushNamed(context, "/loginpage");
                                 }),
                           ),
                           SizedBox(
                             width: 4.w,
                           ),
                           Text(
-                            "Hesabınız yoksa kayıt olun!",
+                            "Hesabınız varsa giriş yapın!",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium

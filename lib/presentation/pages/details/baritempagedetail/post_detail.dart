@@ -22,7 +22,7 @@ class PostDetailPage extends StatefulWidget {
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
-  String? pageTitle = "Yorumlar";
+  String? pageTitle = "Gönderi Detayı";
   String? src =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   @override
@@ -70,7 +70,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   color: ColorManager.white,
                 ),
                 width: double.maxFinite,
-                height: 50.h,
                 child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Column(
@@ -113,8 +112,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
                           ),
                           Text(
                             "${widget.description}",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 5,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium
@@ -183,7 +180,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 height: 2.h,
               ),
               Text(
-                "Yorum Ekle",
+                "Yorumlar",
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               SizedBox(

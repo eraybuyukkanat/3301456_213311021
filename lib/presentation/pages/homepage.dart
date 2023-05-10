@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  AuthScreen? authScreen = AuthScreen();
+  LoginScreen? authScreen = LoginScreen();
   Map sosyalList = {
     0: "Topluluklar",
     1: "Sosyal Etkinlikler",

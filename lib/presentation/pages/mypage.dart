@@ -87,7 +87,7 @@ class _MyPageState extends State<MyPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       FirebaseAuth.instance.signOut();
-                      Navigator.pushNamed(context, "/authpage");
+                      Navigator.pushNamed(context, "/loginpage");
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

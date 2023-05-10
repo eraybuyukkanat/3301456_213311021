@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/presentation/authpages/login.dart';
+import 'package:social_media_app_demo/presentation/authpages/register.dart';
 
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
 import 'package:social_media_app_demo/presentation/pages/details/homepagedetail/communities.dart';
@@ -15,9 +16,13 @@ class RouteNavigation {
         return _createRoute(
           MainPage(),
         );
-      case '/authpage':
+      case '/loginpage':
         return _createRoute(
-          AuthScreen(),
+          LoginScreen(),
+        );
+      case '/registerpage':
+        return _createRoute(
+          RegisterScreen(),
         );
       case '/profile':
         return _createRoute(
