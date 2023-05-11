@@ -175,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .bodyMedium
                                 ?.copyWith(
                                     fontWeight: FontWeight.bold,
-                                    color: ColorManager.redAccent),
+                                    color: ColorManager.black),
                           )),
                       SizedBox(
                         height: 3.h,

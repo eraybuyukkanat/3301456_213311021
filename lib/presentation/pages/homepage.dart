@@ -55,10 +55,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     String? listViewTitle1 = "Sosyal";
     String? listViewTitle2 = "Ders";
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
           automaticallyImplyLeading: false,
           titleSpacing: 5.w,
-          elevation: 10,
+          elevation: 0,
           backgroundColor: ColorManager.white,
           toolbarHeight: 10.h,
           centerTitle: false,
@@ -69,251 +69,279 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 .headlineMedium
                 ?.copyWith(color: ColorManager.black),
           )),
-      body: SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            color: ColorManager.white,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: TabBar(
-                  labelPadding: const EdgeInsets.only(right: 20, left: 20),
-                  controller: _tabController,
-                  labelColor: ColorManager.black,
-                  unselectedLabelColor: ColorManager.grey,
-                  isScrollable: true,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicator:
-                      CircleTabIndicator(color: ColorManager.black!, radius: 4),
-                  tabs: [
-                    Tab(text: tabbarText1),
-                    Tab(
-                      text: tabbarText2,
-                    ),
-                  ]),
-            ),
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-          Container(
-            height: 30.h,
-            width: double.infinity,
-            child: SizedBox(
-              child: Container(
-                child: TabBarView(controller: _tabController, children: [
-                  PageView.builder(
-                    itemCount: imageNetworkList.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        height: double.maxFinite,
-                        child: Container(
-                          child: Image.network(
-                            imageNetworkList[index],
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2),
-                      child: Container(
-                        child: Column(
+      */
+      body: SafeArea(
+        child: Container(
+          color: Colors.grey.shade200,
+          child: Column(
+            children: [
+              // APPBAR
+              Expanded(
+                flex: 1,
+                child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    width: double.maxFinite,
+                    height: 2.h,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  menuTitle,
+                                  "Tekrar Hoşgeldin,",
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall
                                       ?.copyWith(
-                                        color: ColorManager.black,
-                                      ),
+                                          color: ColorManager.grey,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "${FirebaseAuth.instance.currentUser!.displayName}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall
+                                      ?.copyWith(
+                                          color: ColorManager.black,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w700),
                                 ),
                               ],
                             ),
-                            Text(
-                              date,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              menuItem1,
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                            Text(
-                              menuItem2,
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                            Text(
-                              menuItem3,
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                            Text(
-                              menuItem4,
-                              style: Theme.of(context).textTheme.headlineSmall,
+                            Column(
+                              children: [
+                                Icon(Icons.date_range),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Text(
+                                  "12 Mayıs",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18),
+                                ),
+                              ],
                             ),
                           ],
-                        ),
-                      ),
+                        )
+                      ],
+                    )),
+              ),
+
+              // IMAGES
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    width: double.maxFinite,
+                    child: PageView.builder(
+                      itemCount: imageNetworkList.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            imageNetworkList[index],
+                            fit: BoxFit.fill,
+                          ),
+                        );
+                      },
                     ),
                   ),
-                ]),
+                ),
               ),
-            ),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  listViewTitle1,
-                  style: Theme.of(context).textTheme.titleLarge,
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-          Container(
-            height: 10.h,
-            width: double.maxFinite,
-            margin: const EdgeInsets.only(left: 20, right: 20),
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: sosyalList.length,
-                itemBuilder: (_, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 10),
+              // TITLE
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: 7.h,
-                          width: 45.w,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll<Color>(
-                                        ColorManager.primary!)),
-                            onPressed: () {
-                              if (index == 0) {
-                                Navigator.pushNamed(context, "/communities");
-                              } else if (index == 1) {
-                                Navigator.pushNamed(context, "/socialevents");
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(sosyalList[index].toString()),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Ders Programı",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(fontSize: 18),
                             ),
-                          ),
-                        ),
+                            Text(
+                              "Tümünü Göster",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      color: ColorManager.primary,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        )
                       ],
                     ),
-                  );
-                }),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 20, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  listViewTitle2,
-                  style: Theme.of(context).textTheme.titleLarge,
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-          Container(
-            height: 10.h,
-            width: double.maxFinite,
-            margin: const EdgeInsets.only(left: 20, right: 20),
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: dersList.length,
-                itemBuilder: (_, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 7.h,
-                          width: 45.w,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll<Color>(
-                                        ColorManager.primary!)),
-                            onPressed: () {
-                              if (index == 0) {}
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              // DERS PROGRAMI
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Card(
+                    elevation: 10,
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15, top: 15, right: 15),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Pazartesi",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall
+                                        ?.copyWith(fontSize: 20),
+                                  ),
+                                  Icon(Icons.chevron_right)
+                                ],
                               ),
-                              child: Text(dersList[index].toString()),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Container(
+                                width: double.maxFinite,
+                                height: 3,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text("13.00"),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text("Mühendislik Matematiği"),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("15.00"),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text("Mühendislik Matematiği"),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("13.00"),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text("Mühendislik Matematiği"),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text("13.00"),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text("Mühendislik Matematiği"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        )),
+                  ),
+                ),
+              ),
+              //KAYDIRILABİLİR MENÜ
+              Expanded(
+                flex: 1,
+                child: Container(
+                  margin: const EdgeInsets.only(left: 20, right: 20),
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: sosyalList.length,
+                      itemBuilder: (_, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 7.h,
+                                width: 40.w,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStatePropertyAll<Color>(
+                                              ColorManager.primary!)),
+                                  onPressed: () {
+                                    if (index == 0) {
+                                      Navigator.pushNamed(
+                                          context, "/communities");
+                                    } else if (index == 1) {
+                                      Navigator.pushNamed(
+                                          context, "/socialevents");
+                                    }
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Text(sosyalList[index].toString()),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+                        );
+                      }),
+                ),
+              ),
+            ],
           ),
-        ]),
+        ),
       ),
     );
-  }
-}
-
-class CircleTabIndicator extends Decoration {
-  final Color? color;
-  double radius;
-  CircleTabIndicator({required this.color, required this.radius});
-  @override
-  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    return _CirclePainter(radius: radius, color: color!);
-  }
-}
-
-class _CirclePainter extends BoxPainter {
-  final Color? color;
-  double radius;
-  _CirclePainter({required this.color, required this.radius});
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    Paint _paint = Paint();
-    _paint.color = color!;
-    _paint.isAntiAlias = true;
-    final Offset circleOffset = Offset(
-        configuration.size!.width / 2 - radius / 2,
-        configuration.size!.height - radius);
-    canvas.drawCircle(offset + circleOffset, radius, _paint);
   }
 }

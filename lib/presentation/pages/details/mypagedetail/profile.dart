@@ -77,6 +77,8 @@ class _ProfilePageState extends State<ProfilePage> {
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   String? name = "${FirebaseAuth.instance.currentUser?.displayName}";
   String? email = "${FirebaseAuth.instance.currentUser?.email.toString()}";
+  String? username =
+      "${FirebaseAuth.instance.currentUser!.email?.split('@').first}";
   String? faculty = "aa";
   String? department = "Bilgisayar Mühendisliği";
   @override
@@ -155,10 +157,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 2.h,
                     ),
                     fieldWidget(
+                      title: "Kullanıcı Adı",
+                      fieldText: username,
+                    ),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    fieldWidget(
                       title: "Email",
                       fieldText: email,
-                      controller: emailController,
-                      func: changeEmail,
                     ),
                     SizedBox(
                       height: 2.h,
@@ -193,15 +200,15 @@ class fieldWidget extends StatelessWidget {
     Key? key,
     required this.title,
     required this.fieldText,
-    required this.func,
-    required this.controller,
+    this.func,
+    this.controller,
   }) : super(key: key);
 
   final String? fieldText;
   final String? title;
-  final Function func;
+  final Function? func;
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -234,7 +241,7 @@ class fieldWidget extends StatelessWidget {
                         ?.copyWith(color: ColorManager.white, fontSize: 20),
                   ),
                 ),
-                title == "Email"
+                title == "Email" || title == "Kullanıcı Adı"
                     ? SizedBox()
                     : IconButton(
                         onPressed: () {
@@ -255,7 +262,7 @@ class fieldWidget extends StatelessWidget {
                                           text: "Kaydet",
                                           color: ColorManager.primary,
                                           onPressed: () {
-                                            func(context);
+                                            func!(context);
                                           }),
                                     ),
                                   ],
