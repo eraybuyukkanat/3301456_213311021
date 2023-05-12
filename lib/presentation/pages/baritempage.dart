@@ -126,6 +126,7 @@ class _BarItemPageState extends State<BarItemPage>
   Widget build(BuildContext context) {
     String? appBarTitle = "AKIŞ";
     return Scaffold(
+      //APPBAR
       appBar: AppBar(
           automaticallyImplyLeading: false,
           titleSpacing: 5.w,
@@ -197,7 +198,7 @@ class _BarItemPageState extends State<BarItemPage>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Expanded(
-                                      flex: 4,
+                                      flex: 5,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,

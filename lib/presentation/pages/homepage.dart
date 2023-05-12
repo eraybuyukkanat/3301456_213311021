@@ -40,20 +40,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     "https://webadmin.selcuk.edu.tr/contents/GenelDosyalar/slider/11541/swis0/Teknokent_Slider_638150815641478840.jpg",
   ];
 
+  String? appBarTitle = "SAYFAM";
+  String? tabbarText1 = "ÜNİVERSİTE DUYURULARI";
+  String? tabbarText2 = "YEMEKHANE MENÜSÜ";
+  String? menuTitle = "BUGÜNÜN MENÜSÜ";
+  String? date = "06/04/2023";
+  String? menuItem1 = "- KARIŞIK KIZARTMA -";
+  String? menuItem2 = "- TAVUK SOTE -";
+  String? menuItem3 = "- YOĞURT -";
+  String? menuItem4 = "- EZOGELİN ÇORBASI -";
+  String? listViewTitle1 = "Sosyal";
+  String? listViewTitle2 = "Ders";
+  PageController pageController = PageController();
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 2, vsync: this);
-    String? appBarTitle = "SAYFAM";
-    String? tabbarText1 = "ÜNİVERSİTE DUYURULARI";
-    String? tabbarText2 = "YEMEKHANE MENÜSÜ";
-    String? menuTitle = "BUGÜNÜN MENÜSÜ";
-    String? date = "06/04/2023";
-    String? menuItem1 = "- KARIŞIK KIZARTMA -";
-    String? menuItem2 = "- TAVUK SOTE -";
-    String? menuItem3 = "- YOĞURT -";
-    String? menuItem4 = "- EZOGELİN ÇORBASI -";
-    String? listViewTitle1 = "Sosyal";
-    String? listViewTitle2 = "Ders";
+
     return Scaffold(
       /*appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -72,73 +74,82 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       */
       body: SafeArea(
         child: Container(
-          color: Colors.grey.shade200,
+          color: Colors.white,
           child: Column(
             children: [
               // APPBAR
               Expanded(
-                flex: 1,
-                child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    width: double.maxFinite,
-                    height: 2.h,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Tekrar Hoşgeldin,",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(
-                                          color: ColorManager.grey,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500),
-                                ),
-                                Text(
-                                  "${FirebaseAuth.instance.currentUser!.displayName}",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(
-                                          color: ColorManager.black,
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w700),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Icon(Icons.date_range),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                Text(
-                                  "12 Mayıs",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18),
-                                ),
-                              ],
-                            ),
-                          ],
-                        )
-                      ],
-                    )),
+                flex: 4,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Tekrar Hoşgeldin,",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                        color: ColorManager.primary,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500),
+                              ),
+                              Text(
+                                "${FirebaseAuth.instance.currentUser!.displayName}",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                        color: ColorManager.black,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w700),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Icon(Icons.date_range),
+                              SizedBox(
+                                height: 1.h,
+                              ),
+                              Text(
+                                "12 Mayıs",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18),
+                              ),
+                              Text(
+                                "Cuma",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                        color: ColorManager.primary),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
 
               // IMAGES
               Expanded(
-                flex: 2,
+                flex: 7,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
@@ -159,143 +170,78 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 ),
               ),
+              Spacer(
+                flex: 1,
+              ),
               // TITLE
+
               Expanded(
                 flex: 1,
                 child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Cuma",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    fontSize: 22, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Expanded(
+                flex: 4,
+                child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Ders Programı",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(fontSize: 18),
+                  child: Card(
+                    child: Container(
+                      width: double.maxFinite,
+                      child: PageView.builder(
+                        controller: pageController,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ListTile(
+                                  subtitle: Text("13.00"),
+                                  title: Text("Mühendislik Matematiği"),
+                                  trailing: Text("B-109"),
+                                ),
+                              ],
                             ),
-                            Text(
-                              "Tümünü Göster",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      color: ColorManager.primary,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500),
-                            )
-                          ],
-                        )
-                      ],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
               ),
-              // DERS PROGRAMI
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Card(
-                    elevation: 10,
-                    child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 15, top: 15, right: 15),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Pazartesi",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall
-                                        ?.copyWith(fontSize: 20),
-                                  ),
-                                  Icon(Icons.chevron_right)
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Container(
-                                width: double.maxFinite,
-                                height: 3,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text("13.00"),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text("Mühendislik Matematiği"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("15.00"),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text("Mühendislik Matematiği"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("13.00"),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text("Mühendislik Matematiği"),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text("13.00"),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text("Mühendislik Matematiği"),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )),
-                  ),
-                ),
-              ),
+              // BUTTON
+              IconButton(
+                  onPressed: () {
+                    pageController.nextPage(
+                        duration: Duration(milliseconds: 400),
+                        curve: Curves.easeIn);
+                  },
+                  icon: Icon(Icons.arrow_drop_down)),
+
               //KAYDIRILABİLİR MENÜ
               Expanded(
-                flex: 1,
+                flex: 3,
                 child: Container(
                   margin: const EdgeInsets.only(left: 20, right: 20),
                   child: ListView.builder(
@@ -337,6 +283,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         );
                       }),
                 ),
+              ),
+
+              Spacer(
+                flex: 1,
               ),
             ],
           ),
