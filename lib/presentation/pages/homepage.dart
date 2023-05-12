@@ -42,13 +42,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   String? appBarTitle = "SAYFAM";
   String? tabbarText1 = "ÜNİVERSİTE DUYURULARI";
-  String? tabbarText2 = "YEMEKHANE MENÜSÜ";
-  String? menuTitle = "BUGÜNÜN MENÜSÜ";
-  String? date = "06/04/2023";
-  String? menuItem1 = "- KARIŞIK KIZARTMA -";
-  String? menuItem2 = "- TAVUK SOTE -";
-  String? menuItem3 = "- YOĞURT -";
-  String? menuItem4 = "- EZOGELİN ÇORBASI -";
   String? listViewTitle1 = "Sosyal";
   String? listViewTitle2 = "Ders";
   PageController pageController = PageController();
@@ -57,24 +50,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     TabController _tabController = TabController(length: 2, vsync: this);
 
     return Scaffold(
-      /*appBar: AppBar(
-          automaticallyImplyLeading: false,
-          titleSpacing: 5.w,
-          elevation: 0,
-          backgroundColor: ColorManager.white,
-          toolbarHeight: 10.h,
-          centerTitle: false,
-          title: Text(
-            appBarTitle,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(color: ColorManager.black),
-          )),
-      */
       body: SafeArea(
         child: Container(
-          color: Colors.white,
           child: Column(
             children: [
               // APPBAR
@@ -88,115 +65,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Tekrar Hoşgeldin,",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                        color: ColorManager.primary,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500),
-                              ),
-                              Text(
-                                "${FirebaseAuth.instance.currentUser!.displayName}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                        color: ColorManager.black,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w700),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Icon(Icons.date_range),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              Text(
-                                "12 Mayıs",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18),
-                              ),
-                              Text(
-                                "Cuma",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14,
-                                        color: ColorManager.primary),
-                              ),
-                            ],
-                          ),
+                          welcomingText(),
+                          appBarDate(),
                         ],
                       ),
                     )
                   ],
                 ),
               ),
-
               // IMAGES
               Expanded(
                 flex: 7,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    width: double.maxFinite,
-                    child: PageView.builder(
-                      itemCount: imageNetworkList.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            imageNetworkList[index],
-                            fit: BoxFit.fill,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  child: imageWidget(imageNetworkList: imageNetworkList),
                 ),
               ),
-              Spacer(
-                flex: 1,
-              ),
-              // TITLE
 
+              // TITLE
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Cuma",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    fontSize: 22, fontWeight: FontWeight.w500),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  child: scheduleDayWidget(),
                 ),
               ),
 
@@ -204,30 +95,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 flex: 4,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Card(
-                    child: Container(
-                      width: double.maxFinite,
-                      child: PageView.builder(
-                        controller: pageController,
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ListTile(
-                                  subtitle: Text("13.00"),
-                                  title: Text("Mühendislik Matematiği"),
-                                  trailing: Text("B-109"),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+                  child: scheduleCardWidget(pageController: pageController),
                 ),
               ),
               // BUTTON
@@ -284,7 +152,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       }),
                 ),
               ),
-
               Spacer(
                 flex: 1,
               ),
@@ -292,6 +159,160 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
         ),
       ),
+    );
+  }
+}
+
+class scheduleCardWidget extends StatelessWidget {
+  const scheduleCardWidget({
+    super.key,
+    required this.pageController,
+  });
+
+  final PageController pageController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        width: double.maxFinite,
+        child: PageView.builder(
+          controller: pageController,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ListTile(
+                    subtitle: Text("13.00"),
+                    title: Text("Mühendislik Matematiği"),
+                    trailing: Text("B-109"),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class scheduleDayWidget extends StatelessWidget {
+  const scheduleDayWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Cuma",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: 22, fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class imageWidget extends StatelessWidget {
+  const imageWidget({
+    super.key,
+    required this.imageNetworkList,
+  });
+
+  final List imageNetworkList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.maxFinite,
+      child: PageView.builder(
+        itemCount: imageNetworkList.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              imageNetworkList[index],
+              fit: BoxFit.fill,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class welcomingText extends StatelessWidget {
+  const welcomingText({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Tekrar Hoşgeldin,",
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: ColorManager.primary,
+              fontSize: 20,
+              fontWeight: FontWeight.w500),
+        ),
+        Text(
+          "${FirebaseAuth.instance.currentUser!.displayName}",
+          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              color: ColorManager.black,
+              fontSize: 25,
+              fontWeight: FontWeight.w700),
+        ),
+      ],
+    );
+  }
+}
+
+class appBarDate extends StatelessWidget {
+  const appBarDate({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Icon(Icons.date_range),
+        SizedBox(
+          height: 1.h,
+        ),
+        Text(
+          "12 Mayıs",
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(fontWeight: FontWeight.w500, fontSize: 18),
+        ),
+        Text(
+          "Cuma",
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: ColorManager.primary),
+        ),
+      ],
     );
   }
 }
