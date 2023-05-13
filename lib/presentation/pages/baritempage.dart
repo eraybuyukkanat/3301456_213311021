@@ -145,10 +145,6 @@ class _BarItemPageState extends State<BarItemPage>
                     color: ColorManager.black,
                     size: 35,
                   ),
-                  Text(
-                    "Lütfen Bekleyiniz...",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
                 ],
               );
             }
@@ -182,7 +178,7 @@ class _BarItemPageState extends State<BarItemPage>
           ),
         ],
         borderRadius: BorderRadius.circular(10),
-        color: ColorManager.white,
+        color: ColorManager.secondary,
       ),
       width: double.maxFinite,
       child: Padding(
