@@ -57,26 +57,6 @@ class _BarItemPageState extends State<BarItemPage>
     streamController2.sink.add(_isLoading);
   }
 
-  DropdownButtonFormField _dropDownFiltreKismi(String _selectedField) {
-    return DropdownButtonFormField(
-        icon: Icon(
-          Icons.arrow_drop_down_rounded,
-          color: ColorManager.primary,
-        ),
-        decoration: InputDecoration(label: Text(_selectedField)),
-        items: facultyList.map((values) {
-          return DropdownMenuItem(
-            child: Text(values),
-            value: values,
-          );
-        }).toList(),
-        onChanged: (value) {
-          setState(() {
-            selected_faculty = value.toString();
-          });
-        });
-  }
-
   List<Post> resources = [];
 
   @override
@@ -120,17 +100,17 @@ class _BarItemPageState extends State<BarItemPage>
     streamController.sink.add(resources.reversed.toList());
   }
 
-  String? src =
+  String src =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+  String appBarTitle = "AKIŞ";
   @override
   Widget build(BuildContext context) {
-    String? appBarTitle = "AKIŞ";
     return Scaffold(
       //APPBAR
       appBar: AppBar(
           automaticallyImplyLeading: false,
           titleSpacing: 5.w,
-          elevation: 10,
+          elevation: 0,
           backgroundColor: ColorManager.white,
           toolbarHeight: 10.h,
           centerTitle: false,
@@ -171,202 +151,204 @@ class _BarItemPageState extends State<BarItemPage>
                     itemCount: resources.data!.length,
                     itemBuilder: (_, index) => Padding(
                       padding: const EdgeInsets.all(5),
-                      child: Expanded(
-                        child: Card(
-                          elevation: 0,
-                          child: InkWell(
-                            onTap: () {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.8),
-                                    spreadRadius: 5,
-                                    blurRadius: 10,
-                                    offset: Offset(0, 5),
-                                  ),
-                                ],
-                                borderRadius: BorderRadius.circular(10),
-                                color: ColorManager.white,
+                      child: Card(
+                        elevation: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.8),
+                                spreadRadius: 5,
+                                blurRadius: 10,
+                                offset: Offset(0, 5),
                               ),
-                              width: double.maxFinite,
-                              height: 60.h,
-                              child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      flex: 5,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: 8.h,
-                                            decoration: BoxDecoration(
-                                                color: ColorManager.primary,
-                                                borderRadius:
-                                                    BorderRadius.circular(5)),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                            ],
+                            borderRadius: BorderRadius.circular(10),
+                            color: ColorManager.white,
+                          ),
+                          width: double.maxFinite,
+                          height: 55.h,
+                          child: Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  flex: 5,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 8.h,
+                                        decoration: BoxDecoration(
+                                            color: ColorManager.primary,
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 3.w,
-                                                    ),
-                                                    Container(
-                                                      child: CircleAvatar(
-                                                        radius: 18,
-                                                        backgroundColor:
-                                                            ColorManager
-                                                                .primary,
-                                                        child: CircleAvatar(
-                                                          radius: 35,
-                                                          child: ClipOval(
-                                                            child:
-                                                                Image.network(
-                                                              src!,
-                                                            ),
-                                                          ),
+                                                SizedBox(
+                                                  width: 3.w,
+                                                ),
+                                                Container(
+                                                  child: CircleAvatar(
+                                                    radius: 18,
+                                                    backgroundColor:
+                                                        ColorManager.primary,
+                                                    child: CircleAvatar(
+                                                      radius: 35,
+                                                      child: ClipOval(
+                                                        child: Image.network(
+                                                          src,
                                                         ),
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                      width: 3.w,
-                                                    ),
-                                                    Text(
-                                                      resources.data![index]
-                                                              .title ??
-                                                          "HATA",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyLarge
-                                                          ?.copyWith(
-                                                              fontSize: 17,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  ColorManager
-                                                                      .white),
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    resources.data![index]
-                                                                .email ==
-                                                            FirebaseAuth
-                                                                .instance
-                                                                .currentUser!
-                                                                .email
-                                                        ? PopupMenuButton<
-                                                                String>(
-                                                            color: ColorManager
-                                                                .white,
-                                                            itemBuilder:
-                                                                (BuildContext
-                                                                    context) {
-                                                              return [
-                                                                PopupMenuItem(
-                                                                  child: Text(
-                                                                      "Gönderiyi Sil"),
-                                                                  value: "aa",
-                                                                  onTap: () {
-                                                                    deletePost(resources
+                                                SizedBox(
+                                                  width: 3.w,
+                                                ),
+                                                Text(
+                                                  resources
+                                                          .data![index].title ??
+                                                      "HATA",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge
+                                                      ?.copyWith(
+                                                          fontSize: 17,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: ColorManager
+                                                              .white),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                resources.data![index].email !=
+                                                        FirebaseAuth.instance
+                                                            .currentUser!.email
+                                                    ? PopupMenuButton<String>(
+                                                        color:
+                                                            ColorManager.white,
+                                                        itemBuilder:
+                                                            (BuildContext
+                                                                context) {
+                                                          return [
+                                                            PopupMenuItem(
+                                                              child: Text(
+                                                                  "Gönderiyi Sil"),
+                                                              value: "aa",
+                                                              onTap: () {
+                                                                deletePost(
+                                                                    resources
                                                                         .data![
                                                                             index]
                                                                         .sId);
-                                                                  },
-                                                                )
-                                                              ];
-                                                            })
-                                                        : SizedBox(),
-                                                  ],
-                                                )
+                                                              },
+                                                            )
+                                                          ];
+                                                        })
+                                                    : SizedBox(),
                                               ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 2.h,
-                                          ),
-                                          Text(
-                                            "${resources.data![index].description}",
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 7,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.copyWith(fontSize: 18),
-                                          ),
-                                        ],
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    resources.data![index].description!.length >
-                                            200
-                                        ? Expanded(
-                                            flex: 1,
-                                            child: Container(
-                                              alignment: Alignment.centerRight,
-                                              padding:
-                                                  EdgeInsets.only(right: 8),
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (BuildContext
-                                                              context) =>
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
+                                      Text(
+                                        "${resources.data![index].description}",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 7,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(fontSize: 18),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                resources.data![index].description!.length > 200
+                                    ? Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                          alignment: Alignment.centerRight,
+                                          padding: EdgeInsets.only(right: 8),
+                                          child: TextButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) =>
                                                           PostDetailPage(
-                                                        index: index,
-                                                        title: resources
-                                                            .data![index].title
-                                                            .toString(),
-                                                        description: resources
-                                                            .data![index]
-                                                            .description
-                                                            .toString(),
-                                                        email: resources
-                                                            .data![index].email
-                                                            .toString(),
-                                                        createdAt: resources
-                                                            .data![index]
-                                                            .createdAt
-                                                            .toString(),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                                child: Text(
-                                                  "Devamını Oku",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium
-                                                      ?.copyWith(
-                                                          color: ColorManager
-                                                              .primary,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 18),
+                                                    index: index,
+                                                    id: resources
+                                                        .data![index].sId
+                                                        .toString(),
+                                                    title: resources
+                                                        .data![index].title
+                                                        .toString(),
+                                                    description: resources
+                                                        .data![index]
+                                                        .description
+                                                        .toString(),
+                                                    email: resources
+                                                        .data![index].email
+                                                        .toString(),
+                                                    createdAt: resources
+                                                        .data![index].createdAt
+                                                        .toString(),
+                                                  ),
                                                 ),
-                                              ),
+                                              );
+                                            },
+                                            child: Text(
+                                              "Devamını Oku",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.copyWith(
+                                                      color:
+                                                          ColorManager.primary,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18),
                                             ),
-                                          )
-                                        : SizedBox(),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                          ),
+                                        ),
+                                      )
+                                    : SizedBox(),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        FirebaseAuth.instance.currentUser!
+                                                .displayName ??
+                                            "HATA",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                                color: ColorManager.black,
+                                                fontSize: 15),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            FirebaseAuth.instance.currentUser!
-                                                    .displayName ??
+                                            resources.data![index].email ??
                                                 "HATA",
                                             style: Theme.of(context)
                                                 .textTheme
@@ -376,87 +358,70 @@ class _BarItemPageState extends State<BarItemPage>
                                                     fontSize: 15),
                                           ),
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                resources.data![index].email ??
-                                                    "HATA",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                        color:
-                                                            ColorManager.black,
-                                                        fontSize: 15),
+                                              Icon(
+                                                Icons.favorite_outline,
+                                                size: 30,
+                                                color: ColorManager.redAccent,
                                               ),
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.favorite_outline,
-                                                    size: 30,
-                                                    color:
-                                                        ColorManager.redAccent,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 10,
-                                                            left: 20),
-                                                    child: IconButton(
-                                                      icon: Icon(Icons.comment),
-                                                      iconSize: 30,
-                                                      color: ColorManager.black,
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (BuildContext
-                                                                    context) =>
-                                                                PostDetailPage(
-                                                              index: index,
-                                                              title: resources
-                                                                  .data![index]
-                                                                  .title
-                                                                  .toString(),
-                                                              description: resources
-                                                                  .data![index]
-                                                                  .description
-                                                                  .toString(),
-                                                              email: resources
-                                                                  .data![index]
-                                                                  .email
-                                                                  .toString(),
-                                                              createdAt: resources
-                                                                  .data![index]
-                                                                  .createdAt
-                                                                  .toString(),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 10, left: 20),
+                                                child: IconButton(
+                                                  icon: Icon(Icons.comment),
+                                                  iconSize: 30,
+                                                  color: ColorManager.black,
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (BuildContext
+                                                                context) =>
+                                                            PostDetailPage(
+                                                          id: resources
+                                                              .data![index].sId
+                                                              .toString(),
+                                                          index: index,
+                                                          title: resources
+                                                              .data![index]
+                                                              .title
+                                                              .toString(),
+                                                          description: resources
+                                                              .data![index]
+                                                              .description
+                                                              .toString(),
+                                                          email: resources
+                                                              .data![index]
+                                                              .email
+                                                              .toString(),
+                                                          createdAt: resources
+                                                              .data![index]
+                                                              .createdAt
+                                                              .toString(),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
                                               ),
                                             ],
                                           ),
-                                          Text(
-                                            resources.data![index].createdAt ??
-                                                "HATA",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.copyWith(
-                                                    color: ColorManager.black,
-                                                    fontSize: 15),
-                                          ),
                                         ],
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ),
+                                      Text(
+                                        resources.data![index].createdAt ??
+                                            "HATA",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                                color: ColorManager.black,
+                                                fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),

@@ -7,7 +7,6 @@ import 'package:social_media_app_demo/main.dart';
 import 'package:social_media_app_demo/presentation/authpages/login.dart';
 import 'package:social_media_app_demo/presentation/pages/details/homepagedetail/communities.dart';
 import 'package:social_media_app_demo/presentation/pages/details/homepagedetail/socialevents.dart';
-import 'package:social_media_app_demo/sources/post/service.dart';
 
 import '../../sources/colors.dart';
 
@@ -175,6 +174,9 @@ class scheduleCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Container(
+        decoration: BoxDecoration(
+            color: ColorManager.primary,
+            borderRadius: BorderRadius.circular(10)),
         width: double.maxFinite,
         child: PageView.builder(
           controller: pageController,
@@ -186,9 +188,19 @@ class scheduleCardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ListTile(
-                    subtitle: Text("13.00"),
-                    title: Text("Mühendislik Matematiği"),
-                    trailing: Text("B-109"),
+                    subtitle: Text(
+                      "13.00",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ColorManager.white, fontSize: 14),
+                    ),
+                    title: Text("Mühendislik Matematiği",
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: ColorManager.white, fontSize: 16)),
+                    trailing: Text("B-109",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: ColorManager.white, fontSize: 16)),
                   ),
                 ],
               ),
