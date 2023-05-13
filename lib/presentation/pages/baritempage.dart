@@ -150,286 +150,194 @@ class _BarItemPageState extends State<BarItemPage>
                 ? ListView.builder(
                     itemCount: resources.data!.length,
                     itemBuilder: (_, index) => Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Card(
-                        elevation: 0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.8),
-                                spreadRadius: 5,
-                                blurRadius: 10,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.circular(10),
-                            color: ColorManager.white,
-                          ),
-                          width: double.maxFinite,
-                          height: 55.h,
-                          child: Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 8.h,
-                                        decoration: BoxDecoration(
-                                            color: ColorManager.primary,
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: 3.w,
-                                                ),
-                                                Container(
-                                                  child: CircleAvatar(
-                                                    radius: 18,
-                                                    backgroundColor:
-                                                        ColorManager.primary,
-                                                    child: CircleAvatar(
-                                                      radius: 35,
-                                                      child: ClipOval(
-                                                        child: Image.network(
-                                                          src,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 3.w,
-                                                ),
-                                                Text(
-                                                  resources
-                                                          .data![index].title ??
-                                                      "HATA",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                          fontSize: 17,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: ColorManager
-                                                              .white),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                resources.data![index].email !=
-                                                        FirebaseAuth.instance
-                                                            .currentUser!.email
-                                                    ? PopupMenuButton<String>(
-                                                        color:
-                                                            ColorManager.white,
-                                                        itemBuilder:
-                                                            (BuildContext
-                                                                context) {
-                                                          return [
-                                                            PopupMenuItem(
-                                                              child: Text(
-                                                                  "Gönderiyi Sil"),
-                                                              value: "aa",
-                                                              onTap: () {
-                                                                deletePost(
-                                                                    resources
-                                                                        .data![
-                                                                            index]
-                                                                        .sId);
-                                                              },
-                                                            )
-                                                          ];
-                                                        })
-                                                    : SizedBox(),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      Text(
-                                        "${resources.data![index].description}",
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 7,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(fontSize: 18),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                resources.data![index].description!.length > 200
-                                    ? Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                          alignment: Alignment.centerRight,
-                                          padding: EdgeInsets.only(right: 8),
-                                          child: TextButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          PostDetailPage(
-                                                    index: index,
-                                                    id: resources
-                                                        .data![index].sId
-                                                        .toString(),
-                                                    title: resources
-                                                        .data![index].title
-                                                        .toString(),
-                                                    description: resources
-                                                        .data![index]
-                                                        .description
-                                                        .toString(),
-                                                    email: resources
-                                                        .data![index].email
-                                                        .toString(),
-                                                    createdAt: resources
-                                                        .data![index].createdAt
-                                                        .toString(),
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            child: Text(
-                                              "Devamını Oku",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium
-                                                  ?.copyWith(
-                                                      color:
-                                                          ColorManager.primary,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 18),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : SizedBox(),
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        FirebaseAuth.instance.currentUser!
-                                                .displayName ??
-                                            "HATA",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                                color: ColorManager.black,
-                                                fontSize: 15),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            resources.data![index].email ??
-                                                "HATA",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.copyWith(
-                                                    color: ColorManager.black,
-                                                    fontSize: 15),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.favorite_outline,
-                                                size: 30,
-                                                color: ColorManager.redAccent,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 10, left: 20),
-                                                child: IconButton(
-                                                  icon: Icon(Icons.comment),
-                                                  iconSize: 30,
-                                                  color: ColorManager.black,
-                                                  onPressed: () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (BuildContext
-                                                                context) =>
-                                                            PostDetailPage(
-                                                          id: resources
-                                                              .data![index].sId
-                                                              .toString(),
-                                                          index: index,
-                                                          title: resources
-                                                              .data![index]
-                                                              .title
-                                                              .toString(),
-                                                          description: resources
-                                                              .data![index]
-                                                              .description
-                                                              .toString(),
-                                                          email: resources
-                                                              .data![index]
-                                                              .email
-                                                              .toString(),
-                                                          createdAt: resources
-                                                              .data![index]
-                                                              .createdAt
-                                                              .toString(),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        resources.data![index].createdAt ??
-                                            "HATA",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                                color: ColorManager.black,
-                                                fontSize: 15),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          postView(resources, index, context),
+                        ],
                       ),
                     ),
                   )
                 : Center(child: Text("Henüz hiç gönderi yok :("));
           }),
+    );
+  }
+
+  Container postView(
+      AsyncSnapshot<List<Post>> resources, int index, BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.8),
+            spreadRadius: 5,
+            blurRadius: 10,
+            offset: Offset(0, 5),
+          ),
+        ],
+        borderRadius: BorderRadius.circular(10),
+        color: ColorManager.white,
+      ),
+      width: double.maxFinite,
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 10.h,
+                  decoration: BoxDecoration(
+                      color: ColorManager.primary,
+                      borderRadius: BorderRadius.circular(5)),
+                  //POST TITLE
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          Container(
+                            child: CircleAvatar(
+                              radius: 18,
+                              backgroundColor: ColorManager.primary,
+                              child: CircleAvatar(
+                                radius: 35,
+                                child: ClipOval(
+                                  child: Image.network(
+                                    src,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          Text(
+                            resources.data![index].title ?? "HATA",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: ColorManager.white),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          resources.data![index].email !=
+                                  FirebaseAuth.instance.currentUser!.email
+                              ? PopupMenuButton<String>(
+                                  color: ColorManager.white,
+                                  itemBuilder: (BuildContext context) {
+                                    return [
+                                      PopupMenuItem(
+                                        child: Text("Gönderiyi Sil"),
+                                        value: "aa",
+                                        onTap: () {
+                                          deletePost(
+                                              resources.data![index].sId);
+                                        },
+                                      )
+                                    ];
+                                  })
+                              : SizedBox(),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            Text(
+              "${resources.data![index].description}",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: 18),
+            ),
+            SizedBox(
+              height: 3.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      FirebaseAuth.instance.currentUser!.displayName ?? "HATA",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ColorManager.black, fontSize: 15),
+                    ),
+                    Text(
+                      resources.data![index].email ?? "HATA",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ColorManager.black, fontSize: 15),
+                    ),
+                    Text(
+                      resources.data![index].createdAt ?? "HATA",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ColorManager.black, fontSize: 15),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.favorite_outline,
+                      size: 30,
+                      color: ColorManager.redAccent,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10, left: 20),
+                      child: IconButton(
+                        icon: Icon(Icons.comment),
+                        iconSize: 30,
+                        color: ColorManager.black,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) => PostDetailPage(
+                                id: resources.data![index].sId.toString(),
+                                index: index,
+                                title: resources.data![index].title.toString(),
+                                description: resources.data![index].description
+                                    .toString(),
+                                email: resources.data![index].email.toString(),
+                                createdAt:
+                                    resources.data![index].createdAt.toString(),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 

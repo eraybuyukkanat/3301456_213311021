@@ -74,7 +74,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
     streamController.sink.add(resources.reversed.toList());
   }
 
-  String? pageTitle = "Gönderi Detayı";
+  String? pageTitle = "Yorumlar";
   String? src =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   @override
@@ -108,13 +108,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              flex: 4,
-              child: postWidget(
-                widget: widget,
-                src: src,
-              ),
-            ),
-            Expanded(
               flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +115,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10, bottom: 10),
                     child: Text(
-                      "Yorumlar",
+                      "Yorum Ekle",
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),
@@ -150,7 +143,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 9,
               child: StreamBuilder<List<Comment>>(
                   stream: streamController.stream,
                   builder: (context, snapshot) {
@@ -202,136 +195,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
   }
 }
 
-class postWidget extends StatelessWidget {
-  const postWidget({
-    super.key,
-    required this.widget,
-    required this.src,
-  });
 
-  final PostDetailPage widget;
-
-  final String? src;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.8),
-            spreadRadius: 5,
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-        borderRadius: BorderRadius.circular(10),
-        color: ColorManager.white,
-      ),
-      width: double.maxFinite,
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 10.h,
-                  decoration: BoxDecoration(
-                      color: ColorManager.primary,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 3.w,
-                          ),
-                          Text(
-                            widget.title,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorManager.white),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                Text(
-                  "${widget.description}",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(fontSize: 20),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 3.h,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  FirebaseAuth.instance.currentUser!.displayName ?? "HATA",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: ColorManager.black, fontSize: 15),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      widget.email,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ColorManager.black, fontSize: 15),
-                    ),
-                    Container(
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundColor: ColorManager.primary,
-                        child: CircleAvatar(
-                          radius: 35,
-                          child: ClipOval(
-                            child: Image.network(
-                              src!,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  widget.createdAt,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.copyWith(color: ColorManager.black, fontSize: 15),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 /*
 
