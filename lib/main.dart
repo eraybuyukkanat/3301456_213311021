@@ -8,6 +8,7 @@ import 'package:social_media_app_demo/presentation/main/mainpage.dart';
 import 'package:social_media_app_demo/presentation/main/onboarding.dart';
 import 'package:social_media_app_demo/presentation/pages/homepage.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/presentation/theme/light_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,9 +27,7 @@ class MyApp extends StatelessWidget {
           onGenerateRoute: RouteNavigation.routeNavigation,
           title: 'Sosyal Medya Uygulaması',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          theme: LightTheme().theme,
           home: const MyHomePage(title: 'Sosyal Medya Uygulaması'),
         );
       },

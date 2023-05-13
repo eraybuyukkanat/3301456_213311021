@@ -101,7 +101,7 @@ class _MyPageState extends State<MyPage> {
                     ),
                     style: ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll<Color>(
-                            ColorManager.redAccent!)),
+                            ColorManager.redAccent)),
                   ),
                 )
               ],

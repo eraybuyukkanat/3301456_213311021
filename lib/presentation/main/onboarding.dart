@@ -67,7 +67,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               style: ButtonStyle(
                                   backgroundColor:
                                       MaterialStatePropertyAll<Color>(
-                                          ColorManager.primary!)),
+                                          ColorManager.primary)),
                             )
                           : SizedBox(),
                     ],

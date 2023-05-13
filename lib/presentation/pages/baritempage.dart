@@ -7,8 +7,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/details/baritempagedetail/post_detail.dart';
+import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/post/service.dart';
 import 'package:social_media_app_demo/sources/post/post_model.dart';
 import '../../sources/buttons.dart';
@@ -52,10 +54,6 @@ class _BarItemPageState extends State<BarItemPage>
   StreamController<List<Post>> streamController =
       StreamController<List<Post>>.broadcast();
   StreamController<bool> streamController2 = StreamController<bool>.broadcast();
-  bool _isLoading = false;
-  _changeLoading() {
-    streamController2.sink.add(_isLoading);
-  }
 
   List<Post> resources = [];
 
@@ -71,7 +69,6 @@ class _BarItemPageState extends State<BarItemPage>
   }
 
   Future<void> postValues() async {
-    _changeLoading();
     String title = _postTitleTextEditingController!.value.text;
     String description = _postDescriptionTextEditingController!.value.text;
     String faculty = "Fakülte";
@@ -110,7 +107,7 @@ class _BarItemPageState extends State<BarItemPage>
       appBar: AppBar(
           automaticallyImplyLeading: false,
           titleSpacing: 5.w,
-          elevation: 0,
+          elevation: 10,
           backgroundColor: ColorManager.white,
           toolbarHeight: 10.h,
           centerTitle: false,
@@ -141,9 +138,18 @@ class _BarItemPageState extends State<BarItemPage>
           stream: streamController.stream,
           builder: (context, resources) {
             if (resources.data == null) {
-              return SpinKitFadingCircle(
-                color: ColorManager.black,
-                size: 40.0,
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LoadingBar(
+                    color: ColorManager.black,
+                    size: 35,
+                  ),
+                  Text(
+                    "Lütfen Bekleyiniz...",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
               );
             }
             return resources.data?.length != 0

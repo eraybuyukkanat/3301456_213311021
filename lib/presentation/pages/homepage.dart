@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStatePropertyAll<Color>(
-                                              ColorManager.primary!)),
+                                              ColorManager.primary)),
                                   onPressed: () {
                                     if (index == 0) {
                                       Navigator.pushNamed(
