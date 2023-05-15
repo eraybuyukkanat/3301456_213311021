@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController? _passwordTextEditingController =
       TextEditingController();
 
-  login() async {
+  Future<void> login() async {
     if (!_formKey.currentState!.validate()) return;
     final email = _emailTextEditingController!.value.text;
     final password = _passwordTextEditingController!.value.text;
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  resetPassword() async {
+  Future<void> resetPassword() async {
     String? email = _emailTextEditingController!.value.text;
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
@@ -58,51 +58,45 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  String title = "Hoşgeldin!";
+  String email = "E-mail ";
+  String password = "Şifre";
+  String loginText = "Giriş Yap";
+  String signInText = "Kayıt Ol";
+  String resetPasswordText = "Şifremi Unuttum";
+
   @override
   Widget build(BuildContext context) {
-    String? title = "Hoşgeldin!";
-
-    String? email = "E-mail ";
-    String? password = "Şifre";
-    String? loginText = "Giriş Yap";
-    String? signInText = "Kayıt Ol";
-    String? resetPasswordText = "Şifremi Unuttum";
-
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
             child: Container(
-          padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 5.h),
+          padding: EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /*SizedBox(
-                  height: 25.h,
-                  width: 80.w,
-                  child: Lottie.asset("assets/json_assets/welcome.json")),
-              */
-              Text(
-                title,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    color: ColorManager.black, fontWeight: FontWeight.bold),
-              ),
+              Text(title,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayLarge
+                      ?.copyWith(fontSize: 38, color: ColorManager.primary)),
               SizedBox(
                 height: 1.h,
               ),
               Container(
                 height: 2,
                 width: double.maxFinite,
-                color: ColorManager.black,
+                color: ColorManager.third,
               ),
               SizedBox(
                 height: 1.h,
               ),
               Text(
                 loginText,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: ColorManager.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 30),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(color: ColorManager.primary, fontSize: 25),
               ),
               SizedBox(
                 height: 5.h,
@@ -114,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(email,
-                          style: Theme.of(context).textTheme.bodyMedium),
+                          style: Theme.of(context).textTheme.titleMedium),
                       SizedBox(
                         height: 1.h,
                       ),
@@ -122,8 +116,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         return TextFormField(
                           controller: _emailTextEditingController,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                            suffixIconColor: ColorManager.primary,
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: ColorManager.third,
+                                  width: 2.0,
+                                )),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: ColorManager.primary,
+                                  width: 2.0,
+                                )),
                             suffixIcon: Icon(Icons.person_outline_outlined),
                             errorText: snapshot.data,
                           ),
@@ -133,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 2.h,
                       ),
                       Text(password,
-                          style: Theme.of(context).textTheme.bodyMedium),
+                          style: Theme.of(context).textTheme.titleMedium),
                       SizedBox(
                         height: 1.h,
                       ),
@@ -146,10 +151,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               return TextFormField(
                                 controller: _passwordTextEditingController,
                                 keyboardType: TextInputType.visiblePassword,
+                                obscuringCharacter: "*",
                                 obscureText: isVisible.data!,
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
+                                  suffixIconColor: ColorManager.primary,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                        color: ColorManager.third,
+                                        width: 2.0,
+                                      )),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                        color: ColorManager.primary,
+                                        width: 2.0,
+                                      )),
                                   errorText: snapshot.data,
                                   suffixIcon: IconButton(
                                     icon: isVisible.data!
@@ -192,8 +209,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             width: 40.w,
                             child: widthSizedButton(
-                                color: ColorManager.grey,
+                                color: ColorManager.third,
                                 text: signInText,
+                                textColor: ColorManager.black,
                                 onPressed: () {
                                   Navigator.pushNamed(context, "/registerpage");
                                 }),

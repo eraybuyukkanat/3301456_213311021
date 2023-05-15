@@ -5,11 +5,13 @@ import 'colors.dart';
 class widthSizedButton extends StatelessWidget {
   final void Function()? onPressed;
   final String? text;
+  final Color? textColor;
   Color? color;
   widthSizedButton({
     required this.color,
     required this.text,
     required this.onPressed,
+    this.textColor,
     Key? key,
   }) : super(
           key: key,
@@ -26,7 +28,7 @@ class widthSizedButton extends StatelessWidget {
           child: Text(
             text!,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: ColorManager.white,
+                  color: textColor ?? ColorManager.white,
                 ),
           )),
     );

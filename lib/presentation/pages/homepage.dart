@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String? listViewTitle1 = "Sosyal";
   String? listViewTitle2 = "Ders";
   PageController pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 2, vsync: this);
@@ -269,7 +270,7 @@ class imageWidget extends StatelessWidget {
 }
 
 class welcomingText extends StatelessWidget {
-  const welcomingText({
+  welcomingText({
     super.key,
   });
 
@@ -286,7 +287,7 @@ class welcomingText extends StatelessWidget {
               fontWeight: FontWeight.w500),
         ),
         Text(
-          "${FirebaseAuth.instance.currentUser!.displayName}",
+          FirebaseAuth.instance.currentUser!.displayName.toString(),
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
               color: ColorManager.black,
               fontSize: 25,

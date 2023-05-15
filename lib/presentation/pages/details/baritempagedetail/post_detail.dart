@@ -149,12 +149,17 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: postView(snapshot, index, context),
+                                      child:
+                                          commentView(snapshot, index, context),
                                     ),
                                   ],
                                 ),
                               )
-                            : Center(child: Text("Henüz hiç gönderi yok :("));
+                            : Center(
+                                child: Text(
+                                "Henüz hiç yorum yok",
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ));
                       }),
                 ),
               ],
@@ -168,7 +173,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
 
                       */
 
-Container postView(
+Container commentView(
     AsyncSnapshot<List<Comment>> resources, int index, BuildContext context) {
   return Container(
     decoration: BoxDecoration(
@@ -181,7 +186,6 @@ Container postView(
         ),
       ],
       borderRadius: BorderRadius.circular(10),
-      color: ColorManager.white,
     ),
     width: double.maxFinite,
     child: Column(
@@ -214,6 +218,21 @@ Container postView(
                       ),
                     ],
                   ),
+                  Row(
+                    children: [
+                      PopupMenuButton<String>(
+                          color: ColorManager.white,
+                          itemBuilder: (BuildContext context) {
+                            return [
+                              PopupMenuItem(
+                                child: Text("Gönderiyi Sil"),
+                                value: "aa",
+                                onTap: () {},
+                              )
+                            ];
+                          })
+                    ],
+                  )
                 ],
               ),
             ),

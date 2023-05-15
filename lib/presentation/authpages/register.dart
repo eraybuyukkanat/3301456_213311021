@@ -31,8 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
       await Auth().registerWithEmailAndPassword(email, password);
       FirebaseAuth.instance.currentUser?.updateDisplayName(email.split('@')[0]);
-
-      Navigator.pushNamed(context, "/mainpage");
+      Navigator.pushNamed(context, "/loginpage");
     } on FirebaseAuthException catch (e) {
       showAlertDialog(e.message.toString(), context);
       _passwordTextEditingController!.clear();
@@ -49,33 +48,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
+  String title = "Hoşgeldin!";
+  String email = "E-mail ";
+  String password = "Şifre";
+  String loginText = "Giriş Yap";
+  String signInText = "Kayıt Ol";
+  String resetPasswordText = "Şifremi Unuttum";
   @override
   Widget build(BuildContext context) {
-    String? title = "Hoşgeldin!";
-
-    String? email = "E-mail ";
-    String? password = "Şifre";
-    String? loginText = "Giriş Yap";
-    String? signInText = "Kayıt Ol";
-    String? resetPasswordText = "Şifremi Unuttum";
-
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
             child: Container(
-          padding: EdgeInsets.only(left: 4.w, right: 4.w, top: 5.h),
+          padding: EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /*SizedBox(
-                  height: 25.h,
-                  width: 80.w,
-                  child: Lottie.asset("assets/json_assets/welcome.json")),
-              */
               Text(
                 title,
-                style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    color: ColorManager.black, fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayLarge
+                    ?.copyWith(fontSize: 38, color: ColorManager.primary),
               ),
               SizedBox(
                 height: 1.h,
@@ -83,18 +77,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Container(
                 height: 2,
                 width: double.maxFinite,
-                color: ColorManager.black,
+                color: ColorManager.third,
               ),
               SizedBox(
                 height: 1.h,
               ),
-              Text(
-                signInText,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: ColorManager.black,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 30),
-              ),
+              Text(signInText,
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayMedium
+                      ?.copyWith(color: ColorManager.primary, fontSize: 25)),
               SizedBox(
                 height: 5.h,
               ),
@@ -105,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(email,
-                          style: Theme.of(context).textTheme.bodyMedium),
+                          style: Theme.of(context).textTheme.titleMedium),
                       SizedBox(
                         height: 1.h,
                       ),
@@ -113,8 +105,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return TextFormField(
                           controller: _emailTextEditingController,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                            suffixIconColor: ColorManager.primary,
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: ColorManager.third,
+                                  width: 2.0,
+                                )),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: ColorManager.primary,
+                                  width: 2.0,
+                                )),
                             suffixIcon: Icon(Icons.person_outline_outlined),
                             errorText: snapshot.data,
                           ),
@@ -124,7 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 2.h,
                       ),
                       Text(password,
-                          style: Theme.of(context).textTheme.bodyMedium),
+                          style: Theme.of(context).textTheme.titleMedium),
                       SizedBox(
                         height: 1.h,
                       ),
@@ -138,9 +141,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 controller: _passwordTextEditingController,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscureText: isVisible.data!,
+                                obscuringCharacter: "*",
                                 decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
+                                  suffixIconColor: ColorManager.primary,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                        color: ColorManager.third,
+                                        width: 2.0,
+                                      )),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                        color: ColorManager.primary,
+                                        width: 2.0,
+                                      )),
                                   errorText: snapshot.data,
                                   suffixIcon: IconButton(
                                     icon: isVisible.data!
@@ -170,8 +185,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Container(
                             width: 40.w,
                             child: widthSizedButton(
-                                color: ColorManager.grey,
+                                color: ColorManager.third,
                                 text: loginText,
+                                textColor: ColorManager.black,
                                 onPressed: () {
                                   Navigator.pushNamed(context, "/loginpage");
                                 }),

@@ -35,8 +35,6 @@ class BarItemPage extends StatefulWidget {
 
 class _BarItemPageState extends State<BarItemPage>
     with TickerProviderStateMixin {
-  String? dropdownValue = facultyList.first;
-
   TextEditingController? _postTitleTextEditingController =
       TextEditingController();
   TextEditingController? _postDescriptionTextEditingController =
@@ -235,7 +233,7 @@ class _BarItemPageState extends State<BarItemPage>
                       ),
                       Row(
                         children: [
-                          resources.data![index].email !=
+                          resources.data![index].email ==
                                   FirebaseAuth.instance.currentUser!.email
                               ? PopupMenuButton<String>(
                                   color: ColorManager.white,
