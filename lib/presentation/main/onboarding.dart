@@ -1,6 +1,6 @@
+import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/authpages/login.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
-import 'package:social_media_app_demo/sources/texts.dart';
 
 import 'package:flutter/material.dart';
 
@@ -19,6 +19,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     "Devam etmek için butona tıkla, hesabın var ise giriş yap yok ise üye ol.",
   ];
 
+  String appName = "Üniversitem";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,20 +38,30 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppLargeText(
-                        text: texts![index],
+                      Text(
+                        texts![index],
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(color: ColorManager.black, fontSize: 30),
                       ),
-                      AppText(
-                        text: "Üniversitem",
-                        color: ColorManager.primary,
-                        size: 30,
+                      Text(
+                        appName,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                                color: ColorManager.primary, fontSize: 30),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 3.h,
                       ),
                       Container(
                         width: 250,
-                        child: AppText(text: dscrp![index]),
+                        child: Text(
+                          dscrp![index],
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       ),
                       SizedBox(
                         height: 60,
@@ -58,7 +69,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       index == 2
                           ? ElevatedButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, "/authpage");
+                                Navigator.pushNamed(context, "/loginpage");
                               },
                               child: SizedBox(
                                   height: 50,

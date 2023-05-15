@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
+import 'package:social_media_app_demo/sources/loading_bar.dart';
 
 import '../pages/baritempage.dart';
 import '../pages/homepage.dart';

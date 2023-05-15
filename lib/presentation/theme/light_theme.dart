@@ -27,7 +27,7 @@ class LightTheme {
             bodyLarge: TextStyle(
                 fontSize: 18,
                 color: ColorManager.black,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.w700),
             bodyMedium: TextStyle(
                 fontSize: 18,
                 color: ColorManager.black,
