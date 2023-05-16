@@ -141,7 +141,7 @@ class _BarItemPageState extends State<BarItemPage>
                 children: [
                   LoadingBar(
                     color: ColorManager.black,
-                    size: 35,
+                    size: 45,
                   ),
                 ],
               );
@@ -165,6 +165,13 @@ class _BarItemPageState extends State<BarItemPage>
 
   Container postView(
       AsyncSnapshot<List<Post>> resources, int index, BuildContext context) {
+    String year = resources.data![index].createdAt!.substring(0, 4).toString();
+    String month = resources.data![index].createdAt!.substring(4, 8).toString();
+    String day = resources.data![index].createdAt!.substring(8, 10).toString();
+    String date = ("${day}" + "${month}" + "${year}");
+
+    String date2 = resources.data![index].createdAt!.substring(11, 19);
+
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -276,26 +283,52 @@ class _BarItemPageState extends State<BarItemPage>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      FirebaseAuth.instance.currentUser!.displayName ?? "HATA",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ColorManager.black, fontSize: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: Text(
+                        FirebaseAuth.instance.currentUser!.displayName ??
+                            "HATA",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: ColorManager.black, fontSize: 15),
+                      ),
                     ),
-                    Text(
-                      resources.data![index].email ?? "HATA",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ColorManager.black, fontSize: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: Text(
+                        resources.data![index].email ?? "HATA",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: ColorManager.black, fontSize: 15),
+                      ),
                     ),
-                    Text(
-                      resources.data![index].createdAt ?? "HATA",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ColorManager.black, fontSize: 15),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 3),
+                      child: Row(
+                        children: [
+                          Text(
+                            date,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: ColorManager.black, fontSize: 15),
+                          ),
+                          SizedBox(
+                            width: 4.w,
+                          ),
+                          Text(
+                            date2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    color: ColorManager.black, fontSize: 15),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

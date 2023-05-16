@@ -34,11 +34,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     if (password == password2) {
       try {
+        await Auth().registerWithEmailAndPassword(email, password);
         await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Kayıt olma başarılı, anasayfaya yönlendiriliyorsunuz"),
           duration: Duration(seconds: 1),
         ));
-        await Auth().registerWithEmailAndPassword(email, password);
         await FirebaseAuth.instance.currentUser
             ?.updateDisplayName(email.split('@')[0]);
 
