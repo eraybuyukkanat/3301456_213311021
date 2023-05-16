@@ -12,8 +12,8 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  List? texts = ["Uygulamaya Hoşgeldin!", "Kampüs Elinde!", "Hemen Katıl!"];
-  List? dscrp = [
+  List texts = ["Uygulamaya Hoşgeldin!", "Kampüs Elinde!", "Hemen Katıl!"];
+  List dscrp = [
     "Uygulama ile üniversitenden haberdar olabilir, topluluklara katılabilirsin. Akademik takvim, bilimsel ve sosyal etkinlikleri keşfedebilirsin.",
     "Bölümüne göre istediğin alanları takip et, sınav haftası hazırlıksız yakalanma. Arkadaşlarınla çalış.",
     "Devam etmek için butona tıkla, hesabın var ise giriş yap yok ise üye ol.",
@@ -25,7 +25,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: PageView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: texts!.length,
+        itemCount: texts.length,
         itemBuilder: (context, index) {
           return Container(
             width: double.maxFinite,
@@ -39,7 +39,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        texts![index],
+                        texts[index],
                         style: Theme.of(context)
                             .textTheme
                             .headlineMedium
@@ -57,14 +57,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         height: 3.h,
                       ),
                       Container(
-                        width: 250,
+                        width: 60.w,
                         child: Text(
-                          dscrp![index],
+                          dscrp[index],
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
                       SizedBox(
-                        height: 60,
+                        height: 10.h,
                       ),
                       index == 2
                           ? ElevatedButton(
@@ -72,8 +72,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 Navigator.pushNamed(context, "/loginpage");
                               },
                               child: SizedBox(
-                                  height: 50,
-                                  width: 200,
+                                  height: 8.h,
+                                  width: 40.w,
                                   child: Icon(Icons.arrow_right)),
                               style: ButtonStyle(
                                   backgroundColor:
@@ -86,8 +86,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Column(
                       children: List.generate(3, ((indexDots) {
                     return Container(
-                      width: 8,
-                      height: index == indexDots ? 25 : 8,
+                      width: 2.w,
+                      height: index == indexDots ? 5.h : 2.h,
                       margin: const EdgeInsets.only(bottom: 2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),

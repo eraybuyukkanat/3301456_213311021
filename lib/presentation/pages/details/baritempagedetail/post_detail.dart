@@ -49,7 +49,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
   void initState() {
     super.initState();
     commentService = CommentService(service); //BASEURL
-
     _bind();
   }
 
@@ -76,8 +75,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
   }
 
   String? pageTitle = "Yorumlar";
-  String? src =
-      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,29 +103,49 @@ class _PostDetailPageState extends State<PostDetailPage> {
             )),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 8.h,
-                        width: 80.w,
-                        child: TextFormField(
-                          controller: commentTextEditingController,
-                          decoration: InputDecoration(
-                              hintText: "Yorumunuzu giriniz...",
-                              border: OutlineInputBorder()),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Text("Yorum Ekle"),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            postComments();
-                          },
-                          icon: Icon(Icons.send))
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 70.w,
+                            child: TextFormField(
+                              controller: commentTextEditingController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.third,
+                                      width: 2.0,
+                                    )),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                      color: ColorManager.primary,
+                                      width: 2.0,
+                                    )),
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                postComments();
+                              },
+                              icon: Icon(Icons.send))
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -145,14 +163,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
                         return snapshot.data?.length != 0
                             ? ListView.builder(
                                 itemCount: snapshot.data!.length,
-                                itemBuilder: (_, index) => Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child:
-                                          commentView(snapshot, index, context),
-                                    ),
-                                  ],
+                                itemBuilder: (_, index) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      commentView(snapshot, index, context),
+                                    ],
+                                  ),
                                 ),
                               )
                             : Center(
@@ -169,12 +186,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
   }
 }
 
-/*
-
-                      */
-
 Container commentView(
     AsyncSnapshot<List<Comment>> resources, int index, BuildContext context) {
+  String src =
+      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   return Container(
     decoration: BoxDecoration(
       boxShadow: [
@@ -188,57 +203,79 @@ Container commentView(
       borderRadius: BorderRadius.circular(10),
     ),
     width: double.maxFinite,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
+    child: Container(
+      decoration: BoxDecoration(
+          color: ColorManager.primary, borderRadius: BorderRadius.circular(5)),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 8.h,
-              decoration: BoxDecoration(
-                  color: ColorManager.primary,
-                  borderRadius: BorderRadius.circular(5)),
-              //POST TITLE
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 3.w,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 3.w,
+                    ),
+                    Container(
+                      child: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: ColorManager.primary,
+                        child: CircleAvatar(
+                          radius: 35,
+                          child: ClipOval(
+                            child: Image.network(
+                              src,
+                            ),
+                          ),
+                        ),
                       ),
-                      Text(
-                        resources.data![index].description ?? "HATA",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: ColorManager.white),
+                    ),
+                    SizedBox(
+                      width: 3.w,
+                    ),
+                    Container(
+                      child: Text(
+                        "Kullanıcıadı",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: false,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(color: ColorManager.white),
                       ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      PopupMenuButton<String>(
-                          color: ColorManager.white,
-                          itemBuilder: (BuildContext context) {
-                            return [
-                              PopupMenuItem(
-                                child: Text("Gönderiyi Sil"),
-                                value: "aa",
-                                onTap: () {},
-                              )
-                            ];
-                          })
-                    ],
-                  )
-                ],
+                    ),
+                  ],
+                ),
+                PopupMenuButton<String>(
+                    color: ColorManager.white,
+                    itemBuilder: (BuildContext context) {
+                      return [
+                        PopupMenuItem(
+                          child: Text("Gönderiyi Sil"),
+                          value: "aa",
+                          onTap: () {},
+                        )
+                      ];
+                    })
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(
+                resources.data![index].description ?? "HATA",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(fontSize: 17, color: ColorManager.white),
               ),
             ),
           ],
         ),
-      ],
+      ),
     ),
   );
 }

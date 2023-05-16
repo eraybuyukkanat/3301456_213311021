@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
         if (snapshot.hasData) {
           return OnboardingScreen();
         } else {
-          return LoginScreen();
+          return OnboardingScreen();
         }
       },
     );

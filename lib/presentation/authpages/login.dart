@@ -30,6 +30,10 @@ class _LoginScreenState extends State<LoginScreen> {
     final email = _emailTextEditingController!.value.text;
     final password = _passwordTextEditingController!.value.text;
     try {
+      await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Giriş başarılı, anasayfaya yönlendiriliyorsunuz"),
+        duration: Duration(seconds: 1),
+      ));
       await Auth().signInWithEmailAndPassword(email, password);
       Navigator.pushNamed(context, "/mainpage");
     } on FirebaseAuthException catch (e) {

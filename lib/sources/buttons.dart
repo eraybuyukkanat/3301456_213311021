@@ -10,7 +10,7 @@ class widthSizedButton extends StatelessWidget {
   widthSizedButton({
     required this.color,
     required this.text,
-    required this.onPressed,
+    this.onPressed,
     this.textColor,
     Key? key,
   }) : super(
