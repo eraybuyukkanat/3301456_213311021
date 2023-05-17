@@ -52,7 +52,6 @@ class LightTheme {
           ),
       buttonTheme: ButtonThemeData(
           colorScheme: ColorScheme.light(
-              onPrimary: ColorManager.primary,
-              onSecondary: ColorManager.redAccent)),
+              onPrimary: ColorManager.primary, onSecondary: ColorManager.red)),
       scaffoldBackgroundColor: ColorManager.white);
 }

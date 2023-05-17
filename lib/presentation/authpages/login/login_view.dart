@@ -57,6 +57,7 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                 height: 5.h,
               ),
               Form(
+                autovalidateMode: AutovalidateMode.always,
                 key: formKey,
                 child: Container(
                   child: Column(
@@ -73,6 +74,18 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                           controller: emailTextEditingController,
                           decoration: InputDecoration(
                             suffixIconColor: ColorManager.primary,
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: ColorManager.red,
+                                  width: 2.0,
+                                )),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: ColorManager.red,
+                                  width: 2.0,
+                                )),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
                                 borderSide: BorderSide(
@@ -112,6 +125,18 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                                 obscureText: isVisible.data!,
                                 decoration: InputDecoration(
                                   suffixIconColor: ColorManager.primary,
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                        color: ColorManager.red,
+                                        width: 2.0,
+                                      )),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                      borderSide: BorderSide(
+                                        color: ColorManager.red,
+                                        width: 2.0,
+                                      )),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20),
                                       borderSide: BorderSide(

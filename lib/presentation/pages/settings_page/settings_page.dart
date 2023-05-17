@@ -96,8 +96,8 @@ class _SettingsPageState extends State<SettingsPage> {
                       ],
                     ),
                     style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll<Color>(
-                            ColorManager.redAccent)),
+                        backgroundColor:
+                            MaterialStatePropertyAll<Color>(ColorManager.red)),
                   ),
                 )
               ],

@@ -56,6 +56,7 @@ class _RegisterScreenViewState extends RegisterScreenViewModel {
                     Text(email, style: Theme.of(context).textTheme.titleMedium),
               ),
               Form(
+                autovalidateMode: AutovalidateMode.always,
                 key: formKey,
                 child: Container(
                   child: Column(
@@ -63,9 +64,22 @@ class _RegisterScreenViewState extends RegisterScreenViewModel {
                     children: [
                       StreamBuilder<String?>(builder: (context, snapshot) {
                         return TextFormField(
+                          validator: FormFieldValidator().isNotEmpty,
                           controller: emailTextEditingController,
                           decoration: InputDecoration(
                             suffixIconColor: ColorManager.primary,
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: ColorManager.red,
+                                  width: 2.0,
+                                )),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide: BorderSide(
+                                  color: ColorManager.red,
+                                  width: 2.0,
+                                )),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
                                 borderSide: BorderSide(
@@ -109,7 +123,9 @@ class _RegisterScreenViewState extends RegisterScreenViewModel {
                           color: ColorManager.primary,
                           text: signInText,
                           onPressed: () {
-                            register();
+                            if (formKey.currentState?.validate() ?? false) {
+                              register();
+                            }
                           },
                         ),
                       ),
@@ -173,12 +189,25 @@ class passwordInputWidget extends StatelessWidget {
         builder: (context, isVisible) {
           return StreamBuilder<String?>(builder: (context, snapshot) {
             return TextFormField(
+              validator: FormFieldValidator().isNotEmpty,
               controller: _passwordTextEditingController,
               keyboardType: TextInputType.visiblePassword,
               obscureText: isVisible.data!,
               obscuringCharacter: "*",
               decoration: InputDecoration(
                 suffixIconColor: ColorManager.primary,
+                focusedErrorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: ColorManager.red,
+                      width: 2.0,
+                    )),
+                errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: ColorManager.red,
+                      width: 2.0,
+                    )),
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide(
@@ -205,4 +234,14 @@ class passwordInputWidget extends StatelessWidget {
           });
         });
   }
+}
+
+class FormFieldValidator {
+  String? isNotEmpty(String? data) {
+    return (data?.isNotEmpty ?? false) ? null : ValidateMessage._isNotEmpty;
+  }
+}
+
+class ValidateMessage {
+  static const String _isNotEmpty = "Bu alan boş geçilemez";
 }

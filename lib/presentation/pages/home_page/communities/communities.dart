@@ -177,7 +177,7 @@ class communityCard extends StatelessWidget {
                         flex: 1,
                       ),
                       widthSizedButton(
-                          color: ColorManager.redAccent,
+                          color: ColorManager.red,
                           text: closeText,
                           onPressed: () {
                             Navigator.pop(context);

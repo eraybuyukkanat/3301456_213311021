@@ -265,7 +265,7 @@ class _PostsPageViewState extends PostsPageViewModel {
                     Icon(
                       Icons.favorite_outline,
                       size: 30,
-                      color: ColorManager.redAccent,
+                      color: ColorManager.red,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10, left: 20),
