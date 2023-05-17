@@ -19,6 +19,7 @@ abstract class LoginScreenViewModel extends State<LoginScreenView> {
   String loginText = "Giriş Yap";
   String signInText = "Kayıt Ol";
   String resetPasswordText = "Şifremi Unuttum";
+  String forgetPassword = "Şifrenizi mi unuttunuz?";
 
   Future<void> login() async {
     final email = emailTextEditingController!.value.text;

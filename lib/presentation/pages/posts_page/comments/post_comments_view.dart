@@ -1,18 +1,11 @@
-import 'dart:async';
-
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view_model.dart';
-import 'package:social_media_app_demo/sources/post/service.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../../../../sources/colors.dart';
 import '../../../../sources/comment/comment_model.dart';
-import '../../../../sources/comment/service.dart';
-import '../../../../sources/post/post_model.dart';
-import '../../../../sources/showalertdialog.dart';
 
 class PostCommentsView extends StatefulWidget {
   const PostCommentsView(
@@ -118,23 +111,37 @@ class _PostCommentsViewState extends PostCommentsViewModel {
                             size: 40.0,
                           );
                         }
-                        return snapshot.data?.length != 0
-                            ? ListView.builder(
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (_, index) => Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      commentView(snapshot, index, context),
-                                    ],
+                        return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Slidable(
+                              endActionPane: ActionPane(
+                                extentRatio: 0.35,
+                                motion: const StretchMotion(),
+                                children: [
+                                  SlidableAction(
+                                    onPressed: (context) {},
+                                    foregroundColor: Colors.black,
+                                    icon: Icons.edit,
                                   ),
-                                ),
-                              )
-                            : Center(
-                                child: Text(
-                                "Henüz hiç yorum yok",
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ));
+                                  SlidableAction(
+                                    onPressed: (context) {
+                                      deleteComment(snapshot.data![index].sId);
+                                    },
+                                    foregroundColor: Colors.red,
+                                    icon: Icons.delete,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  commentView(snapshot, index, context),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
                       }),
                 ),
               ],
@@ -169,57 +176,49 @@ Container commentView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 3.w,
-                    ),
-                    Container(
-                      child: CircleAvatar(
-                        radius: 18,
-                        backgroundColor: ColorManager.primary,
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 3.w,
+                      ),
+                      Container(
                         child: CircleAvatar(
-                          radius: 35,
-                          child: ClipOval(
-                            child: Image.network(
-                              src,
+                          radius: 18,
+                          backgroundColor: ColorManager.primary,
+                          child: CircleAvatar(
+                            radius: 35,
+                            child: ClipOval(
+                              child: Image.network(
+                                src,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 3.w,
-                    ),
-                    Container(
-                      child: Text(
-                        "Kullanıcıadı",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: ColorManager.white),
+                      SizedBox(
+                        width: 3.w,
                       ),
-                    ),
-                  ],
-                ),
-                PopupMenuButton<String>(
-                    color: ColorManager.white,
-                    itemBuilder: (BuildContext context) {
-                      return [
-                        PopupMenuItem(
-                          child: Text("Gönderiyi Sil"),
-                          value: "aa",
-                          onTap: () {},
-                        )
-                      ];
-                    })
-              ],
+                      Container(
+                        child: Text(
+                          resources.data![index].email.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(color: ColorManager.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(10),

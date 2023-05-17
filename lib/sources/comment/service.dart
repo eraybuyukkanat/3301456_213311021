@@ -14,7 +14,9 @@ abstract class ICommentService {
   final Dio dio;
 
   Future<commentModel?> fetchCommentItem(String id);
-  Future<commentModel?> postCommentItem(String commentText, String id);
+  Future<commentModel?> postCommentItem(
+      String commentText, String id, String email);
+  Future<commentModel?> deleteCommentItem(String postId, String commentId);
 }
 
 class CommentService extends ICommentService {
@@ -32,8 +34,15 @@ class CommentService extends ICommentService {
     return null;
   }
 
-  Future<commentModel?> postCommentItem(String commentText, String id) async {
-    final response = await dio
-        .post('createComment/${id}', data: {'description': commentText});
+  Future<commentModel?> postCommentItem(
+      String commentText, String id, String email) async {
+    final response = await dio.post('createComment/${id}',
+        data: {'description': commentText, 'email': email});
+  }
+
+  @override
+  Future<commentModel?> deleteCommentItem(
+      String postId, String commentId) async {
+    final response = await dio.delete("deleteComment/${postId}/${commentId}");
   }
 }

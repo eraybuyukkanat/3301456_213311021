@@ -49,7 +49,8 @@ abstract class PostsPageViewModel extends State<PostsPageView>
     String email = FirebaseAuth.instance.currentUser!.email.toString();
 
     if (title.isNotEmpty && description.isNotEmpty && faculty.isNotEmpty) {
-      await postService.postResourceItem(title, description, email);
+      await postService.postResourceItem(title, description, email,
+          FirebaseAuth.instance.currentUser!.displayName.toString());
 
       _bind();
       postDescriptionTextEditingController!.clear();

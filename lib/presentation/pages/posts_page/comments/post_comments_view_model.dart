@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view.dart';
 
@@ -32,12 +33,18 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
     String commentText = commentTextEditingController.value.text;
     String id = widget.id.toString();
     if (commentText.isNotEmpty) {
-      await commentService.postCommentItem(commentText, id);
+      await commentService.postCommentItem(
+          commentText, id, FirebaseAuth.instance.currentUser!.email.toString());
 
       commentTextEditingController.clear();
     } else {
       showAlertDialog("Boş bırakamazsınız..", context);
     }
+    _bind();
+  }
+
+  Future<void> deleteComment(id) async {
+    commentService.deleteCommentItem(widget.id, id);
     _bind();
   }
 

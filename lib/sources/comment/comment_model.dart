@@ -24,13 +24,15 @@ class commentModel {
 class Comment {
   String? sId;
   String? description;
+  String? email;
   int? iV;
 
-  Comment({this.sId, this.description, this.iV});
+  Comment({this.sId, this.description, this.email, this.iV});
 
   Comment.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     description = json['description'];
+    email = json['email'];
     iV = json['__v'];
   }
 
@@ -38,6 +40,7 @@ class Comment {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['description'] = this.description;
+    data['email'] = this.email;
     data['__v'] = this.iV;
     return data;
   }

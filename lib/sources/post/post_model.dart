@@ -29,6 +29,8 @@ class Post {
   String? description;
   String? email;
   String? createdAt;
+  String? creator;
+
   String? updatedAt;
   int? iV;
 
@@ -38,6 +40,7 @@ class Post {
       this.description,
       this.email,
       this.createdAt,
+      this.creator,
       this.updatedAt,
       this.iV});
 
@@ -46,6 +49,7 @@ class Post {
     title = json['title'];
     description = json['description'];
     email = json['email'];
+    creator = json['creator'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -57,6 +61,7 @@ class Post {
     data['title'] = this.title;
     data['description'] = this.description;
     data['email'] = this.email;
+    data['creator'] = this.creator;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;

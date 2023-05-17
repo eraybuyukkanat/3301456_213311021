@@ -168,7 +168,7 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                             resetPassword();
                           },
                           child: Text(
-                            "Şifrenizi mi unuttunuz?",
+                            forgetPassword,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium

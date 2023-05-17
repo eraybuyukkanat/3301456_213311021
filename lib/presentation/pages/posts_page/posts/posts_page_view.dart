@@ -168,7 +168,7 @@ class _PostsPageViewState extends PostsPageViewModel {
                       ),
                       Row(
                         children: [
-                          resources.data![index].email ==
+                          resources.data![index].email !=
                                   FirebaseAuth.instance.currentUser!.email
                               ? PopupMenuButton<String>(
                                   color: ColorManager.white,
@@ -214,8 +214,7 @@ class _PostsPageViewState extends PostsPageViewModel {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3),
                       child: Text(
-                        FirebaseAuth.instance.currentUser!.displayName ??
-                            "HATA",
+                        resources.data![index].creator ?? "HATA",
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium
