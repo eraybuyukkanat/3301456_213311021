@@ -9,95 +9,23 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sizer/sizer.dart';
-import 'package:social_media_app_demo/presentation/pages/details/baritempagedetail/post_detail.dart';
+import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view.dart';
+import 'package:social_media_app_demo/presentation/pages/posts_page/posts/posts_page_view_model.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/post/service.dart';
 import 'package:social_media_app_demo/sources/post/post_model.dart';
-import '../../sources/buttons.dart';
-import '../../sources/colors.dart';
-import '../../sources/showalertdialog.dart';
+import '../../../../sources/buttons.dart';
+import '../../../../sources/colors.dart';
+import '../../../../sources/showalertdialog.dart';
 
-const List<String> facultyList = <String>[
-  'Teknoloji Fakültesi',
-  'Hukuk Fakültesi',
-  'Tıp Fakültesi',
-  'Edebiyat Fakültesi',
-  'Ziraat Fakültesi',
-  'Sağlık Bilimleri Fakültesi'
-];
-
-class BarItemPage extends StatefulWidget {
-  const BarItemPage({super.key});
+class PostsPageView extends StatefulWidget {
+  const PostsPageView({super.key});
 
   @override
-  State<BarItemPage> createState() => _BarItemPageState();
+  State<PostsPageView> createState() => _PostsPageViewState();
 }
 
-class _BarItemPageState extends State<BarItemPage>
-    with TickerProviderStateMixin {
-  TextEditingController? _postTitleTextEditingController =
-      TextEditingController();
-  TextEditingController? _postDescriptionTextEditingController =
-      TextEditingController();
-
-  ScrollController _scrollController = ScrollController();
-
-  String? selected_faculty = "";
-
-  late final IPostService postService;
-
-  final service =
-      Dio(BaseOptions(baseUrl: "https://uni-social-gb6h.onrender.com/"));
-
-  StreamController<List<Post>> streamController =
-      StreamController<List<Post>>.broadcast();
-  StreamController<bool> streamController2 = StreamController<bool>.broadcast();
-
-  List<Post> resources = [];
-
-  @override
-  void initState() {
-    super.initState();
-    postService = PostService(service); //BASEURL
-    _bind();
-  }
-
-  Future<List<Post>> fetch() async {
-    return (await postService.fetchResourceItem())?.post ?? [];
-  }
-
-  Future<void> postValues() async {
-    String title = _postTitleTextEditingController!.value.text;
-    String description = _postDescriptionTextEditingController!.value.text;
-    String faculty = "Fakülte";
-    String email = FirebaseAuth.instance.currentUser!.email.toString();
-
-    if (title.isNotEmpty && description.isNotEmpty && faculty.isNotEmpty) {
-      await postService.postResourceItem(title, description, email);
-
-      _bind();
-      _postDescriptionTextEditingController!.clear();
-      _postTitleTextEditingController!.clear();
-    } else {
-      showAlertDialog("Boş bırakamazsınız..", context);
-    }
-
-    Navigator.pop(context);
-  }
-
-  Future<void> deletePost(id) async {
-    await postService.deleteResourceItem(id);
-    _bind();
-  }
-
-  _bind() async {
-    resources = await fetch();
-    streamController.sink.add(resources.reversed.toList());
-  }
-
-  String src =
-      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
-  String appBarTitle = "AKIŞ";
+class _PostsPageViewState extends PostsPageViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -349,7 +277,8 @@ class _BarItemPageState extends State<BarItemPage>
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (BuildContext context) => PostDetailPage(
+                              builder: (BuildContext context) =>
+                                  PostCommentsView(
                                 id: resources.data![index].sId.toString(),
                                 index: index,
                                 title: resources.data![index].title.toString(),
@@ -435,7 +364,7 @@ class _BarItemPageState extends State<BarItemPage>
                                   border: OutlineInputBorder(),
                                   hintText: hintText1,
                                 ),
-                                controller: _postTitleTextEditingController,
+                                controller: postTitleTextEditingController,
                                 maxLength: 20,
                               );
                             }),
@@ -465,7 +394,7 @@ class _BarItemPageState extends State<BarItemPage>
                                   child: Scrollbar(
                                     thickness: 10,
                                     radius: Radius.circular(20),
-                                    controller: _scrollController,
+                                    controller: scrollController,
                                     thumbVisibility: true,
                                     child: TextFormField(
                                       decoration: InputDecoration(
@@ -475,9 +404,9 @@ class _BarItemPageState extends State<BarItemPage>
                                       keyboardType: TextInputType.multiline,
                                       maxLength: 300,
                                       maxLines: 10,
-                                      scrollController: _scrollController,
+                                      scrollController: scrollController,
                                       controller:
-                                          _postDescriptionTextEditingController,
+                                          postDescriptionTextEditingController,
                                     ),
                                   ),
                                 );

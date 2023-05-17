@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
 import 'package:social_media_app_demo/main.dart';
-import 'package:social_media_app_demo/presentation/authpages/login.dart';
-import 'package:social_media_app_demo/presentation/pages/details/homepagedetail/communities.dart';
-import 'package:social_media_app_demo/presentation/pages/details/homepagedetail/socialevents.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/communities/communities.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/socialevents/socialevents.dart';
 
-import '../../sources/colors.dart';
+import '../../../sources/colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,7 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  LoginScreen? authScreen = LoginScreen();
   Map sosyalList = {
     0: "Topluluklar",
     1: "Sosyal Etkinlikler",

@@ -3,10 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
 import 'package:social_media_app_demo/config/router.dart';
-import 'package:social_media_app_demo/presentation/authpages/login.dart';
+import 'package:social_media_app_demo/presentation/authpages/login/login_view.dart';
+
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
 import 'package:social_media_app_demo/presentation/main/onboarding.dart';
-import 'package:social_media_app_demo/presentation/pages/homepage.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/home_page.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/theme/light_theme.dart';
 
@@ -51,9 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return LoginScreen();
+          return LoginScreenView();
         } else {
-          return LoginScreen();
+          return LoginScreenView();
         }
       },
     );

@@ -5,73 +5,21 @@ import 'package:lottie/lottie.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
 import 'dart:async';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/presentation/authpages/register/register_view_model.dart';
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
-import 'package:social_media_app_demo/presentation/pages/details/mypagedetail/profile.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/profile/profile_view.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class RegisterScreenView extends StatefulWidget {
+  const RegisterScreenView({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<RegisterScreenView> createState() => _RegisterScreenViewState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final _formKey = GlobalKey<FormState>();
-
-  TextEditingController? _emailTextEditingController = TextEditingController();
-  TextEditingController? _passwordTextEditingController =
-      TextEditingController();
-  TextEditingController? _password2TextEditingController =
-      TextEditingController();
-
-  Future<void> register() async {
-    String? email = _emailTextEditingController!.value.text;
-    String? password = _passwordTextEditingController!.value.text;
-    String? password2 = _password2TextEditingController!.value.text;
-
-    if (password == password2) {
-      try {
-        await Auth().registerWithEmailAndPassword(email, password);
-        await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Kayıt olma başarılı, anasayfaya yönlendiriliyorsunuz"),
-          duration: Duration(seconds: 1),
-        ));
-        await FirebaseAuth.instance.currentUser
-            ?.updateDisplayName(email.split('@')[0]);
-
-        Navigator.pushNamed(context, "/mainpage");
-      } on FirebaseAuthException catch (e) {
-        showAlertDialog(e.message.toString(), context);
-        _passwordTextEditingController!.clear();
-      }
-    } else {
-      showAlertDialog("Şifreler aynı değil", context);
-    }
-  }
-
-  StreamController<bool> _isPasswordVisibleController =
-      StreamController<bool>.broadcast();
-  StreamController<bool> _isPasswordVisible2Controller =
-      StreamController<bool>.broadcast();
-
-  @override
-  void dispose() {
-    _passwordTextEditingController!.dispose();
-    _password2TextEditingController!.dispose();
-    _emailTextEditingController!.dispose();
-    super.dispose();
-  }
-
-  String title = "Hoşgeldin!";
-  String email = "E-mail ";
-  String password = "Şifre";
-  String password2 = "Tekrar Şifre";
-  String loginText = "Giriş Yap";
-  String signInText = "Kayıt Ol";
-  String resetPasswordText = "Şifremi Unuttum";
+class _RegisterScreenViewState extends RegisterScreenViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,14 +56,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Text(email, style: Theme.of(context).textTheme.titleMedium),
               ),
               Form(
-                key: _formKey,
+                key: formKey,
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       StreamBuilder<String?>(builder: (context, snapshot) {
                         return TextFormField(
-                          controller: _emailTextEditingController,
+                          controller: emailTextEditingController,
                           decoration: InputDecoration(
                             suffixIconColor: ColorManager.primary,
                             enabledBorder: OutlineInputBorder(
@@ -142,9 +90,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       passwordInputWidget(
                           isPasswordVisibleController:
-                              _isPasswordVisibleController,
+                              isPasswordVisibleController,
                           passwordTextEditingController:
-                              _passwordTextEditingController),
+                              passwordTextEditingController),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Text(password2,
@@ -152,9 +100,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       passwordInputWidget(
                           isPasswordVisibleController:
-                              _isPasswordVisible2Controller,
+                              isPasswordVisible2Controller,
                           passwordTextEditingController:
-                              _password2TextEditingController),
+                              password2TextEditingController),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: widthSizedButton(

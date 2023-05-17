@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view_model.dart';
 import 'package:social_media_app_demo/sources/post/service.dart';
 
 import '../../../../sources/colors.dart';
@@ -13,8 +14,8 @@ import '../../../../sources/comment/service.dart';
 import '../../../../sources/post/post_model.dart';
 import '../../../../sources/showalertdialog.dart';
 
-class PostDetailPage extends StatefulWidget {
-  const PostDetailPage(
+class PostCommentsView extends StatefulWidget {
+  const PostCommentsView(
       {super.key,
       required this.index,
       required this.id,
@@ -29,53 +30,10 @@ class PostDetailPage extends StatefulWidget {
   final String email;
   final String createdAt;
   @override
-  State<PostDetailPage> createState() => _PostDetailPageState();
+  State<PostCommentsView> createState() => _PostCommentsViewState();
 }
 
-class _PostDetailPageState extends State<PostDetailPage> {
-  TextEditingController commentTextEditingController = TextEditingController();
-
-  late final ICommentService commentService;
-
-  StreamController<List<Comment>> streamController =
-      StreamController<List<Comment>>.broadcast();
-
-  final service =
-      Dio(BaseOptions(baseUrl: "https://uni-social-gb6h.onrender.com/"));
-
-  List<Comment> resources = [];
-
-  @override
-  void initState() {
-    super.initState();
-    commentService = CommentService(service); //BASEURL
-    _bind();
-  }
-
-  Future<void> postComments() async {
-    String commentText = commentTextEditingController.value.text;
-    String id = widget.id.toString();
-    if (commentText.isNotEmpty) {
-      await commentService.postCommentItem(commentText, id);
-
-      commentTextEditingController.clear();
-    } else {
-      showAlertDialog("Boş bırakamazsınız..", context);
-    }
-    _bind();
-  }
-
-  Future<List<Comment>> fetch(String id) async {
-    return (await commentService.fetchCommentItem(id))?.comments ?? [];
-  }
-
-  _bind() async {
-    resources = await fetch(widget.id);
-    streamController.sink.add(resources.reversed.toList());
-  }
-
-  String? pageTitle = "Yorumlar";
-
+class _PostCommentsViewState extends PostCommentsViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

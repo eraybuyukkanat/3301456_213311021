@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_app_demo/presentation/authpages/login.dart';
-import 'package:social_media_app_demo/presentation/authpages/register.dart';
+import 'package:social_media_app_demo/presentation/authpages/login/login_view.dart';
+
+import 'package:social_media_app_demo/presentation/authpages/register/register_view.dart';
 
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
-import 'package:social_media_app_demo/presentation/pages/details/homepagedetail/communities.dart';
-import 'package:social_media_app_demo/presentation/pages/details/homepagedetail/socialevents.dart';
-import 'package:social_media_app_demo/presentation/pages/details/mypagedetail/chngepasswd.dart';
-import 'package:social_media_app_demo/presentation/pages/details/mypagedetail/profile.dart';
-import 'package:social_media_app_demo/presentation/pages/details/mypagedetail/report.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/communities/communities.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/socialevents/socialevents.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/chngepasswd/chngepasswd_view.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/profile/profile_view.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/report/report_view.dart';
 
 class RouteNavigation {
   static Route<dynamic>? routeNavigation(RouteSettings settings) {
@@ -18,23 +19,23 @@ class RouteNavigation {
         );
       case '/loginpage':
         return _createRoute(
-          LoginScreen(),
+          LoginScreenView(),
         );
       case '/registerpage':
         return _createRoute(
-          RegisterScreen(),
+          RegisterScreenView(),
         );
       case '/profile':
         return _createRoute(
-          ProfilePage(),
+          ProfilePageView(),
         );
       case '/changepassword':
         return _createRoute(
-          ChangePasswdPage(),
+          ChangePasswdPageView(),
         );
       case '/report':
         return _createRoute(
-          ReportErrorPage(),
+          ReportErrorView(),
         );
       case '/communities':
         return _createRoute(

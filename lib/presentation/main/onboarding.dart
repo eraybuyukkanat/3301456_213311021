@@ -1,5 +1,5 @@
 import 'package:sizer/sizer.dart';
-import 'package:social_media_app_demo/presentation/authpages/login.dart';
+import 'package:social_media_app_demo/presentation/authpages/login/login_view.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 
 import 'package:flutter/material.dart';

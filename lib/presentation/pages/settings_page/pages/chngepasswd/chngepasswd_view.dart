@@ -5,89 +5,21 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
-import 'package:social_media_app_demo/presentation/pages/details/mypagedetail/chngepasswd.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/chngepasswd/chngepasswd_view.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/chngepasswd/chngepasswrd_view_model.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 
-import '../../../../auth/auth.dart';
-import '../../../../sources/customformfield.dart';
+import '../../../../../auth/auth.dart';
+import '../../../../../sources/customformfield.dart';
 
-class ChangePasswdPage extends StatefulWidget {
-  const ChangePasswdPage({super.key});
+class ChangePasswdPageView extends StatefulWidget {
+  const ChangePasswdPageView({super.key});
 
   @override
-  State<ChangePasswdPage> createState() => _ChangePasswdPageState();
+  State<ChangePasswdPageView> createState() => _ChangePasswdPageViewState();
 }
 
-class _ChangePasswdPageState extends State<ChangePasswdPage> {
-  TextEditingController? _newpasswdTextEditingController =
-      TextEditingController();
-  TextEditingController? _newpasswd2TextEditingController =
-      TextEditingController();
-
-  StreamController<bool>? _isPasswordVisibleController =
-      StreamController<bool>.broadcast();
-  StreamController<bool>? _isPassword2VisibleController =
-      StreamController<bool>.broadcast();
-  @override
-  void dispose() {
-    _newpasswdTextEditingController!.dispose();
-    _newpasswd2TextEditingController!.dispose();
-    super.dispose();
-  }
-
-  Future<void> _showAlertDialog(String mesaj) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        const String? title = 'Şifre Değiştirme';
-        String? okButton = 'Tamam';
-        return AlertDialog(
-          title: const Text(title),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(mesaj),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                okButton,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  changepasswd() async {
-    final newpasswd = _newpasswdTextEditingController!.value.text;
-    final newpasswd2 = _newpasswd2TextEditingController!.value.text;
-
-    if (newpasswd == newpasswd2) {
-      try {
-        await FirebaseAuth.instance.currentUser?.updatePassword(newpasswd2);
-        String? message = "Şifre Değiştirildi";
-        _showAlertDialog(message);
-      } on FirebaseAuthException catch (e) {
-        _showAlertDialog(e.message.toString());
-      }
-    } else {
-      String? errorMessasge = "Şifreler aynı değil, değiştirilemedi";
-      _showAlertDialog(errorMessasge);
-    }
-
-    _newpasswd2TextEditingController!.clear();
-    _newpasswdTextEditingController!.clear();
-  }
-
+class _ChangePasswdPageViewState extends ChangePasswdPageViewModel {
   @override
   Widget build(BuildContext context) {
     String? pageTitle = "Şifre Değiştir";
@@ -139,9 +71,9 @@ class _ChangePasswdPageState extends State<ChangePasswdPage> {
                       ),
                       customFormField(
                           isPasswordVisibleController:
-                              _isPasswordVisibleController,
+                              isPasswordVisibleController,
                           newpasswdTextEditingController:
-                              _newpasswdTextEditingController),
+                              newpasswdTextEditingController),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -152,9 +84,9 @@ class _ChangePasswdPageState extends State<ChangePasswdPage> {
                       ),
                       customFormField(
                           isPasswordVisibleController:
-                              _isPassword2VisibleController,
+                              isPassword2VisibleController,
                           newpasswdTextEditingController:
-                              _newpasswd2TextEditingController),
+                              newpasswd2TextEditingController),
                       SizedBox(
                         height: 2.h,
                       ),

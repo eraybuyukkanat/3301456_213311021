@@ -1,29 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:social_media_app_demo/presentation/pages/details/mypagedetail/chngepasswd.dart';
-import 'package:social_media_app_demo/presentation/pages/details/mypagedetail/profile.dart';
-import 'package:social_media_app_demo/presentation/pages/details/mypagedetail/report.dart';
+
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 
-import '../authpages/login.dart';
-
-class MyPage extends StatefulWidget {
-  const MyPage({super.key});
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key});
 
   @override
-  State<MyPage> createState() => _MyPageState();
+  State<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _MyPageState extends State<MyPage> {
+class _SettingsPageState extends State<SettingsPage> {
+  String pageTitle = "AYARLAR";
+  String profileText = "PROFİLİM";
+  String chngPsswdText = "ŞİFRE DEĞİŞTİR";
+  String reportText = "HATA BİLDİR";
+  String exitText = "Çıkış Yap";
   @override
   Widget build(BuildContext context) {
-    String? pageTitle = "AYARLAR";
-    String? profileText = "PROFİLİM";
-    String? chngPsswdText = "ŞİFRE DEĞİŞTİR";
-    String? reportText = "HATA BİLDİR";
-    String? exitText = "Çıkış Yap";
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,

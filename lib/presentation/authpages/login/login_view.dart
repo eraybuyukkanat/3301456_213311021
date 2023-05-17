@@ -5,70 +5,21 @@ import 'package:lottie/lottie.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
 import 'dart:async';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/presentation/authpages/login/login_view_model.dart';
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
-import 'package:social_media_app_demo/presentation/pages/details/mypagedetail/profile.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/profile/profile_view.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginScreenView extends StatefulWidget {
+  const LoginScreenView({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginScreenView> createState() => _LoginScreenViewState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-
-  TextEditingController? _emailTextEditingController = TextEditingController();
-  TextEditingController? _passwordTextEditingController =
-      TextEditingController();
-
-  Future<void> login() async {
-    if (!_formKey.currentState!.validate()) return;
-    final email = _emailTextEditingController!.value.text;
-    final password = _passwordTextEditingController!.value.text;
-    try {
-      await Auth().signInWithEmailAndPassword(email, password);
-      await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Giriş başarılı, anasayfaya yönlendiriliyorsunuz"),
-        duration: Duration(seconds: 1),
-      ));
-      Navigator.pushNamed(context, "/mainpage");
-    } on FirebaseAuthException catch (e) {
-      showAlertDialog(e.message.toString(), context);
-      _passwordTextEditingController!.clear();
-    }
-  }
-
-  Future<void> resetPassword() async {
-    String? email = _emailTextEditingController!.value.text;
-    try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      showAlertDialog("Şifre değiştirme bağlantısı gönderildi!", context);
-    } on FirebaseAuthException catch (e) {
-      showAlertDialog(e.message.toString(), context);
-    }
-  }
-
-  StreamController<bool> _isPasswordVisibleController =
-      StreamController<bool>.broadcast();
-
-  @override
-  void dispose() {
-    _passwordTextEditingController!.dispose();
-    _emailTextEditingController!.dispose();
-    super.dispose();
-  }
-
-  String title = "Hoşgeldin!";
-  String email = "E-mail ";
-  String password = "Şifre";
-  String loginText = "Giriş Yap";
-  String signInText = "Kayıt Ol";
-  String resetPasswordText = "Şifremi Unuttum";
-
+class _LoginScreenViewState extends LoginScreenViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 5.h,
               ),
               Form(
-                key: _formKey,
+                key: formKey,
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       StreamBuilder<String?>(builder: (context, snapshot) {
                         return TextFormField(
-                          controller: _emailTextEditingController,
+                          validator: FormFieldValidator().isNotEmpty,
+                          controller: emailTextEditingController,
                           decoration: InputDecoration(
                             suffixIconColor: ColorManager.primary,
                             enabledBorder: OutlineInputBorder(
@@ -148,12 +100,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       StreamBuilder<bool>(
                           initialData: true,
-                          stream: _isPasswordVisibleController.stream,
+                          stream: isPasswordVisibleController.stream,
                           builder: (context, isVisible) {
                             return StreamBuilder<String?>(
                                 builder: (context, snapshot) {
                               return TextFormField(
-                                controller: _passwordTextEditingController,
+                                validator: FormFieldValidator().isNotEmpty,
+                                controller: passwordTextEditingController,
                                 keyboardType: TextInputType.visiblePassword,
                                 obscuringCharacter: "*",
                                 obscureText: isVisible.data!,
@@ -177,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ? Icon(Icons.visibility)
                                         : Icon(Icons.visibility_off),
                                     onPressed: () {
-                                      _isPasswordVisibleController.sink
+                                      isPasswordVisibleController.sink
                                           .add(!isVisible.data!);
                                     },
                                   ),
@@ -204,7 +157,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       widthSizedButton(
                           color: ColorManager.primary,
                           text: loginText,
-                          onPressed: login),
+                          onPressed: () {
+                            if (formKey.currentState?.validate() ?? false) {
+                              login();
+                            }
+                          }),
                       SizedBox(
                         height: 2.h,
                       ),
@@ -243,4 +200,14 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+}
+
+class FormFieldValidator {
+  String? isNotEmpty(String? data) {
+    return (data?.isNotEmpty ?? false) ? null : ValidateMessage._isNotEmpty;
+  }
+}
+
+class ValidateMessage {
+  static const String _isNotEmpty = "Bu alan boş geçilemez";
 }
