@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
+import 'package:social_media_app_demo/cache/shared_manager.dart';
 import 'package:social_media_app_demo/config/router.dart';
 import 'package:social_media_app_demo/presentation/authpages/login/login_view.dart';
 
@@ -11,9 +13,12 @@ import 'package:social_media_app_demo/presentation/pages/home_page/home_page.dar
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/theme/light_theme.dart';
 
+int? isViewed;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  isViewed = preferences.getInt('onboarding');
   runApp(const MyApp());
 }
 
@@ -48,15 +53,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return LoginScreenView();
-        } else {
-          return LoginScreenView();
-        }
-      },
-    );
+    return isViewed == 1 ? LoginScreenView() : OnboardingScreen();
   }
 }

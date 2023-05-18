@@ -4,6 +4,8 @@ import 'package:social_media_app_demo/sources/colors.dart';
 
 import 'package:flutter/material.dart';
 
+import '../../cache/shared_manager.dart';
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -18,6 +20,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     "Bölümüne göre istediğin alanları takip et, sınav haftası hazırlıksız yakalanma. Arkadaşlarınla çalış.",
     "Devam etmek için butona tıkla, hesabın var ise giriş yap yok ise üye ol.",
   ];
+  SharedManager sharedManager = SharedManager();
 
   String appName = "Üniversitem";
   @override
@@ -69,6 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       index == 2
                           ? ElevatedButton(
                               onPressed: () {
+                                sharedManager.saveOnboarding(1);
                                 Navigator.pushNamed(context, "/loginpage");
                               },
                               child: SizedBox(

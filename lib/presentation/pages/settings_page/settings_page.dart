@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/auth/auth.dart';
 
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
@@ -82,7 +83,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   padding: const EdgeInsets.all(10),
                   child: ElevatedButton(
                     onPressed: () {
-                      FirebaseAuth.instance.signOut();
+                      Auth().signOut(
+                          FirebaseAuth.instance.currentUser!.email.toString());
                       Navigator.pushNamed(context, "/loginpage");
                     },
                     child: Row(
