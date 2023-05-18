@@ -29,6 +29,13 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
     _bind();
   }
 
+  bool isLoading = false;
+  void changeLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
   Future<void> postComments() async {
     String commentText = commentTextEditingController.value.text;
     String id = widget.id.toString();
@@ -37,14 +44,16 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
           commentText, id, FirebaseAuth.instance.currentUser!.email.toString());
 
       commentTextEditingController.clear();
+      _bind();
     } else {
       showAlertDialog("Boş bırakamazsınız..", context);
     }
-    _bind();
   }
 
   Future<void> deleteComment(id) async {
+    changeLoading();
     commentService.deleteCommentItem(widget.id, id);
+    changeLoading();
     _bind();
   }
 
@@ -53,8 +62,10 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
   }
 
   _bind() async {
+    changeLoading();
     resources = await fetch(widget.id);
     streamController.sink.add(resources.reversed.toList());
+    changeLoading();
   }
 
   String? pageTitle = "Yorumlar";

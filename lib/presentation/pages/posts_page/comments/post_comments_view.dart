@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view_model.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:social_media_app_demo/sources/loading_bar.dart';
 
 import '../../../../sources/colors.dart';
 import '../../../../sources/comment/comment_model.dart';
@@ -105,11 +106,8 @@ class _PostCommentsViewState extends PostCommentsViewModel {
                   child: StreamBuilder<List<Comment>>(
                       stream: streamController.stream,
                       builder: (context, snapshot) {
-                        if (snapshot.data == null) {
-                          return SpinKitFadingCircle(
-                            color: ColorManager.black,
-                            size: 40.0,
-                          );
+                        if (isLoading) {
+                          return Center(child: loadingWidget());
                         }
                         return ListView.builder(
                           itemCount: snapshot.data!.length,

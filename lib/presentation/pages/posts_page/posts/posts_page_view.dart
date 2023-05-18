@@ -63,16 +63,8 @@ class _PostsPageViewState extends PostsPageViewModel {
       body: StreamBuilder<List<Post>>(
           stream: streamController.stream,
           builder: (context, resources) {
-            if (resources.data == null) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  LoadingBar(
-                    color: ColorManager.black,
-                    size: 45,
-                  ),
-                ],
-              );
+            if (isLoading) {
+              return Center(child: loadingWidget());
             }
             return resources.data?.length != 0
                 ? ListView.builder(
@@ -168,7 +160,7 @@ class _PostsPageViewState extends PostsPageViewModel {
                       ),
                       Row(
                         children: [
-                          resources.data![index].email !=
+                          resources.data![index].email ==
                                   FirebaseAuth.instance.currentUser!.email
                               ? PopupMenuButton<String>(
                                   color: ColorManager.white,
@@ -312,122 +304,107 @@ class _PostsPageViewState extends PostsPageViewModel {
           String? description = "Açıklama";
           String? buttonText = "YAYINLA";
 
-          return StreamBuilder<bool>(
-              stream: streamController2.stream,
-              builder: (context, snapshot) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 60, right: 20, left: 20),
-                  child: Column(
+          return Padding(
+            padding: EdgeInsets.only(top: 60, right: 20, left: 20),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              pageTitle,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(fontSize: 25),
-                            ),
-                            snapshot.hasData
-                                ? SpinKitFadingCircle(
-                                    color: ColorManager.black,
-                                    size: 40.0,
-                                  )
-                                : SizedBox()
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      Form(
-                          child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(title,
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium),
-                            ),
-                            StreamBuilder<String?>(
-                                builder: (context, snapshot) {
-                              String? hintText1 = 'Gönderi başlığı giriniz...';
-                              return TextFormField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: hintText1,
-                                ),
-                                controller: postTitleTextEditingController,
-                                maxLength: 20,
-                              );
-                            }),
-                          ],
-                        ),
-                      )),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      Form(
-                        child: Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Text(description,
-                                    style:
-                                        Theme.of(context).textTheme.bodyMedium),
-                              ),
-                              StreamBuilder<String?>(
-                                  builder: (context, snapshot) {
-                                String? hintText2 =
-                                    'Gönderi açıklaması giriniz...';
-                                return Container(
-                                  constraints: BoxConstraints(maxHeight: 150),
-                                  child: Scrollbar(
-                                    thickness: 10,
-                                    radius: Radius.circular(20),
-                                    controller: scrollController,
-                                    thumbVisibility: true,
-                                    child: TextFormField(
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        hintText: hintText2,
-                                      ),
-                                      keyboardType: TextInputType.multiline,
-                                      maxLength: 300,
-                                      maxLines: 10,
-                                      scrollController: scrollController,
-                                      controller:
-                                          postDescriptionTextEditingController,
-                                    ),
-                                  ),
-                                );
-                              }),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      widthSizedButton(
-                        color: ColorManager.primary,
-                        text: buttonText,
-                        onPressed: () {
-                          postValues();
-                        },
+                      Text(
+                        pageTitle,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(fontSize: 25),
                       ),
                     ],
                   ),
-                );
-              });
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Form(
+                    child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Text(title,
+                            style: Theme.of(context).textTheme.bodyMedium),
+                      ),
+                      StreamBuilder<String?>(builder: (context, snapshot) {
+                        String? hintText1 = 'Gönderi başlığı giriniz...';
+                        return TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: hintText1,
+                          ),
+                          controller: postTitleTextEditingController,
+                          maxLength: 20,
+                        );
+                      }),
+                    ],
+                  ),
+                )),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Form(
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Text(description,
+                              style: Theme.of(context).textTheme.bodyMedium),
+                        ),
+                        StreamBuilder<String?>(builder: (context, snapshot) {
+                          String? hintText2 = 'Gönderi açıklaması giriniz...';
+                          return Container(
+                            constraints: BoxConstraints(maxHeight: 150),
+                            child: Scrollbar(
+                              thickness: 10,
+                              radius: Radius.circular(20),
+                              controller: scrollController,
+                              thumbVisibility: true,
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: hintText2,
+                                ),
+                                keyboardType: TextInputType.multiline,
+                                maxLength: 300,
+                                maxLines: 10,
+                                scrollController: scrollController,
+                                controller:
+                                    postDescriptionTextEditingController,
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                widthSizedButton(
+                  color: ColorManager.primary,
+                  text: buttonText,
+                  onPressed: () {
+                    postValues();
+                  },
+                ),
+              ],
+            ),
+          );
         });
   }
 }

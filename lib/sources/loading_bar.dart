@@ -17,3 +17,22 @@ class LoadingBar extends StatelessWidget {
     );
   }
 }
+
+class loadingWidget extends StatelessWidget {
+  const loadingWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        LoadingBar(
+          color: ColorManager.black,
+          size: 45,
+        ),
+      ],
+    );
+  }
+}
