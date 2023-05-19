@@ -1,16 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:social_media_app_demo/auth/auth.dart';
-import 'dart:async';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/authpages/login/login_view_model.dart';
-import 'package:social_media_app_demo/presentation/main/mainpage.dart';
-import 'package:social_media_app_demo/presentation/pages/settings_page/pages/profile/profile_view.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
-import 'package:social_media_app_demo/sources/showalertdialog.dart';
 
 class LoginScreenView extends StatefulWidget {
   const LoginScreenView({super.key});
@@ -197,7 +189,7 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                             child: widthSizedButton(
                                 color: ColorManager.third,
                                 text: signInText,
-                                textColor: ColorManager.black,
+                                textColor: ColorManager.white,
                                 onPressed: () {
                                   Navigator.pushNamed(context, "/registerpage");
                                 }),

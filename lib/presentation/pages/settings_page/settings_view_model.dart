@@ -2,31 +2,26 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:social_media_app_demo/presentation/pages/settings_page/pages/profile/profile_view.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/settings_page.dart';
 
 import '../../../../../sources/showalertdialog.dart';
 
-abstract class ProfilePageViewModel extends State<ProfilePageView> {
+abstract class ProfilePageViewModel extends State<SettingsPage> {
   TextEditingController displayNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   StreamController<FirebaseAuth> streamController =
       StreamController<FirebaseAuth>.broadcast();
 
-  bool isLoading = true;
-
   _bind() async {
     streamController.sink.add(FirebaseAuth.instance);
   }
 
-  setDisplayName() async {
+  Future<void> setDisplayName() async {
     await FirebaseAuth.instance.currentUser!.updateDisplayName(
         FirebaseAuth.instance.currentUser!.email?.split('@').first);
   }
 
-  changeDisplayName(context) async {
-    print(isLoading);
-    isLoading = false;
-    print(isLoading);
+  Future<void> changeDisplayName(context) async {
     try {
       await FirebaseAuth.instance.currentUser!
           .updateDisplayName(displayNameController.value.text);
@@ -35,30 +30,10 @@ abstract class ProfilePageViewModel extends State<ProfilePageView> {
     } on FirebaseAuthException catch (e) {
       showAlertDialog(e.message.toString(), context);
     }
-    print(isLoading);
-    isLoading = true;
-    print(isLoading);
 
     displayNameController.clear();
   }
 
-  changeEmail(context) async {
-    //düzeltcem
-    try {
-      await FirebaseAuth.instance.currentUser!
-          .updateEmail(emailController.value.text);
-      FirebaseAuth.instance.signOut();
-      print("buraya girdi");
-      Navigator.pushNamed(context, "/authpage");
-    } on FirebaseAuthException catch (e) {
-      showAlertDialog(e.message.toString(), context);
-    }
-    emailController.clear();
-  }
-
-  changeFaculty(context) {}
-
-  changeDepartment(context) {}
   String? pageTitle = "PROFİLİM";
   String? src =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';

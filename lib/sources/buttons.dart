@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 import 'colors.dart';
 
@@ -19,11 +20,14 @@ class widthSizedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      width: double.infinity,
-      child: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: color),
+    return Container(
+      height: 7.h,
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+        color: ColorManager.primary,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextButton(
           onPressed: onPressed,
           child: Text(
             text!,

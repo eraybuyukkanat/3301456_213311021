@@ -51,9 +51,8 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
   }
 
   Future<void> deleteComment(id) async {
-    changeLoading();
-    commentService.deleteCommentItem(widget.id, id);
-    changeLoading();
+    await commentService.deleteCommentItem(widget.id, id);
+
     _bind();
   }
 

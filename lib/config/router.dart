@@ -7,7 +7,6 @@ import 'package:social_media_app_demo/presentation/main/mainpage.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/communities/communities.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/socialevents/socialevents.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/chngepasswd/chngepasswd_view.dart';
-import 'package:social_media_app_demo/presentation/pages/settings_page/pages/profile/profile_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/report/report_view.dart';
 
 class RouteNavigation {
@@ -25,10 +24,7 @@ class RouteNavigation {
         return _createRoute(
           RegisterScreenView(),
         );
-      case '/profile':
-        return _createRoute(
-          ProfilePageView(),
-        );
+
       case '/changepassword':
         return _createRoute(
           ChangePasswdPageView(),

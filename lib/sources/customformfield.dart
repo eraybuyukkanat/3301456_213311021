@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:social_media_app_demo/sources/colors.dart';
 
 class customFormField extends StatelessWidget {
   const customFormField({
@@ -26,9 +27,22 @@ class customFormField extends StatelessWidget {
               keyboardType: TextInputType.visiblePassword,
               obscureText: isVisible.data!,
               decoration: InputDecoration(
+                suffixIconColor: ColorManager.primary,
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                 errorText: snapshot.data,
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: ColorManager.third,
+                      width: 2.0,
+                    )),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(
+                      color: ColorManager.primary,
+                      width: 2.0,
+                    )),
                 suffixIcon: IconButton(
                   icon: isVisible.data!
                       ? Icon(Icons.visibility)

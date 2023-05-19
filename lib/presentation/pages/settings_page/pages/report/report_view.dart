@@ -52,48 +52,71 @@ class _ReportErrorViewState extends ReportErrorViewModel {
             margin: const EdgeInsets.all(30),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
                 Form(
                   child: TextFormField(
                     decoration: InputDecoration(
+                      suffixIconColor: ColorManager.primary,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                            color: ColorManager.third,
+                            width: 2.0,
+                          )),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                            color: ColorManager.primary,
+                            width: 2.0,
+                          )),
                     ),
                     maxLength: 20,
                     controller: errorTitleTextEditingController,
                   ),
                 ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      description,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 1.h,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        description,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
                 Form(
                   child: TextFormField(
                     decoration: InputDecoration(
+                      suffixIconColor: ColorManager.primary,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                            color: ColorManager.third,
+                            width: 2.0,
+                          )),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(
+                            color: ColorManager.primary,
+                            width: 2.0,
+                          )),
                     ),
                     maxLength: 200,
                     keyboardType: TextInputType.multiline,
@@ -101,27 +124,28 @@ class _ReportErrorViewState extends ReportErrorViewModel {
                     controller: errorDescriptionTextEditingController,
                   ),
                 ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorManager.primary),
-                    onPressed: () {
-                      reportError();
-                    },
-                    child: loading
-                        ? SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              color: ColorManager.white,
-                              strokeWidth: 2,
-                            ),
-                          )
-                        : Text(buttonText),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 7.h,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorManager.primary),
+                      onPressed: () {
+                        reportError();
+                      },
+                      child: loading
+                          ? SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                color: ColorManager.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : Text(buttonText),
+                    ),
                   ),
                 ),
               ],

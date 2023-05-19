@@ -1,22 +1,16 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:lottie/lottie.dart';
+
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/posts/posts_page_view_model.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
-import 'package:social_media_app_demo/sources/post/service.dart';
 import 'package:social_media_app_demo/sources/post/post_model.dart';
 import '../../../../sources/buttons.dart';
 import '../../../../sources/colors.dart';
-import '../../../../sources/showalertdialog.dart';
 
 class PostsPageView extends StatefulWidget {
   const PostsPageView({super.key});
@@ -116,7 +110,6 @@ class _PostsPageViewState extends PostsPageViewModel {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  height: 10.h,
                   decoration: BoxDecoration(
                       color: ColorManager.primary,
                       borderRadius: BorderRadius.circular(5)),
@@ -131,7 +124,7 @@ class _PostsPageViewState extends PostsPageViewModel {
                           ),
                           Container(
                             child: CircleAvatar(
-                              radius: 18,
+                              radius: 20,
                               backgroundColor: ColorManager.primary,
                               child: CircleAvatar(
                                 radius: 35,
@@ -254,7 +247,7 @@ class _PostsPageViewState extends PostsPageViewModel {
                 Row(
                   children: [
                     Icon(
-                      Icons.favorite_outline,
+                      Icons.favorite,
                       size: 30,
                       color: ColorManager.red,
                     ),
