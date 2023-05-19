@@ -13,7 +13,16 @@ abstract class ProfilePageViewModel extends State<SettingsPage> {
       StreamController<FirebaseAuth>.broadcast();
 
   _bind() async {
+    changeLoading();
     streamController.sink.add(FirebaseAuth.instance);
+    changeLoading();
+  }
+
+  bool isLoading = false;
+  void changeLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
   }
 
   Future<void> setDisplayName() async {
@@ -22,16 +31,18 @@ abstract class ProfilePageViewModel extends State<SettingsPage> {
   }
 
   Future<void> changeDisplayName(context) async {
+    changeLoading();
     try {
       await FirebaseAuth.instance.currentUser!
           .updateDisplayName(displayNameController.value.text);
-      _bind();
-      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       showAlertDialog(e.message.toString(), context);
     }
 
+    _bind();
+
     displayNameController.clear();
+    changeLoading();
   }
 
   String? pageTitle = "PROFİLİM";

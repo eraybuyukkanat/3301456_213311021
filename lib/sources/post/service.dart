@@ -17,6 +17,8 @@ abstract class IPostService {
   Future<postModel?> postResourceItem(
       String title, String description, String email, String creator);
   Future<void> deleteResourceItem(id);
+  Future<void> updateResourceItem(
+      postId, newTitle, newDescription, email, creator);
 }
 
 class PostService extends IPostService {
@@ -46,5 +48,15 @@ class PostService extends IPostService {
 
   Future<void> deleteResourceItem(id) async {
     final response = await dio.delete("deletePost/${id}");
+  }
+
+  Future<void> updateResourceItem(
+      postId, newTitle, newDescription, email, creator) async {
+    final response = await dio.put("updatePost/${postId}", data: {
+      'title': newTitle,
+      'description': newDescription,
+      'email': email,
+      'creator': creator
+    });
   }
 }

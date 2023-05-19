@@ -6,6 +6,7 @@ import 'package:social_media_app_demo/presentation/pages/settings_page/settings_
 
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
+import 'package:social_media_app_demo/sources/loading_bar.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -42,6 +43,9 @@ class _SettingsPageState extends ProfilePageViewModel {
       body: StreamBuilder<FirebaseAuth>(
         stream: streamController.stream,
         builder: (context, snapshot) {
+          if (isLoading) {
+            return Center(child: loadingWidget());
+          }
           return SingleChildScrollView(
             child: SafeArea(
               child: Container(
@@ -165,6 +169,7 @@ class _SettingsPageState extends ProfilePageViewModel {
                                         text: "Kaydet",
                                         color: ColorManager.primary,
                                         onPressed: () {
+                                          Navigator.pop(context);
                                           changeDisplayName(context);
                                         }),
                                   ),

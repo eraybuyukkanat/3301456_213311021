@@ -15,6 +15,10 @@ abstract class PostsPageViewModel extends State<PostsPageView>
       TextEditingController();
   TextEditingController? postDescriptionTextEditingController =
       TextEditingController();
+  TextEditingController? postEditTitleTextEditingController =
+      TextEditingController();
+  TextEditingController? postEditDescriptionTextEditingController =
+      TextEditingController();
 
   ScrollController scrollController = ScrollController();
 
@@ -38,6 +42,13 @@ abstract class PostsPageViewModel extends State<PostsPageView>
     postService = PostService(service); //BASEURL
 
     _bind();
+  }
+
+  String isEditingNow = "";
+  void changeIsEditingNow(id) {
+    setState(() {
+      isEditingNow = id;
+    });
   }
 
   bool isLoading = false;
@@ -70,9 +81,28 @@ abstract class PostsPageViewModel extends State<PostsPageView>
     }
   }
 
-  Future<void> deletePost(id) async {
-    await postService.deleteResourceItem(id);
+  Future<void> updatePost(
+      postId, newTitle, newDescription, email, creator) async {
+    changeLoading();
+    if (postEditTitleTextEditingController!.value.text.length < 19) {
+      await postService.updateResourceItem(
+          postId, newTitle, newDescription, email, creator);
+      _bind();
+      isEditingNow = "";
+    } else {
+      showAlertDialog("19 karakterden uzun başlık giremezsiniz", context);
+    }
 
+    changeLoading();
+
+    postEditTitleTextEditingController!.clear();
+    postEditDescriptionTextEditingController!.clear();
+  }
+
+  Future<void> deletePost(id) async {
+    changeLoading();
+    await postService.deleteResourceItem(id);
+    changeLoading();
     _bind();
   }
 

@@ -72,7 +72,7 @@ class _PostsPageViewState extends PostsPageViewModel {
                       ),
                     ),
                   )
-                : Center(child: Text("Henüz hiç gönderi yok :("));
+                : Center(child: Text("Henüz hiç gönderi yok"));
           }),
     );
   }
@@ -139,37 +139,85 @@ class _PostsPageViewState extends PostsPageViewModel {
                           SizedBox(
                             width: 3.w,
                           ),
-                          Text(
-                            resources.data![index].title ?? "HATA",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: ColorManager.white),
-                          ),
+                          isEditingNow == resources.data![index].sId
+                              ? Container(
+                                  height: 5.h,
+                                  width: 60.w,
+                                  child: TextFormField(
+                                    style: TextStyle(color: Colors.white),
+                                    decoration: InputDecoration(
+                                      suffixIconColor: ColorManager.secondary,
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                        color: ColorManager.third,
+                                        width: 2.0,
+                                      )),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                        color: ColorManager.secondary,
+                                        width: 2.0,
+                                      )),
+                                    ),
+                                    controller:
+                                        postEditTitleTextEditingController,
+                                  ),
+                                )
+                              : Text(
+                                  resources.data![index].title ?? "HATA",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.bold,
+                                          color: ColorManager.white),
+                                ),
                         ],
                       ),
                       Row(
                         children: [
-                          resources.data![index].email ==
-                                  FirebaseAuth.instance.currentUser!.email
-                              ? PopupMenuButton<String>(
-                                  color: ColorManager.white,
-                                  itemBuilder: (BuildContext context) {
-                                    return [
-                                      PopupMenuItem(
-                                        child: Text("Gönderiyi Sil"),
-                                        value: "aa",
-                                        onTap: () {
-                                          deletePost(
-                                              resources.data![index].sId);
-                                        },
-                                      )
-                                    ];
-                                  })
-                              : SizedBox(),
+                          if (resources.data![index].email ==
+                              FirebaseAuth.instance.currentUser!.email)
+                            isEditingNow == resources.data![index].sId
+                                ? IconButton(
+                                    onPressed: () {
+                                      changeIsEditingNow(
+                                          resources.data![index].sId);
+                                      updatePost(
+                                          resources.data![index].sId,
+                                          postEditTitleTextEditingController!
+                                              .value.text,
+                                          postEditDescriptionTextEditingController!
+                                              .value.text,
+                                          FirebaseAuth
+                                              .instance.currentUser!.email,
+                                          FirebaseAuth.instance.currentUser!
+                                              .displayName);
+                                    },
+                                    icon: Icon(
+                                      Icons.done,
+                                      color: ColorManager.white,
+                                    ))
+                                : PopupMenuButton<String>(
+                                    color: ColorManager.white,
+                                    itemBuilder: (BuildContext context) {
+                                      return [
+                                        PopupMenuItem(
+                                          child: Text("Gönderiyi Sil"),
+                                          onTap: () {
+                                            deletePost(
+                                                resources.data![index].sId);
+                                          },
+                                        ),
+                                        PopupMenuItem(
+                                          child: Text("Gönderiyi Güncelle"),
+                                          onTap: () {
+                                            changeIsEditingNow(
+                                                resources.data![index].sId);
+                                          },
+                                        )
+                                      ];
+                                    }),
                         ],
                       )
                     ],
@@ -180,13 +228,37 @@ class _PostsPageViewState extends PostsPageViewModel {
             SizedBox(
               height: 2.h,
             ),
-            Text(
-              "${resources.data![index].description}",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(fontSize: 18),
-            ),
+            isEditingNow == resources.data![index].sId
+                ? Container(
+                    height: 20.h,
+                    width: double.maxFinite,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        suffixIconColor: ColorManager.red,
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                          color: ColorManager.red,
+                          width: 2.0,
+                        )),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                          color: ColorManager.red,
+                          width: 2.0,
+                        )),
+                      ),
+                      maxLength: 200,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      controller: postEditDescriptionTextEditingController,
+                    ),
+                  )
+                : Text(
+                    "${resources.data![index].description}",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(fontSize: 18),
+                  ),
             SizedBox(
               height: 3.h,
             ),
