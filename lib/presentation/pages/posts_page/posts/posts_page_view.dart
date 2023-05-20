@@ -9,6 +9,7 @@ import 'package:social_media_app_demo/presentation/pages/posts_page/comments/pos
 import 'package:social_media_app_demo/presentation/pages/posts_page/posts/posts_page_view_model.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/post/post_model.dart';
+import 'package:social_media_app_demo/sources/showalertdialog.dart';
 import '../../../../sources/buttons.dart';
 import '../../../../sources/colors.dart';
 
@@ -141,20 +142,27 @@ class _PostsPageViewState extends PostsPageViewModel {
                           ),
                           isEditingNow == resources.data![index].sId
                               ? Container(
-                                  height: 5.h,
+                                  height: 6.h,
                                   width: 60.w,
                                   child: TextFormField(
-                                    style: TextStyle(color: Colors.white),
+                                    maxLength: 20,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(
+                                            color: ColorManager.white,
+                                            fontSize: 25),
                                     decoration: InputDecoration(
-                                      suffixIconColor: ColorManager.secondary,
+                                      counterText: "",
+                                      contentPadding: EdgeInsets.all(4),
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                        color: ColorManager.third,
+                                        color: ColorManager.white,
                                         width: 2.0,
                                       )),
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                        color: ColorManager.secondary,
+                                        color: ColorManager.primary,
                                         width: 2.0,
                                       )),
                                     ),
@@ -181,18 +189,28 @@ class _PostsPageViewState extends PostsPageViewModel {
                             isEditingNow == resources.data![index].sId
                                 ? IconButton(
                                     onPressed: () {
-                                      changeIsEditingNow(
-                                          resources.data![index].sId);
-                                      updatePost(
-                                          resources.data![index].sId,
-                                          postEditTitleTextEditingController!
-                                              .value.text,
+                                      if (postEditTitleTextEditingController!
+                                                  .value.text.length !=
+                                              0 &&
                                           postEditDescriptionTextEditingController!
-                                              .value.text,
-                                          FirebaseAuth
-                                              .instance.currentUser!.email,
-                                          FirebaseAuth.instance.currentUser!
-                                              .displayName);
+                                                  .value.text.length !=
+                                              0) {
+                                        updatePost(
+                                            resources.data![index].sId,
+                                            postEditTitleTextEditingController!
+                                                .value.text,
+                                            postEditDescriptionTextEditingController!
+                                                .value.text,
+                                            FirebaseAuth
+                                                .instance.currentUser!.email,
+                                            FirebaseAuth.instance.currentUser!
+                                                .displayName,
+                                            resources.data![index].description);
+                                      } else {
+                                        changeIsEditingNow("", "", "");
+                                        showAlertDialog(
+                                            "Boş bırakamazsınız..", context);
+                                      }
                                     },
                                     icon: Icon(
                                       Icons.done,
@@ -213,7 +231,10 @@ class _PostsPageViewState extends PostsPageViewModel {
                                           child: Text("Gönderiyi Güncelle"),
                                           onTap: () {
                                             changeIsEditingNow(
-                                                resources.data![index].sId);
+                                                resources.data![index].sId,
+                                                resources.data![index].title,
+                                                resources
+                                                    .data![index].description);
                                           },
                                         )
                                       ];
@@ -233,16 +254,23 @@ class _PostsPageViewState extends PostsPageViewModel {
                     height: 20.h,
                     width: double.maxFinite,
                     child: TextFormField(
+                      validator: FormFieldValidator().isNotEmpty,
                       decoration: InputDecoration(
-                        suffixIconColor: ColorManager.red,
+                        counterText: "",
                         enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                          color: ColorManager.red,
+                          color: ColorManager.primary,
                           width: 2.0,
                         )),
+                        errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                              color: ColorManager.red,
+                              width: 2.0,
+                            )),
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                          color: ColorManager.red,
+                          color: Colors.transparent,
                           width: 2.0,
                         )),
                       ),
@@ -472,4 +500,14 @@ class _PostsPageViewState extends PostsPageViewModel {
           );
         });
   }
+}
+
+class FormFieldValidator {
+  String? isNotEmpty(String? data) {
+    return (data?.isNotEmpty ?? false) ? null : ValidateMessage._isNotEmpty;
+  }
+}
+
+class ValidateMessage {
+  static const String _isNotEmpty = "Bu alan boş geçilemez";
 }

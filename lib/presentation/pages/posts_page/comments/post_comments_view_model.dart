@@ -12,6 +12,8 @@ import '../../../../sources/showalertdialog.dart';
 abstract class PostCommentsViewModel extends State<PostCommentsView> {
   TextEditingController commentTextEditingController = TextEditingController();
 
+  TextEditingController commentEditEditingController = TextEditingController();
+
   late final ICommentService commentService;
 
   StreamController<List<Comment>> streamController =
@@ -27,6 +29,14 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
     super.initState();
     commentService = CommentService(service); //BASEURL
     _bind();
+  }
+
+  String isEditingNow = "";
+  void changeIsEditingNow(commentId, oldDescription) {
+    commentEditEditingController.text = oldDescription;
+    setState(() {
+      isEditingNow = commentId;
+    });
   }
 
   bool isLoading = false;
@@ -52,8 +62,13 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
 
   Future<void> deleteComment(id) async {
     await commentService.deleteCommentItem(widget.id, id);
-
     _bind();
+  }
+
+  Future<void> updateComment(commentId, description) async {
+    await commentService.updateCommentItem(widget.id, commentId, description);
+    _bind();
+    isEditingNow = "";
   }
 
   Future<List<Comment>> fetch(String id) async {

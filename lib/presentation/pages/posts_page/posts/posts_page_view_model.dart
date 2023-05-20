@@ -20,6 +20,11 @@ abstract class PostsPageViewModel extends State<PostsPageView>
   TextEditingController? postEditDescriptionTextEditingController =
       TextEditingController();
 
+  StreamController<bool> EditTitleController =
+      StreamController<bool>.broadcast();
+  StreamController<bool> EditDescriptionController =
+      StreamController<bool>.broadcast();
+
   ScrollController scrollController = ScrollController();
 
   String? selected_faculty = "";
@@ -45,7 +50,10 @@ abstract class PostsPageViewModel extends State<PostsPageView>
   }
 
   String isEditingNow = "";
-  void changeIsEditingNow(id) {
+  void changeIsEditingNow(id, oldTitle, oldDescription) {
+    postEditDescriptionTextEditingController!.text = oldDescription;
+    postEditTitleTextEditingController!.text = oldTitle;
+
     setState(() {
       isEditingNow = id;
     });
@@ -82,16 +90,13 @@ abstract class PostsPageViewModel extends State<PostsPageView>
   }
 
   Future<void> updatePost(
-      postId, newTitle, newDescription, email, creator) async {
+      postId, newTitle, newDescription, email, creator, oldDescription) async {
     changeLoading();
-    if (postEditTitleTextEditingController!.value.text.length < 19) {
-      await postService.updateResourceItem(
-          postId, newTitle, newDescription, email, creator);
-      _bind();
-      isEditingNow = "";
-    } else {
-      showAlertDialog("19 karakterden uzun başlık giremezsiniz", context);
-    }
+
+    await postService.updateResourceItem(
+        postId, newTitle, newDescription, email, creator);
+    _bind();
+    isEditingNow = "";
 
     changeLoading();
 

@@ -17,6 +17,8 @@ abstract class ICommentService {
   Future<commentModel?> postCommentItem(
       String commentText, String id, String email);
   Future<commentModel?> deleteCommentItem(String postId, String commentId);
+  Future<commentModel?> updateCommentItem(
+      String postId, String commentId, String description);
 }
 
 class CommentService extends ICommentService {
@@ -44,5 +46,11 @@ class CommentService extends ICommentService {
   Future<commentModel?> deleteCommentItem(
       String postId, String commentId) async {
     final response = await dio.delete("deleteComment/${postId}/${commentId}");
+  }
+
+  Future<commentModel?> updateCommentItem(
+      String postId, String commentId, String description) async {
+    final response = await dio.put("updateComment/${postId}/${commentId}",
+        data: {"description": description});
   }
 }
