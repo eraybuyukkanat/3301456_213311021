@@ -148,13 +148,13 @@ class _PostsPageViewState extends PostsPageViewModel {
                                     maxLength: 20,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .displayMedium
+                                        .bodyLarge
                                         ?.copyWith(
                                             color: ColorManager.white,
-                                            fontSize: 25),
+                                            fontSize: 17),
                                     decoration: InputDecoration(
                                       counterText: "",
-                                      contentPadding: EdgeInsets.all(4),
+                                      contentPadding: EdgeInsets.all(10),
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                         color: ColorManager.white,
@@ -254,6 +254,10 @@ class _PostsPageViewState extends PostsPageViewModel {
                     height: 20.h,
                     width: double.maxFinite,
                     child: TextFormField(
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: ColorManager.black, fontSize: 18),
                       validator: FormFieldValidator().isNotEmpty,
                       decoration: InputDecoration(
                         counterText: "",
@@ -346,11 +350,13 @@ class _PostsPageViewState extends PostsPageViewModel {
                 ),
                 Row(
                   children: [
+                    /*
                     Icon(
                       Icons.favorite,
                       size: 30,
                       color: ColorManager.red,
                     ),
+                      */
                     Padding(
                       padding: const EdgeInsets.only(right: 10, left: 20),
                       child: IconButton(
@@ -374,6 +380,7 @@ class _PostsPageViewState extends PostsPageViewModel {
                               ),
                             ),
                           );
+                          changeIsEditingNow("", "", "");
                         },
                       ),
                     ),

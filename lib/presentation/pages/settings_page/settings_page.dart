@@ -21,6 +21,7 @@ class _SettingsPageState extends ProfilePageViewModel {
   String? pageTitle = "AYARLAR";
   String profileText = "PROFİLİM";
   String chngPsswdText = "ŞİFRE DEĞİŞTİR";
+  String scheduleText = "DERS PROGRAMIM";
   String reportText = "HATA BİLDİR";
   String exitText = "Çıkış Yap";
   @override
@@ -64,6 +65,15 @@ class _SettingsPageState extends ProfilePageViewModel {
                           text: chngPsswdText,
                           onPressed: (() {
                             Navigator.pushNamed(context, "/changepassword");
+                          })),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: widthSizedButton(
+                          color: ColorManager.primary,
+                          text: scheduleText,
+                          onPressed: (() {
+                            Navigator.pushNamed(context, "/schedulepage");
                           })),
                     ),
                     Padding(
@@ -148,6 +158,7 @@ class _SettingsPageState extends ProfilePageViewModel {
                             .textTheme
                             .headlineMedium
                             ?.copyWith(color: ColorManager.white),
+                        maxLines: 2,
                       ),
                     ),
                     IconButton(
@@ -158,6 +169,7 @@ class _SettingsPageState extends ProfilePageViewModel {
                               return AlertDialog(
                                 title: Text("Öğrenci Adı"),
                                 content: TextFormField(
+                                  maxLength: 10,
                                   controller: displayNameController,
                                   decoration: InputDecoration(
                                       hintText: "Öğrenci Adınızı Giriniz..."),

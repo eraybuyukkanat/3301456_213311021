@@ -263,7 +263,7 @@ class _PostCommentsViewState extends PostCommentsViewModel {
                                                           style: Theme.of(
                                                                   context)
                                                               .textTheme
-                                                              .displayMedium
+                                                              .bodyMedium
                                                               ?.copyWith(
                                                                   color:
                                                                       ColorManager

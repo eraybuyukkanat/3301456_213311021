@@ -8,6 +8,7 @@ import 'package:social_media_app_demo/presentation/pages/home_page/communities/c
 import 'package:social_media_app_demo/presentation/pages/home_page/socialevents/socialevents.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/chngepasswd/chngepasswd_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/report/report_view.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view.dart';
 
 class RouteNavigation {
   static Route<dynamic>? routeNavigation(RouteSettings settings) {
@@ -40,6 +41,10 @@ class RouteNavigation {
       case '/socialevents':
         return _createRoute(
           SocialEventsPage(),
+        );
+      case '/schedulepage':
+        return _createRoute(
+          SchedulePageView(),
         );
       default:
         return MaterialPageRoute(

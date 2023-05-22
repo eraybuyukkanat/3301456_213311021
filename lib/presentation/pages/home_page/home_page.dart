@@ -1,13 +1,19 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
+import 'package:social_media_app_demo/config/database.dart';
 import 'package:social_media_app_demo/main.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/communities/communities.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/socialevents/socialevents.dart';
+import 'package:social_media_app_demo/sources/loading_bar.dart';
 
 import '../../../sources/colors.dart';
+import '../settings_page/pages/schedule/lesson_model.dart';
+import '../settings_page/pages/schedule/schedule_view_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +23,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  DatabaseManager databaseManager = DatabaseManager();
+  List<Lesson> lessonList = [];
+
+  Future<void> getUserList() async {
+    lessonList = await databaseManager.getList();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserList();
+  }
+
   Map sosyalList = {
     0: "Topluluklar",
     1: "Sosyal Etkinlikler",
@@ -42,6 +62,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   String? listViewTitle1 = "Sosyal";
   String? listViewTitle2 = "Ders";
   PageController pageController = PageController();
+  PageController pageController2 = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +113,55 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Expanded(
                 flex: 4,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: scheduleCardWidget(pageController: pageController),
-                ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Card(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: ColorManager.primary,
+                            borderRadius: BorderRadius.circular(10)),
+                        width: double.maxFinite,
+                        child: PageView.builder(
+                          controller: pageController2,
+                          scrollDirection: Axis.vertical,
+                          itemCount: lessonList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                ListTile(
+                                  subtitle: Text(
+                                    lessonList[index].lessonDay.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                            color: ColorManager.white,
+                                            fontSize: 14),
+                                  ),
+                                  title: Text(
+                                      lessonList[index].lessonName.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                              color: ColorManager.white,
+                                              fontSize: 16)),
+                                  trailing: Text(
+                                      lessonList[index].lessonClass.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                              color: ColorManager.white,
+                                              fontSize: 16)),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    )),
               ),
               // BUTTON
               IconButton(
@@ -155,56 +222,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class scheduleCardWidget extends StatelessWidget {
-  const scheduleCardWidget({
-    super.key,
-    required this.pageController,
-  });
-
-  final PageController pageController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        decoration: BoxDecoration(
-            color: ColorManager.primary,
-            borderRadius: BorderRadius.circular(10)),
-        width: double.maxFinite,
-        child: PageView.builder(
-          controller: pageController,
-          scrollDirection: Axis.vertical,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ListTile(
-                    subtitle: Text(
-                      "13.00",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ColorManager.white, fontSize: 14),
-                    ),
-                    title: Text("Mühendislik Matematiği",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: ColorManager.white, fontSize: 16)),
-                    trailing: Text("B-109",
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: ColorManager.white, fontSize: 16)),
-                  ),
-                ],
-              ),
-            );
-          },
         ),
       ),
     );

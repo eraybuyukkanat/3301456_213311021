@@ -19,6 +19,7 @@ abstract class IPostService {
   Future<void> deleteResourceItem(id);
   Future<void> updateResourceItem(
       postId, newTitle, newDescription, email, creator);
+  Future<void> getPostFavorite(postId);
 }
 
 class PostService extends IPostService {
@@ -58,5 +59,9 @@ class PostService extends IPostService {
       'email': email,
       'creator': creator
     });
+  }
+
+  Future<void> getPostFavorite(postId) async {
+    final response = await dio.get("favorites/${postId}");
   }
 }
