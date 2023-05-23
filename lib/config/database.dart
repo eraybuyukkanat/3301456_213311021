@@ -38,6 +38,41 @@ class DatabaseManager with projectDate {
     return userMaps.map((e) => Lesson.fromMap(e)).toList();
   }
 
+  Future<List<Lesson>> getPazartesiList() async {
+    final db = await getDB();
+    List<Map> userMaps = await db.query(userTableName,
+        where: '$columnDay = ?', whereArgs: ["Pazartesi"]);
+    return userMaps.map((e) => Lesson.fromMap(e)).toList();
+  }
+
+  Future<List<Lesson>> getSaliList() async {
+    final db = await getDB();
+    List<Map> userMaps = await db
+        .query(userTableName, where: '$columnDay = ?', whereArgs: ["Salı"]);
+    return userMaps.map((e) => Lesson.fromMap(e)).toList();
+  }
+
+  Future<List<Lesson>> getCarsambaList() async {
+    final db = await getDB();
+    List<Map> userMaps = await db
+        .query(userTableName, where: '$columnDay = ?', whereArgs: ["Çarşamba"]);
+    return userMaps.map((e) => Lesson.fromMap(e)).toList();
+  }
+
+  Future<List<Lesson>> getPersembeList() async {
+    final db = await getDB();
+    List<Map> userMaps = await db
+        .query(userTableName, where: '$columnDay = ?', whereArgs: ["Perşembe"]);
+    return userMaps.map((e) => Lesson.fromMap(e)).toList();
+  }
+
+  Future<List<Lesson>> getCumaList() async {
+    final db = await getDB();
+    List<Map> userMaps = await db
+        .query(userTableName, where: '$columnDay = ?', whereArgs: ["Cuma"]);
+    return userMaps.map((e) => Lesson.fromMap(e)).toList();
+  }
+
   Future<Lesson?> getItem(int id) async {
     final db = await getDB();
     final lessonMaps = await db.query(userTableName,

@@ -65,36 +65,59 @@ class communityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.8),
-              spreadRadius: 5,
-              blurRadius: 10,
-              offset: Offset(0, 5),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(10),
-          color: ColorManager.secondary,
-        ),
+    return Card(
+        elevation: 20,
         child: Container(
           decoration: BoxDecoration(
-              color: ColorManager.secondary,
-              borderRadius: BorderRadius.circular(5)),
+            color: ColorManager.primary,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          height: 200,
+          width: double.maxFinite,
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 3.h),
-                Text("TOPLULUK ADI"),
-                SizedBox(height: 2.h),
-                Text("TOPLULUK AÇILIMI"),
-                SizedBox(height: 2.h),
-                Text("TOPLULUK AÇILIMI"),
-                SizedBox(height: 2.h),
-                Text("TOPLULUĞA KATIL BUTONU"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Text(
+                        "d",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium
+                            ?.copyWith(color: ColorManager.white),
+                        maxLines: 2,
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  "c",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: ColorManager.white),
+                  maxLines: 2,
+                ),
+                Text(
+                  "b",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: ColorManager.white),
+                  maxLines: 2,
+                ),
+                Text(
+                  "a",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: ColorManager.white),
+                  maxLines: 2,
+                ),
               ],
             ),
           ),

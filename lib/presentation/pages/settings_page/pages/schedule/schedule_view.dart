@@ -204,60 +204,82 @@ class _SchedulePageViewState extends SchedulePageViewModel {
               ),
             ),
             Expanded(
-              flex: 4,
+              flex: 5,
               child: StreamBuilder<List<Lesson>>(
                 stream: streamController.stream,
                 builder: (context, snapshot) {
                   return ListView.builder(
-                    itemCount: lessonList.length,
-                    itemBuilder: (_, index) => Card(
-                      elevation: 20,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          title: Text(lessonList[index].lessonName.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium
-                                  ?.copyWith(
-                                      fontSize: 18, color: ColorManager.black)),
-                          subtitle: Text(lessonList[index].lessonDay.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium
-                                  ?.copyWith(
-                                      fontSize: 16, color: ColorManager.black)),
-                          leading: Column(
-                            children: [
-                              Text(
-                                lessonList[index].lessonClass.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(fontSize: 18),
-                              ),
-                              Text(
-                                lessonList[index].lessonTime.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(fontSize: 18),
-                              ),
-                            ],
-                          ),
-                          trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete,
-                              color: ColorManager.red,
+                      itemCount: lessonList.length,
+                      itemBuilder: (_, index) => Card(
+                          elevation: 20,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: ColorManager.primary,
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            onPressed: () {
-                              deleteModel(lessonList[index].id);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
+                            height: 200,
+                            width: double.maxFinite,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          lessonList[index]
+                                              .lessonName
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium
+                                              ?.copyWith(
+                                                  color: ColorManager.white),
+                                          maxLines: 2,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(
+                                          Icons.delete,
+                                          color: ColorManager.red,
+                                        ),
+                                        onPressed: () {
+                                          deleteModel(lessonList[index].id);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    lessonList[index].lessonDay.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(color: ColorManager.white),
+                                    maxLines: 2,
+                                  ),
+                                  Text(
+                                    lessonList[index].lessonTime.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(color: ColorManager.white),
+                                    maxLines: 2,
+                                  ),
+                                  Text(
+                                    lessonList[index].lessonClass.toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(color: ColorManager.white),
+                                    maxLines: 2,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )));
                 },
               ),
             ),

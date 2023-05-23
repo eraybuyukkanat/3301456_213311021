@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage>
     with TickerProviderStateMixin, projectDate {
   DatabaseManager databaseManager = DatabaseManager();
   List<Lesson> lessonList = [];
-  List<Lesson> todaysLessons = [];
+
   Future<void> getTodayList() async {
     lessonList = await databaseManager.getTodayList();
     setState(() {});
