@@ -3,9 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/lesson_model.dart';
+import 'package:social_media_app_demo/sources/date.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseManager {
+class DatabaseManager with projectDate {
   String userDatabaseName = "db_${FirebaseAuth.instance.currentUser!.uid}_db";
   String userTableName = "db_${FirebaseAuth.instance.currentUser!.uid}_lessons";
 
@@ -27,6 +28,13 @@ class DatabaseManager {
   Future<List<Lesson>> getList() async {
     final db = await getDB();
     List<Map> userMaps = await db.query(userTableName);
+    return userMaps.map((e) => Lesson.fromMap(e)).toList();
+  }
+
+  Future<List<Lesson>> getTodayList() async {
+    final db = await getDB();
+    List<Map> userMaps = await db.query(userTableName,
+        where: '$columnDay = ?', whereArgs: [currentDayTR()]);
     return userMaps.map((e) => Lesson.fromMap(e)).toList();
   }
 

@@ -12,14 +12,22 @@ abstract class SchedulePageViewModel extends State<SchedulePageView> {
   DatabaseManager databaseManager = DatabaseManager();
 
   TextEditingController lessonNameEditingController = TextEditingController();
-  TextEditingController lessonDayEditingController = TextEditingController();
   TextEditingController lessonTimeEditingController = TextEditingController();
   TextEditingController lessonClassEditingController = TextEditingController();
   StreamController<List<Lesson>> streamController =
       StreamController<List<Lesson>>.broadcast();
   List<Lesson> lessonList = [];
 
-  Future getUserList() async {
+  final List<String> items = [
+    'Pazartesi',
+    'Salı',
+    'Çarşamba',
+    'Perşembe',
+    'Cuma'
+  ];
+  String? selectedValue;
+
+  Future getLessonsList() async {
     lessonList = await databaseManager.getList();
     setState(() {});
   }
@@ -32,18 +40,18 @@ abstract class SchedulePageViewModel extends State<SchedulePageView> {
   void initState() {
     openDB();
     super.initState();
-    getUserList();
+    getLessonsList();
   }
 
   _bind() async {
-    getUserList();
+    getLessonsList();
     streamController.sink.add(lessonList.toList());
   }
 
   Future<void> saveModel(Lesson lessonModel) async {
     final result = await databaseManager.insert(lessonModel);
     lessonNameEditingController.clear();
-    lessonDayEditingController.clear();
+    selectedValue = null;
     lessonTimeEditingController.clear();
     lessonClassEditingController.clear();
     _bind();

@@ -1,8 +1,10 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view_model.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/lesson_model.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
+import 'package:social_media_app_demo/sources/date.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 class SchedulePageView extends StatefulWidget {
@@ -83,25 +85,54 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 5),
-                            width: 70.w,
                             height: 9.h,
-                            child: TextFormField(
-                              controller: lessonDayEditingController,
-                              decoration: InputDecoration(
-                                hintText: "Dersin Günü..",
-                                border: OutlineInputBorder(),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.third,
-                                      width: 2.0,
-                                    )),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.primary,
-                                      width: 2.0,
-                                    )),
+                            width: 70.w,
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton2(
+                                hint: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Dersin Günü',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Theme.of(context).hintColor,
+                                    ),
+                                  ),
+                                ),
+                                items: items
+                                    .map((item) => DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                              item,
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                          ),
+                                        ))
+                                    .toList(),
+                                value: selectedValue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedValue = value as String;
+                                  });
+                                },
+                                buttonStyleData: ButtonStyleData(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: ColorManager.third,
+                                        width: 2,
+                                        style: BorderStyle.solid),
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  height: 40,
+                                  width: 140,
+                                ),
+                                menuItemStyleData: const MenuItemStyleData(
+                                  height: 40,
+                                ),
                               ),
                             ),
                           ),
@@ -160,8 +191,7 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                             saveModel(Lesson(
                                 lessonName:
                                     lessonNameEditingController.value.text,
-                                lessonDay:
-                                    lessonDayEditingController.value.text,
+                                lessonDay: selectedValue,
                                 lessonTime:
                                     lessonTimeEditingController.value.text,
                                 lessonClass:
@@ -181,6 +211,7 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                   return ListView.builder(
                     itemCount: lessonList.length,
                     itemBuilder: (_, index) => Card(
+                      elevation: 20,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
@@ -190,19 +221,29 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                   .headlineMedium
                                   ?.copyWith(
                                       fontSize: 18, color: ColorManager.black)),
-                          subtitle: Text(
-                              lessonList[index].lessonClass.toString(),
+                          subtitle: Text(lessonList[index].lessonDay.toString(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineMedium
                                   ?.copyWith(
                                       fontSize: 16, color: ColorManager.black)),
-                          leading: Text(
-                            lessonList[index].id.toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(fontSize: 22),
+                          leading: Column(
+                            children: [
+                              Text(
+                                lessonList[index].lessonClass.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(fontSize: 18),
+                              ),
+                              Text(
+                                lessonList[index].lessonTime.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(fontSize: 18),
+                              ),
+                            ],
                           ),
                           trailing: IconButton(
                             icon: Icon(
