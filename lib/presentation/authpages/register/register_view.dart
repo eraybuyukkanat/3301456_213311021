@@ -129,7 +129,7 @@ class _RegisterScreenViewState extends RegisterScreenViewModel {
                             Container(
                               width: 40.w,
                               child: widthSizedButton(
-                                  color: ColorManager.third,
+                                  color: ColorManager.primary,
                                   text: loginText,
                                   textColor: ColorManager.white,
                                   onPressed: () {

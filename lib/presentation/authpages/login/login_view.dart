@@ -187,7 +187,7 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                           Container(
                             width: 40.w,
                             child: widthSizedButton(
-                                color: ColorManager.third,
+                                color: ColorManager.primary,
                                 text: signInText,
                                 textColor: ColorManager.white,
                                 onPressed: () {
