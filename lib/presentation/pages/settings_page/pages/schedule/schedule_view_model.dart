@@ -18,6 +18,12 @@ abstract class SchedulePageViewModel extends State<SchedulePageView> {
       StreamController<List<Lesson>>.broadcast();
   List<Lesson> lessonList = [];
 
+  bool ekleniyoMu = false;
+  void ekleniyor() async {
+    ekleniyoMu = !ekleniyoMu;
+    setState(() {});
+  }
+
   final List<String> items = [
     'Pazartesi',
     'Salı',

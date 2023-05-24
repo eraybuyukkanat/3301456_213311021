@@ -24,7 +24,7 @@ class widthSizedButton extends StatelessWidget {
       height: 7.h,
       width: double.maxFinite,
       decoration: BoxDecoration(
-        color: ColorManager.primary,
+        color: color ?? ColorManager.primary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextButton(

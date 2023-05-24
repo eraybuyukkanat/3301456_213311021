@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view_model.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/lesson_model.dart';
+import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/date.dart';
+import 'package:social_media_app_demo/sources/showalertdialog.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 
 class SchedulePageView extends StatefulWidget {
@@ -43,178 +45,212 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                 ?.copyWith(color: ColorManager.black),
           )),
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Text("Ders Ekle"),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
+        child: ekleniyoMu == true
+            ? SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            width: 70.w,
-                            height: 9.h,
-                            child: TextFormField(
-                              controller: lessonNameEditingController,
-                              decoration: InputDecoration(
-                                hintText: "Dersin Adı..",
-                                border: OutlineInputBorder(),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.third,
-                                      width: 2.0,
-                                    )),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.primary,
-                                      width: 2.0,
-                                    )),
-                              ),
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Text("Ders Ekle"),
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            height: 9.h,
-                            width: 70.w,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton2(
-                                hint: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Dersin Günü',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Theme.of(context).hintColor,
+                          Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                width: double.maxFinite,
+                                child: TextFormField(
+                                  controller: lessonNameEditingController,
+                                  decoration: InputDecoration(
+                                    hintText: "Dersin Adı..",
+                                    border: OutlineInputBorder(),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: ColorManager.third,
+                                          width: 2.0,
+                                        )),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: ColorManager.primary,
+                                          width: 2.0,
+                                        )),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                width: double.maxFinite,
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton2(
+                                    hint: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Dersin Günü',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Theme.of(context).hintColor,
+                                        ),
+                                      ),
+                                    ),
+                                    items: items
+                                        .map((item) => DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  item,
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ),
+                                            ))
+                                        .toList(),
+                                    value: selectedValue,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        selectedValue = value as String;
+                                      });
+                                    },
+                                    buttonStyleData: ButtonStyleData(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: ColorManager.third,
+                                            width: 2,
+                                            style: BorderStyle.solid),
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      height: 40,
+                                      width: 140,
+                                    ),
+                                    menuItemStyleData: const MenuItemStyleData(
+                                      height: 40,
                                     ),
                                   ),
                                 ),
-                                items: items
-                                    .map((item) => DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              item,
-                                              style: const TextStyle(
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ))
-                                    .toList(),
-                                value: selectedValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedValue = value as String;
-                                  });
-                                },
-                                buttonStyleData: ButtonStyleData(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: ColorManager.third,
-                                        width: 2,
-                                        style: BorderStyle.solid),
-                                    borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                width: double.maxFinite,
+                                child: TextFormField(
+                                  controller: lessonTimeEditingController,
+                                  decoration: InputDecoration(
+                                    hintText: "Dersin Saati..",
+                                    border: OutlineInputBorder(),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: ColorManager.third,
+                                          width: 2.0,
+                                        )),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: ColorManager.primary,
+                                          width: 2.0,
+                                        )),
                                   ),
-                                  height: 40,
-                                  width: 140,
-                                ),
-                                menuItemStyleData: const MenuItemStyleData(
-                                  height: 40,
                                 ),
                               ),
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            width: 70.w,
-                            height: 9.h,
-                            child: TextFormField(
-                              controller: lessonTimeEditingController,
-                              decoration: InputDecoration(
-                                hintText: "Dersin Saati..",
-                                border: OutlineInputBorder(),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.third,
-                                      width: 2.0,
-                                    )),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.primary,
-                                      width: 2.0,
-                                    )),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                width: double.maxFinite,
+                                child: TextFormField(
+                                  controller: lessonClassEditingController,
+                                  decoration: InputDecoration(
+                                    hintText: "Dersin Sınıfı..",
+                                    border: OutlineInputBorder(),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: ColorManager.third,
+                                          width: 2.0,
+                                        )),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                          color: ColorManager.primary,
+                                          width: 2.0,
+                                        )),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                          Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
-                            width: 70.w,
-                            height: 9.h,
-                            child: TextFormField(
-                              controller: lessonClassEditingController,
-                              decoration: InputDecoration(
-                                hintText: "Dersin Sınıfı..",
-                                border: OutlineInputBorder(),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.third,
-                                      width: 2.0,
-                                    )),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.primary,
-                                      width: 2.0,
-                                    )),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: widthSizedButton(
+                                  color: ColorManager.primary,
+                                  text: "Ekle",
+                                  onPressed: () {
+                                    if (lessonNameEditingController.value.text != null &&
+                                        selectedValue != null &&
+                                        lessonTimeEditingController
+                                                .value.text !=
+                                            null &&
+                                        lessonClassEditingController
+                                                .value.text !=
+                                            null) {
+                                      saveModel(
+                                        Lesson(
+                                            lessonName:
+                                                lessonNameEditingController
+                                                    .value.text,
+                                            lessonDay: selectedValue,
+                                            lessonTime:
+                                                lessonTimeEditingController
+                                                    .value.text,
+                                            lessonClass:
+                                                lessonClassEditingController
+                                                    .value.text),
+                                      );
+
+                                      ekleniyor();
+                                    } else {
+                                      showAlertDialog(
+                                          "Boş bırakamazsınız", context);
+                                    }
+                                  },
+                                ),
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: widthSizedButton(
+                                  color: ColorManager.red,
+                                  text: "İptal",
+                                  onPressed: () {
+                                    ekleniyor();
+                                  },
+                                ),
+                              )
+                            ],
                           ),
                         ],
                       ),
-                      IconButton(
-                          onPressed: () {
-                            saveModel(Lesson(
-                                lessonName:
-                                    lessonNameEditingController.value.text,
-                                lessonDay: selectedValue,
-                                lessonTime:
-                                    lessonTimeEditingController.value.text,
-                                lessonClass:
-                                    lessonClassEditingController.value.text));
-                          },
-                          icon: Icon(Icons.send))
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: StreamBuilder<List<Lesson>>(
+                    ),
+                  ],
+                ),
+              )
+            : StreamBuilder<List<Lesson>>(
                 stream: streamController.stream,
                 builder: (context, snapshot) {
                   return ListView.builder(
                       itemCount: lessonList.length,
                       itemBuilder: (_, index) => Card(
-                          elevation: 20,
+                          elevation: 10,
                           child: Container(
                             decoration: BoxDecoration(
-                              color: ColorManager.primary,
+                              color: ColorManager.white,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             height: 200,
@@ -237,7 +273,7 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                               .textTheme
                                               .headlineMedium
                                               ?.copyWith(
-                                                  color: ColorManager.white),
+                                                  color: ColorManager.black),
                                           maxLines: 2,
                                         ),
                                       ),
@@ -257,7 +293,7 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
-                                        ?.copyWith(color: ColorManager.white),
+                                        ?.copyWith(color: ColorManager.black),
                                     maxLines: 2,
                                   ),
                                   Text(
@@ -265,7 +301,7 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
-                                        ?.copyWith(color: ColorManager.white),
+                                        ?.copyWith(color: ColorManager.black),
                                     maxLines: 2,
                                   ),
                                   Text(
@@ -273,7 +309,7 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
-                                        ?.copyWith(color: ColorManager.white),
+                                        ?.copyWith(color: ColorManager.black),
                                     maxLines: 2,
                                   ),
                                 ],
@@ -282,10 +318,15 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                           )));
                 },
               ),
-            ),
-          ],
-        ),
       ),
+      floatingActionButton: ekleniyoMu
+          ? SizedBox()
+          : FloatingActionButton(
+              onPressed: () {
+                ekleniyor();
+              },
+              child: Icon(Icons.add),
+            ),
     );
   }
 }
