@@ -10,7 +10,7 @@ abstract class LoginScreenViewModel extends State<LoginScreenView> {
   TextEditingController? emailTextEditingController = TextEditingController();
   TextEditingController? passwordTextEditingController =
       TextEditingController();
-
+  String text = "Hesabınız yoksa kayıt olun!";
   final formKey = GlobalKey<FormState>();
 
   String title = "Hoşgeldin!";

@@ -62,7 +62,7 @@ class _ChangePasswdPageViewState extends ChangePasswdPageViewModel {
                       SizedBox(
                         height: 1.h,
                       ),
-                      customFormField(
+                      chngePasswdFormField(
                           isPasswordVisibleController:
                               isPasswordVisibleController,
                           newpasswdTextEditingController:
@@ -75,7 +75,7 @@ class _ChangePasswdPageViewState extends ChangePasswdPageViewModel {
                       SizedBox(
                         height: 1.h,
                       ),
-                      customFormField(
+                      chngePasswdFormField(
                           isPasswordVisibleController:
                               isPassword2VisibleController,
                           newpasswdTextEditingController:

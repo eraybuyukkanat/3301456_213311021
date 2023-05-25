@@ -10,6 +10,8 @@ import '../../../sources/showalertdialog.dart';
 abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
   final formKey = GlobalKey<FormState>();
 
+  String text = "Hesabınız varsa giriş yapın!";
+
   TextEditingController? emailTextEditingController = TextEditingController();
   TextEditingController? passwordTextEditingController =
       TextEditingController();
