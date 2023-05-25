@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import 'package:social_media_app_demo/config/database.dart';
 import 'package:social_media_app_demo/sources/date.dart';
+import 'package:social_media_app_demo/sources/texts.dart';
 
 import '../../../sources/colors.dart';
 import '../settings_page/pages/schedule/lesson_model.dart';
@@ -58,8 +59,9 @@ class _HomePageState extends State<HomePage>
   String? tabbarText1 = "ÜNİVERSİTE DUYURULARI";
   String? listViewTitle1 = "Sosyal";
   String? listViewTitle2 = "Ders";
+  String emptyListLesson = "Bugün hiç dersin yok";
   PageController pageController = PageController();
-  PageController pageController2 = PageController();
+  PageController lessonsPageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +100,7 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
 
-              // TITLE
+              // DAY TITLE
               Expanded(
                 flex: 2,
                 child: Padding(
@@ -119,15 +121,12 @@ class _HomePageState extends State<HomePage>
                         width: double.maxFinite,
                         child: lessonList.isEmpty
                             ? Center(
-                                child: Text(
-                                "Bugün hiç dersin yok",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(color: ColorManager.white),
-                              ))
+                                child: bodyMediumText(
+                                    text: emptyListLesson,
+                                    fontSize: 18,
+                                    color: ColorManager.white))
                             : PageView.builder(
-                                controller: pageController2,
+                                controller: lessonsPageController,
                                 scrollDirection: Axis.vertical,
                                 itemCount: lessonList.length,
                                 itemBuilder: (BuildContext context, int index) {
@@ -137,38 +136,40 @@ class _HomePageState extends State<HomePage>
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ListTile(
-                                        subtitle: Text(
-                                          lessonList[index]
-                                              .lessonDay
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium
-                                              ?.copyWith(
-                                                  color: ColorManager.white,
-                                                  fontSize: 14),
-                                        ),
-                                        title: Text(
-                                            lessonList[index]
+                                          title: bodyLargeText(
+                                            text: lessonList[index]
                                                 .lessonName
                                                 .toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyLarge
-                                                ?.copyWith(
-                                                    color: ColorManager.white,
-                                                    fontSize: 16)),
-                                        trailing: Text(
-                                            lessonList[index]
-                                                .lessonClass
+                                            fontSize: 18,
+                                            color: ColorManager.white,
+                                          ),
+                                          subtitle: bodyMediumText(
+                                            text: lessonList[index]
+                                                .lessonDay
                                                 .toString(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium
-                                                ?.copyWith(
-                                                    color: ColorManager.white,
-                                                    fontSize: 16)),
-                                      ),
+                                            fontSize: 14,
+                                            color: ColorManager.white,
+                                          ),
+                                          trailing: Column(
+                                            children: [
+                                              bodyMediumText(
+                                                text: lessonList[index]
+                                                    .lessonClass
+                                                    .toString(),
+                                                fontSize: 16,
+                                                color: ColorManager.white,
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 5),
+                                              ),
+                                              bodyMediumText(
+                                                text: lessonList[index]
+                                                    .lessonTime
+                                                    .toString(),
+                                                fontSize: 16,
+                                                color: ColorManager.white,
+                                              ),
+                                            ],
+                                          )),
                                     ],
                                   );
                                 },
@@ -177,11 +178,11 @@ class _HomePageState extends State<HomePage>
                     )),
               ),
               // BUTTON
-              lessonList.isEmpty
+              lessonList.isEmpty || lessonList.length == 1
                   ? SizedBox()
                   : IconButton(
                       onPressed: () {
-                        pageController2.nextPage(
+                        lessonsPageController.nextPage(
                             duration: Duration(milliseconds: 400),
                             curve: Curves.easeIn);
                       },

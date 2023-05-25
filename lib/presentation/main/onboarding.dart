@@ -3,6 +3,7 @@ import 'package:social_media_app_demo/presentation/authpages/login/login_view.da
 import 'package:social_media_app_demo/sources/colors.dart';
 
 import 'package:flutter/material.dart';
+import 'package:social_media_app_demo/sources/texts.dart';
 
 import '../../cache/shared_manager.dart';
 
@@ -31,6 +32,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         itemCount: texts.length,
         itemBuilder: (context, index) {
           return Container(
+            padding: EdgeInsets.all(10),
             width: double.maxFinite,
             height: double.maxFinite,
             child: Container(
@@ -41,48 +43,40 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        texts[index],
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(color: ColorManager.black, fontSize: 30),
+                      headlineMediumText(
+                        text: texts[index],
+                        fontSize: 30,
+                        color: ColorManager.black,
                       ),
-                      Text(
-                        appName,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(
-                                color: ColorManager.primary, fontSize: 30),
-                      ),
-                      SizedBox(
-                        height: 3.h,
+                      titleMediumText(
+                        text: appName,
+                        fontSize: 30,
+                        color: ColorManager.primary,
                       ),
                       Container(
-                        width: 60.w,
-                        child: Text(
-                          dscrp[index],
-                          style: Theme.of(context).textTheme.bodyLarge,
+                        width: 80.w,
+                        child: bodyLargeText(
+                          text: dscrp[index],
+                          fontSize: 18,
+                          padding: EdgeInsets.only(top: 20),
                         ),
                       ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
                       index == 2
-                          ? ElevatedButton(
-                              onPressed: () {
-                                sharedManager.saveOnboarding(1);
-                                Navigator.pushNamed(context, "/loginpage");
-                              },
-                              child: SizedBox(
-                                  height: 8.h,
-                                  width: 40.w,
-                                  child: Icon(Icons.arrow_right)),
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStatePropertyAll<Color>(
-                                          ColorManager.primary)),
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  sharedManager.saveOnboarding(1);
+                                  Navigator.pushNamed(context, "/loginpage");
+                                },
+                                child: SizedBox(
+                                    width: 70.w,
+                                    child: Icon(Icons.arrow_right)),
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStatePropertyAll<Color>(
+                                            ColorManager.primary)),
+                              ),
                             )
                           : SizedBox(),
                     ],

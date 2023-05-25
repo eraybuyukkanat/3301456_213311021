@@ -53,16 +53,17 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                     titleSmallText(
                       text: email,
                       fontSize: 17,
-                      padding: EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 20, bottom: 10),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: emailTextFormField(
-                        titleTextEditingController: emailTextEditingController,
-                        icon: Icon(Icons.person_outline_outlined),
-                      ),
+                    emailTextFormField(
+                      titleTextEditingController: emailTextEditingController,
+                      icon: Icon(Icons.person_outline_outlined),
                     ),
-                    titleMediumText(text: password, fontSize: 18),
+                    titleMediumText(
+                      text: password,
+                      fontSize: 18,
+                      padding: EdgeInsets.only(top: 20, bottom: 10),
+                    ),
                     passwordTextFormField(
                         isPasswordVisibleController:
                             isPasswordVisibleController,

@@ -52,20 +52,16 @@ class _RegisterScreenViewState extends RegisterScreenViewModel {
                       titleSmallText(
                         text: email,
                         fontSize: 17,
-                        padding: EdgeInsets.only(top: 20),
+                        padding: EdgeInsets.only(top: 20, bottom: 10),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: emailTextFormField(
-                          titleTextEditingController:
-                              emailTextEditingController,
-                          icon: Icon(Icons.person_outline_outlined),
-                        ),
+                      emailTextFormField(
+                        titleTextEditingController: emailTextEditingController,
+                        icon: Icon(Icons.person_outline_outlined),
                       ),
                       titleMediumText(
                         text: password,
                         fontSize: 18,
-                        padding: EdgeInsets.symmetric(vertical: 5),
+                        padding: EdgeInsets.symmetric(vertical: 10),
                       ),
                       passwordTextFormField(
                           isPasswordVisibleController:
@@ -75,7 +71,7 @@ class _RegisterScreenViewState extends RegisterScreenViewModel {
                       titleMediumText(
                         text: password2,
                         fontSize: 18,
-                        padding: EdgeInsets.symmetric(vertical: 5),
+                        padding: EdgeInsets.symmetric(vertical: 10),
                       ),
                       passwordTextFormField(
                           isPasswordVisibleController:

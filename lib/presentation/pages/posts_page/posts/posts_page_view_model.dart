@@ -41,6 +41,15 @@ abstract class PostsPageViewModel extends State<PostsPageView>
   List<Post> resources = [];
 
   @override
+  void dispose() {
+    postTitleTextEditingController!.dispose();
+    postDescriptionTextEditingController!.dispose();
+    postEditTitleTextEditingController!.dispose();
+    postEditDescriptionTextEditingController!.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
 
