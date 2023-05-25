@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/posts/posts_page_view_model.dart';
+import 'package:social_media_app_demo/sources/customformfield.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/post/post_model.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
+import 'package:social_media_app_demo/sources/texts.dart';
 import '../../../../sources/buttons.dart';
 import '../../../../sources/colors.dart';
 
@@ -32,12 +34,10 @@ class _PostsPageViewState extends PostsPageViewModel {
           backgroundColor: ColorManager.white,
           toolbarHeight: 10.h,
           centerTitle: false,
-          title: Text(
-            appBarTitle,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(color: ColorManager.black),
+          title: headlineMediumText(
+            text: appBarTitle,
+            color: ColorManager.black,
+            fontSize: 32,
           ),
           actions: [
             Padding(
@@ -120,10 +120,8 @@ class _PostsPageViewState extends PostsPageViewModel {
                     children: [
                       Row(
                         children: [
-                          SizedBox(
-                            width: 3.w,
-                          ),
                           Container(
+                            padding: EdgeInsets.all(10),
                             child: CircleAvatar(
                               radius: 20,
                               backgroundColor: ColorManager.primary,
@@ -137,49 +135,19 @@ class _PostsPageViewState extends PostsPageViewModel {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width: 3.w,
-                          ),
                           isEditingNow == resources.data![index].sId
                               ? Container(
-                                  height: 6.h,
+                                  padding: EdgeInsets.all(5),
                                   width: 60.w,
-                                  child: TextFormField(
-                                    maxLength: 20,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                            color: ColorManager.white,
-                                            fontSize: 17),
-                                    decoration: InputDecoration(
-                                      counterText: "",
-                                      contentPadding: EdgeInsets.all(10),
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                        color: ColorManager.white,
-                                        width: 2.0,
-                                      )),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                        color: ColorManager.primary,
-                                        width: 2.0,
-                                      )),
-                                    ),
-                                    controller:
-                                        postEditTitleTextEditingController,
-                                  ),
+                                  child: editPostTitleFormField(
+                                      postEditTitleTextEditingController:
+                                          postEditTitleTextEditingController),
                                 )
-                              : Text(
-                                  resources.data![index].title ?? "HATA",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          color: ColorManager.white),
-                                ),
+                              : bodyLargeText(
+                                  text: resources.data![index].title ?? "HATA",
+                                  fontSize: 17,
+                                  color: ColorManager.white,
+                                )
                         ],
                       ),
                       Row(
@@ -246,139 +214,53 @@ class _PostsPageViewState extends PostsPageViewModel {
                 ),
               ],
             ),
-            SizedBox(
-              height: 2.h,
-            ),
             isEditingNow == resources.data![index].sId
                 ? Container(
-                    height: 20.h,
+                    padding: EdgeInsets.symmetric(vertical: 10),
                     width: double.maxFinite,
-                    child: TextFormField(
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ColorManager.black, fontSize: 18),
-                      validator: FormFieldValidator().isNotEmpty,
-                      decoration: InputDecoration(
-                        counterText: "",
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                          color: ColorManager.primary,
-                          width: 2.0,
-                        )),
-                        errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                              color: ColorManager.red,
-                              width: 2.0,
-                            )),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 2.0,
-                        )),
-                      ),
-                      maxLength: 200,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      controller: postEditDescriptionTextEditingController,
-                    ),
+                    child: editPostDescriptionFormField(
+                        postEditDescriptionTextEditingController:
+                            postEditDescriptionTextEditingController),
                   )
-                : Text(
-                    "${resources.data![index].description}",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(fontSize: 18),
-                  ),
-            SizedBox(
-              height: 3.h,
-            ),
+                : bodyMediumText(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    text: "${resources.data![index].description}",
+                    fontSize: 18),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 3),
-                      child: Text(
-                        resources.data![index].creator ?? "HATA",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: ColorManager.black, fontSize: 15),
-                      ),
+                    bodyMediumText(
+                      padding: EdgeInsets.symmetric(vertical: 3),
+                      text: resources.data![index].creator ?? "HATA",
+                      color: ColorManager.black,
+                      fontSize: 15,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 3),
-                      child: Text(
-                        resources.data![index].email ?? "HATA",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: ColorManager.black, fontSize: 15),
-                      ),
+                    bodyMediumText(
+                      padding: EdgeInsets.symmetric(vertical: 3),
+                      text: resources.data![index].email ?? "HATA",
+                      fontSize: 15,
+                      color: ColorManager.black,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 3),
-                      child: Row(
-                        children: [
-                          Text(
-                            date,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: ColorManager.black, fontSize: 15),
-                          ),
-                          SizedBox(
-                            width: 4.w,
-                          ),
-                          Text(
-                            date2,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                    color: ColorManager.black, fontSize: 15),
-                          ),
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        bodyMediumText(
+                          padding: EdgeInsets.only(right: 4.w, top: 3),
+                          text: date,
+                          fontSize: 15,
+                          color: ColorManager.black,
+                        ),
+                        bodyMediumText(
+                          text: date2,
+                          fontSize: 15,
+                        )
+                      ],
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10, left: 20),
-                      child: IconButton(
-                        icon: Icon(Icons.comment),
-                        iconSize: 30,
-                        color: ColorManager.black,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  PostCommentsView(
-                                id: resources.data![index].sId.toString(),
-                                index: index,
-                                title: resources.data![index].title.toString(),
-                                description: resources.data![index].description
-                                    .toString(),
-                                email: resources.data![index].email.toString(),
-                                createdAt:
-                                    resources.data![index].createdAt.toString(),
-                              ),
-                            ),
-                          );
-                          changeIsEditingNow("", "", "");
-                        },
-                      ),
-                    ),
-                  ],
-                )
+                commentIcon(context, resources, index)
               ],
             )
           ],
@@ -387,127 +269,95 @@ class _PostsPageViewState extends PostsPageViewModel {
     );
   }
 
+  Padding commentIcon(
+      BuildContext context, AsyncSnapshot<List<Post>> resources, int index) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 10, left: 20),
+      child: IconButton(
+        icon: Icon(Icons.comment),
+        iconSize: 30,
+        color: ColorManager.black,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => PostCommentsView(
+                id: resources.data![index].sId.toString(),
+                index: index,
+                title: resources.data![index].title.toString(),
+                description: resources.data![index].description.toString(),
+                email: resources.data![index].email.toString(),
+                createdAt: resources.data![index].createdAt.toString(),
+              ),
+            ),
+          );
+          changeIsEditingNow("", "", "");
+        },
+      ),
+    );
+  }
+
   Future<dynamic> addPostPage(BuildContext context) {
+    String? pageTitle = "Gönderi Paylaş";
+    String? title = "Konu Başlığı";
+    String? description = "Açıklama";
+    String? buttonText = "YAYINLA";
     return showModalBottomSheet(
         isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
-          String? pageTitle = "Gönderi Paylaş";
-          String? title = "Konu Başlığı";
-          String? description = "Açıklama";
-          String? buttonText = "YAYINLA";
-
           return Padding(
             padding: EdgeInsets.only(top: 60, right: 20, left: 20),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        pageTitle,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge
-                            ?.copyWith(fontSize: 25),
-                      ),
-                    ],
-                  ),
+                titleLargeText(
+                  text: pageTitle,
+                  fontSize: 25,
+                  padding: EdgeInsets.only(bottom: 30),
                 ),
-                SizedBox(
-                  height: 5.h,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    bodyMediumText(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      text: title,
+                      fontSize: 20,
+                    ),
+                    postTitleInputFormField(
+                        postTitleTextEditingController:
+                            postTitleTextEditingController),
+                  ],
                 ),
-                Form(
-                    child: Container(
+                Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(title,
-                            style: Theme.of(context).textTheme.bodyMedium),
+                      bodyMediumText(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        text: description,
+                        fontSize: 20,
                       ),
-                      StreamBuilder<String?>(builder: (context, snapshot) {
-                        String? hintText1 = 'Gönderi başlığı giriniz...';
-                        return TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: hintText1,
-                          ),
-                          controller: postTitleTextEditingController,
-                          maxLength: 20,
-                        );
-                      }),
+                      postDescriptionInputFormField(
+                          scrollController: scrollController,
+                          postDescriptionTextEditingController:
+                              postDescriptionTextEditingController),
                     ],
                   ),
-                )),
-                SizedBox(
-                  height: 2.h,
                 ),
-                Form(
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Text(description,
-                              style: Theme.of(context).textTheme.bodyMedium),
-                        ),
-                        StreamBuilder<String?>(builder: (context, snapshot) {
-                          String? hintText2 = 'Gönderi açıklaması giriniz...';
-                          return Container(
-                            constraints: BoxConstraints(maxHeight: 150),
-                            child: Scrollbar(
-                              thickness: 10,
-                              radius: Radius.circular(20),
-                              controller: scrollController,
-                              thumbVisibility: true,
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: hintText2,
-                                ),
-                                keyboardType: TextInputType.multiline,
-                                maxLength: 300,
-                                maxLines: 10,
-                                scrollController: scrollController,
-                                controller:
-                                    postDescriptionTextEditingController,
-                              ),
-                            ),
-                          );
-                        }),
-                      ],
-                    ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: widthSizedButton(
+                    color: ColorManager.primary,
+                    text: buttonText,
+                    onPressed: () {
+                      postValues();
+                    },
                   ),
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                widthSizedButton(
-                  color: ColorManager.primary,
-                  text: buttonText,
-                  onPressed: () {
-                    postValues();
-                  },
                 ),
               ],
             ),
           );
         });
   }
-}
-
-class FormFieldValidator {
-  String? isNotEmpty(String? data) {
-    return (data?.isNotEmpty ?? false) ? null : ValidateMessage._isNotEmpty;
-  }
-}
-
-class ValidateMessage {
-  static const String _isNotEmpty = "Bu alan boş geçilemez";
 }

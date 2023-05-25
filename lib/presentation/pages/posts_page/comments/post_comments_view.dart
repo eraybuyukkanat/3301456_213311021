@@ -3,8 +3,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view_model.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:social_media_app_demo/sources/customformfield.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
+import 'package:social_media_app_demo/sources/texts.dart';
 
 import '../../../../sources/colors.dart';
 import '../../../../sources/comment/comment_model.dart';
@@ -73,27 +75,9 @@ class _PostCommentsViewState extends PostCommentsViewModel {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            width: 70.w,
-                            child: TextFormField(
-                              controller: commentTextEditingController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.third,
-                                      width: 2.0,
-                                    )),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide(
-                                      color: ColorManager.primary,
-                                      width: 2.0,
-                                    )),
-                              ),
-                            ),
-                          ),
+                          addCommentFormFieldWidget(
+                              commentTextEditingController:
+                                  commentTextEditingController),
                           IconButton(
                               onPressed: () {
                                 postComments();
@@ -165,167 +149,150 @@ class _PostCommentsViewState extends PostCommentsViewModel {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(5),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Container(
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      child: CircleAvatar(
+                                                        radius: 18,
+                                                        backgroundColor:
+                                                            ColorManager
+                                                                .primary,
                                                         child: CircleAvatar(
-                                                          radius: 18,
-                                                          backgroundColor:
-                                                              ColorManager
-                                                                  .primary,
-                                                          child: CircleAvatar(
-                                                            radius: 35,
-                                                            child: ClipOval(
-                                                              child:
-                                                                  Image.network(
-                                                                src,
-                                                              ),
+                                                          radius: 35,
+                                                          child: ClipOval(
+                                                            child:
+                                                                Image.network(
+                                                              src,
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                      Container(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 10),
-                                                        child: Text(
-                                                          snapshot.data![index]
-                                                              .email
-                                                              .toString(),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          softWrap: false,
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .bodyLarge
-                                                              ?.copyWith(
-                                                                  color:
-                                                                      ColorManager
-                                                                          .white),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  isEditingNow ==
-                                                          snapshot
-                                                              .data![index].sId
-                                                      ? IconButton(
-                                                          onPressed: () {
-                                                            if (commentEditEditingController
+                                                    ),
+                                                    Container(
+                                                        child: bodyLargeText(
+                                                      text: snapshot
+                                                          .data![index].email
+                                                          .toString(),
+                                                      color: ColorManager.white,
+                                                      fontSize: 18,
+                                                      padding: EdgeInsets.only(
+                                                          left: 10),
+                                                    )),
+                                                  ],
+                                                ),
+                                                isEditingNow ==
+                                                        snapshot
+                                                            .data![index].sId
+                                                    ? IconButton(
+                                                        onPressed: () {
+                                                          if (commentEditEditingController
+                                                                  .value
+                                                                  .text
+                                                                  .length !=
+                                                              0) {
+                                                            updateComment(
+                                                                snapshot
+                                                                    .data![
+                                                                        index]
+                                                                    .sId,
+                                                                commentEditEditingController
                                                                     .value
-                                                                    .text
-                                                                    .length !=
-                                                                0) {
-                                                              updateComment(
-                                                                  snapshot
-                                                                      .data![
-                                                                          index]
-                                                                      .sId,
-                                                                  commentEditEditingController
-                                                                      .value
-                                                                      .text);
-                                                            } else {
-                                                              changeIsEditingNow(
-                                                                  "", "");
-                                                              showAlertDialog(
-                                                                  "Boş bırakamazsınız",
-                                                                  context);
-                                                            }
-                                                          },
-                                                          icon: Icon(
-                                                            Icons.done,
-                                                            color: ColorManager
-                                                                .white,
-                                                          ))
-                                                      : SizedBox(),
-                                                ],
-                                              ),
+                                                                    .text);
+                                                          } else {
+                                                            changeIsEditingNow(
+                                                                "", "");
+                                                            showAlertDialog(
+                                                                "Boş bırakamazsınız",
+                                                                context);
+                                                          }
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.done,
+                                                          color: ColorManager
+                                                              .white,
+                                                        ))
+                                                    : SizedBox(),
+                                              ],
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(10),
-                                              child: isEditingNow ==
-                                                      snapshot.data![index].sId
-                                                  ? SizedBox(
-                                                      height: 10.h,
-                                                      child: Container(
-                                                        height: 10.h,
-                                                        width: double.maxFinite,
-                                                        child: TextFormField(
-                                                          style: Theme.of(
-                                                                  context)
-                                                              .textTheme
-                                                              .bodyMedium
-                                                              ?.copyWith(
-                                                                  color:
-                                                                      ColorManager
-                                                                          .white,
-                                                                  fontSize: 20),
-                                                          decoration:
-                                                              InputDecoration(
-                                                            counterText: "",
-                                                            enabledBorder:
-                                                                OutlineInputBorder(
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                              color:
-                                                                  ColorManager
-                                                                      .white,
-                                                              width: 2.0,
-                                                            )),
-                                                            errorBorder:
-                                                                OutlineInputBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            20),
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                                      color: ColorManager
-                                                                          .secondary,
-                                                                      width:
-                                                                          2.0,
-                                                                    )),
-                                                            focusedBorder:
-                                                                OutlineInputBorder(
-                                                                    borderSide:
-                                                                        BorderSide(
-                                                              color:
-                                                                  Colors.white,
-                                                              width: 2.0,
-                                                            )),
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child: isEditingNow ==
+                                                        snapshot
+                                                            .data![index].sId
+                                                    ? SizedBox(
+                                                        height: 15.h,
+                                                        child: Container(
+                                                          height: 15.h,
+                                                          width:
+                                                              double.maxFinite,
+                                                          child: TextFormField(
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodyMedium
+                                                                ?.copyWith(
+                                                                    color: ColorManager
+                                                                        .white,
+                                                                    fontSize:
+                                                                        20),
+                                                            decoration:
+                                                                InputDecoration(
+                                                              counterText: "",
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                color:
+                                                                    ColorManager
+                                                                        .white,
+                                                                width: 2.0,
+                                                              )),
+                                                              errorBorder:
+                                                                  OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              20),
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                        color: ColorManager
+                                                                            .secondary,
+                                                                        width:
+                                                                            2.0,
+                                                                      )),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                color: Colors
+                                                                    .white,
+                                                                width: 2.0,
+                                                              )),
+                                                            ),
+                                                            maxLength: 100,
+                                                            maxLines: null,
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .multiline,
+                                                            controller:
+                                                                commentEditEditingController,
                                                           ),
-                                                          maxLength: 100,
-                                                          maxLines: null,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .multiline,
-                                                          controller:
-                                                              commentEditEditingController,
                                                         ),
-                                                      ),
-                                                    )
-                                                  : Text(
-                                                      snapshot.data![index]
-                                                              .description ??
-                                                          "HATA",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyMedium
-                                                          ?.copyWith(
-                                                              fontSize: 17,
-                                                              color:
-                                                                  ColorManager
-                                                                      .white),
-                                                    ),
-                                            ),
+                                                      )
+                                                    : bodyMediumText(
+                                                        text: snapshot
+                                                                .data![index]
+                                                                .description ??
+                                                            "HATA",
+                                                        fontSize: 20,
+                                                        color:
+                                                            ColorManager.white,
+                                                      )),
                                           ],
                                         ),
                                       ),

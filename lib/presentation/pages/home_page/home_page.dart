@@ -258,13 +258,11 @@ class scheduleDayWidget extends StatelessWidget with projectDate {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              currentDayTR().toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(fontSize: 22, fontWeight: FontWeight.w500),
-            ),
+            bodyMediumText(
+              text: currentDayTR().toString(),
+              fontSize: 22,
+              fontWeight: FontWeight.w500,
+            )
           ],
         ),
       ],
@@ -311,20 +309,17 @@ class welcomingText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Tekrar Hoşgeldin,",
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: ColorManager.primary,
-              fontSize: 20,
-              fontWeight: FontWeight.w500),
+        headlineSmallText(
+          text: "Tekrar Hoşgeldin,",
+          fontSize: 20,
+          color: ColorManager.primary,
+          fontWeight: FontWeight.w500,
         ),
-        Text(
-          FirebaseAuth.instance.currentUser!.displayName.toString(),
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: ColorManager.black,
-              fontSize: 25,
-              fontWeight: FontWeight.w700),
-        ),
+        headlineLargeText(
+            text: FirebaseAuth.instance.currentUser!.displayName.toString(),
+            fontSize: 25,
+            color: ColorManager.black,
+            fontWeight: FontWeight.w800)
       ],
     );
   }
@@ -341,22 +336,18 @@ class appBarDate extends StatelessWidget with projectDate {
       children: [
         Icon(Icons.date_range),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            currentDateTR(),
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(fontWeight: FontWeight.w500, fontSize: 18),
-          ),
-        ),
-        Text(
-          currentDayTR().toString(),
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: bodyMediumText(
+              text: currentDateTR(),
               fontWeight: FontWeight.w500,
-              fontSize: 14,
-              color: ColorManager.primary),
-        ),
+              fontSize: 18,
+            )),
+        bodySmallText(
+          text: currentDayTR().toString(),
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: ColorManager.primary,
+        )
       ],
     );
   }

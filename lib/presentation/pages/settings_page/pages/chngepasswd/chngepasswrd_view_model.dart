@@ -6,6 +6,12 @@ import 'package:flutter/material.dart';
 import 'chngepasswd_view.dart';
 
 abstract class ChangePasswdPageViewModel extends State<ChangePasswdPageView> {
+  String pageTitle = "Şifre Değiştir";
+  String field1Title = "Yeni Şifre";
+  String field2Title = "Yeni Şifre";
+  String buttonText = "Kaydet";
+  String infoText = "*Şifreler aynı ve 6 karakterden uzun olmalıdır";
+
   TextEditingController? newpasswdTextEditingController =
       TextEditingController();
   TextEditingController? newpasswd2TextEditingController =

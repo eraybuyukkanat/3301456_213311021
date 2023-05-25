@@ -5,12 +5,14 @@ class bodySmallText extends StatelessWidget {
       {super.key,
       required this.text,
       required this.fontSize,
+      this.fontWeight,
       this.padding,
       this.color});
 
   final String text;
   final double fontSize;
   EdgeInsets? padding;
+  FontWeight? fontWeight;
   Color? color;
 
   @override
@@ -20,7 +22,7 @@ class bodySmallText extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            fontWeight: FontWeight.normal, fontSize: fontSize, color: color),
+            fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
     );
   }
@@ -30,6 +32,7 @@ class bodyMediumText extends StatelessWidget {
   bodyMediumText(
       {super.key,
       required this.text,
+      this.fontWeight,
       required this.fontSize,
       this.padding,
       this.color});
@@ -37,6 +40,7 @@ class bodyMediumText extends StatelessWidget {
   final String text;
   final double fontSize;
   EdgeInsets? padding;
+  FontWeight? fontWeight;
   Color? color;
 
   @override
@@ -46,7 +50,7 @@ class bodyMediumText extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.bold, fontSize: fontSize, color: color),
+            fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
     );
   }
@@ -57,11 +61,13 @@ class bodyLargeText extends StatelessWidget {
       {super.key,
       required this.text,
       required this.fontSize,
+      this.fontWeight,
       this.padding,
       this.color});
 
   final String text;
   final double fontSize;
+  FontWeight? fontWeight;
   EdgeInsets? padding;
   Color? color;
 
@@ -72,7 +78,7 @@ class bodyLargeText extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-            fontWeight: FontWeight.bold, fontSize: fontSize, color: color),
+            fontWeight: fontWeight, fontSize: fontSize, color: color),
       ),
     );
   }
@@ -82,6 +88,7 @@ class titleSmallText extends StatelessWidget {
   titleSmallText(
       {super.key,
       required this.text,
+      this.fontWeight,
       required this.fontSize,
       this.padding,
       this.color});
@@ -89,6 +96,7 @@ class titleSmallText extends StatelessWidget {
   final String text;
   final double fontSize;
   EdgeInsets? padding;
+  FontWeight? fontWeight;
   Color? color;
 
   @override
@@ -98,7 +106,7 @@ class titleSmallText extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            fontWeight: FontWeight.normal, fontSize: fontSize, color: color),
+            fontWeight: fontWeight, fontSize: fontSize, color: color),
       ),
     );
   }
@@ -109,11 +117,13 @@ class titleMediumText extends StatelessWidget {
       {super.key,
       required this.text,
       required this.fontSize,
+      this.fontWeight,
       this.padding,
       this.color});
 
   final String text;
   final double fontSize;
+  FontWeight? fontWeight;
   EdgeInsets? padding;
   Color? color;
 
@@ -124,7 +134,7 @@ class titleMediumText extends StatelessWidget {
       child: Text(
         text,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.normal, fontSize: fontSize, color: color),
+            fontWeight: fontWeight, fontSize: fontSize, color: color),
       ),
     );
   }
@@ -135,11 +145,13 @@ class titleLargeText extends StatelessWidget {
       {super.key,
       required this.text,
       required this.fontSize,
+      this.fontWeight,
       this.padding,
       this.color});
 
   final String text;
   final double fontSize;
+  FontWeight? fontWeight;
   EdgeInsets? padding;
   Color? color;
 
@@ -149,10 +161,8 @@ class titleLargeText extends StatelessWidget {
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
         text,
-        style: Theme.of(context)
-            .textTheme
-            .titleLarge
-            ?.copyWith(fontSize: fontSize, color: color),
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
     );
   }
@@ -164,10 +174,12 @@ class headlineSmallText extends StatelessWidget {
       required this.text,
       required this.fontSize,
       this.padding,
+      this.fontWeight,
       this.color});
 
   final String text;
   final double fontSize;
+  FontWeight? fontWeight;
   EdgeInsets? padding;
   Color? color;
 
@@ -177,10 +189,8 @@ class headlineSmallText extends StatelessWidget {
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
         text,
-        style: Theme.of(context)
-            .textTheme
-            .headlineSmall
-            ?.copyWith(fontSize: fontSize, color: color),
+        style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
     );
   }
@@ -191,12 +201,14 @@ class headlineMediumText extends StatelessWidget {
       {super.key,
       required this.text,
       required this.fontSize,
+      this.fontWeight,
       this.padding,
       this.color});
 
   final String text;
   final double fontSize;
   EdgeInsets? padding;
+  FontWeight? fontWeight;
   Color? color;
 
   @override
@@ -205,10 +217,8 @@ class headlineMediumText extends StatelessWidget {
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
         text,
-        style: Theme.of(context)
-            .textTheme
-            .headlineMedium
-            ?.copyWith(fontSize: fontSize, color: color),
+        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
     );
   }
@@ -219,11 +229,13 @@ class headlineLargeText extends StatelessWidget {
       {super.key,
       required this.text,
       required this.fontSize,
+      this.fontWeight,
       this.padding,
       this.color});
 
   final String text;
   final double fontSize;
+  FontWeight? fontWeight;
   EdgeInsets? padding;
   Color? color;
 
@@ -233,10 +245,8 @@ class headlineLargeText extends StatelessWidget {
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
         text,
-        style: Theme.of(context)
-            .textTheme
-            .headlineLarge
-            ?.copyWith(fontSize: fontSize, color: color),
+        style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+            fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
     );
   }
