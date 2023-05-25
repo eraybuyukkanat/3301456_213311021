@@ -185,7 +185,8 @@ class _HomePageState extends State<HomePage>
                             duration: Duration(milliseconds: 400),
                             curve: Curves.easeIn);
                       },
-                      icon: Icon(Icons.arrow_drop_down)),
+                      icon: Icon(Icons.arrow_drop_down),
+                    ),
 
               //KAYDIRILABİLİR MENÜ
               Expanded(

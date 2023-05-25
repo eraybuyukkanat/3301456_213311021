@@ -350,13 +350,6 @@ class _PostsPageViewState extends PostsPageViewModel {
                 ),
                 Row(
                   children: [
-                    /*
-                    Icon(
-                      Icons.favorite,
-                      size: 30,
-                      color: ColorManager.red,
-                    ),
-                      */
                     Padding(
                       padding: const EdgeInsets.only(right: 10, left: 20),
                       child: IconButton(

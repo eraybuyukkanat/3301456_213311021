@@ -1,5 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view_model.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/lesson_model.dart';
@@ -8,6 +9,7 @@ import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/date.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
 import 'package:sqflite_common/sqlite_api.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
 class SchedulePageView extends StatefulWidget {
   const SchedulePageView({super.key});
@@ -64,8 +66,10 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                 padding: EdgeInsets.symmetric(vertical: 5),
                                 width: double.maxFinite,
                                 child: TextFormField(
+                                  maxLength: 15,
                                   controller: lessonNameEditingController,
                                   decoration: InputDecoration(
+                                    counterText: "",
                                     hintText: "Dersin Adı..",
                                     border: OutlineInputBorder(),
                                     enabledBorder: OutlineInputBorder(
@@ -141,8 +145,14 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                 padding: EdgeInsets.symmetric(vertical: 5),
                                 width: double.maxFinite,
                                 child: TextFormField(
+                                  inputFormatters: [
+                                    MaskedInputFormatter("##.##"),
+                                  ],
+                                  maxLength: 5,
+                                  keyboardType: TextInputType.number,
                                   controller: lessonTimeEditingController,
                                   decoration: InputDecoration(
+                                    counterText: "",
                                     hintText: "Dersin Saati..",
                                     border: OutlineInputBorder(),
                                     enabledBorder: OutlineInputBorder(
@@ -246,76 +256,77 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                 builder: (context, snapshot) {
                   return ListView.builder(
                       itemCount: lessonList.length,
-                      itemBuilder: (_, index) => Card(
-                          elevation: 10,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: ColorManager.white,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            height: 200,
-                            width: double.maxFinite,
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          lessonList[index]
-                                              .lessonName
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineMedium
-                                              ?.copyWith(
-                                                  color: ColorManager.black),
-                                          maxLines: 2,
+                      itemBuilder: (_, index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ColorManager.primary,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              width: double.maxFinite,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            lessonList[index]
+                                                .lessonName
+                                                .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineMedium
+                                                ?.copyWith(
+                                                    color: ColorManager.white,
+                                                    fontSize: 28),
+                                            maxLines: 1,
+                                          ),
                                         ),
-                                      ),
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.delete,
-                                          color: ColorManager.red,
+                                        IconButton(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: ColorManager.red,
+                                          ),
+                                          onPressed: () {
+                                            deleteModel(lessonList[index].id);
+                                          },
                                         ),
-                                        onPressed: () {
-                                          deleteModel(lessonList[index].id);
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    lessonList[index].lessonDay.toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(color: ColorManager.black),
-                                    maxLines: 2,
-                                  ),
-                                  Text(
-                                    lessonList[index].lessonTime.toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(color: ColorManager.black),
-                                    maxLines: 2,
-                                  ),
-                                  Text(
-                                    lessonList[index].lessonClass.toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium
-                                        ?.copyWith(color: ColorManager.black),
-                                    maxLines: 2,
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                    Text(
+                                      lessonList[index].lessonDay.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(color: ColorManager.white),
+                                      maxLines: 2,
+                                    ),
+                                    Text(
+                                      lessonList[index].lessonTime.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(color: ColorManager.white),
+                                      maxLines: 2,
+                                    ),
+                                    Text(
+                                      lessonList[index].lessonClass.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(color: ColorManager.white),
+                                      maxLines: 2,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          )));
+                          ));
                 },
               ),
       ),
@@ -328,5 +339,26 @@ class _SchedulePageViewState extends SchedulePageViewModel {
               child: Icon(Icons.add),
             ),
     );
+  }
+}
+
+class NumericalRangeFormatter extends TextInputFormatter {
+  final double min;
+  final double max;
+
+  NumericalRangeFormatter({required this.min, required this.max});
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    if (newValue.text == '') {
+      return newValue;
+    } else if (int.parse(newValue.text) < min) {
+      return TextEditingValue().copyWith(text: min.toStringAsFixed(2));
+    } else {
+      return int.parse(newValue.text) > max ? oldValue : newValue;
+    }
   }
 }
