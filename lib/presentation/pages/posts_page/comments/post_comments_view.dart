@@ -64,31 +64,7 @@ class _PostCommentsViewState extends PostCommentsViewModel {
             padding: const EdgeInsets.all(8),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text("Yorum Ekle"),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          addCommentFormFieldWidget(
-                              commentTextEditingController:
-                                  commentTextEditingController),
-                          IconButton(
-                              onPressed: () {
-                                postComments();
-                              },
-                              icon: Icon(Icons.send))
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                commentInputFormField(),
                 Expanded(
                   flex: 4,
                   child: StreamBuilder<List<Comment>>(
@@ -140,6 +116,33 @@ class _PostCommentsViewState extends PostCommentsViewModel {
             ),
           ),
         ));
+  }
+
+  Padding commentInputFormField() {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Text("Yorum Ekle"),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              addCommentFormFieldWidget(
+                  commentTextEditingController: commentTextEditingController),
+              IconButton(
+                  onPressed: () {
+                    postComments();
+                  },
+                  icon: Icon(Icons.send))
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Column commentView(
