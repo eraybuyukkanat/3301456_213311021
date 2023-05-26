@@ -54,8 +54,7 @@ abstract class PostsPageViewModel extends State<PostsPageView>
     super.initState();
 
     postService = PostService(service); //BASEURL
-
-    _bind();
+    bind();
   }
 
   String isEditingNow = "";
@@ -90,9 +89,9 @@ abstract class PostsPageViewModel extends State<PostsPageView>
       await postService.postResourceItem(title, description, email,
           FirebaseAuth.instance.currentUser!.displayName.toString());
 
-      _bind();
       postDescriptionTextEditingController!.clear();
       postTitleTextEditingController!.clear();
+      bind();
     } else {
       showAlertDialog("Boş bırakamazsınız..", context);
     }
@@ -100,27 +99,22 @@ abstract class PostsPageViewModel extends State<PostsPageView>
 
   Future<void> updatePost(
       postId, newTitle, newDescription, email, creator, oldDescription) async {
-    changeLoading();
-
     await postService.updateResourceItem(
         postId, newTitle, newDescription, email, creator);
-    _bind();
+    bind();
     isEditingNow = "";
-
-    changeLoading();
 
     postEditTitleTextEditingController!.clear();
     postEditDescriptionTextEditingController!.clear();
   }
 
   Future<void> deletePost(id) async {
-    changeLoading();
     await postService.deleteResourceItem(id);
-    changeLoading();
-    _bind();
+
+    bind();
   }
 
-  _bind() async {
+  Future<void> bind() async {
     changeLoading();
     resources = await fetch();
     streamController.sink.add(resources.reversed.toList());

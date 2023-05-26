@@ -62,14 +62,19 @@ class _PostsPageViewState extends PostsPageViewModel {
               return Center(child: loadingWidget());
             }
             return resources.data?.length != 0
-                ? ListView.builder(
-                    itemCount: resources.data!.length,
-                    itemBuilder: (_, index) => Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          postView(resources, index, context),
-                        ],
+                ? RefreshIndicator(
+                    color: ColorManager.primary,
+                    strokeWidth: 3,
+                    onRefresh: bind,
+                    child: ListView.builder(
+                      itemCount: resources.data!.length,
+                      itemBuilder: (_, index) => Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            postView(resources, index, context),
+                          ],
+                        ),
                       ),
                     ),
                   )
