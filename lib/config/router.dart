@@ -10,6 +10,8 @@ import 'package:social_media_app_demo/presentation/pages/settings_page/pages/chn
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/report/report_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view.dart';
 
+import '../presentation/pages/home_page/scienceevents/scienceevents_view.dart';
+
 class RouteNavigation {
   static Route<dynamic>? routeNavigation(RouteSettings settings) {
     switch (settings.name) {
@@ -45,6 +47,10 @@ class RouteNavigation {
       case '/schedulepage':
         return _createRoute(
           SchedulePageView(),
+        );
+      case '/scienceevents':
+        return _createRoute(
+          ScienceEventsView(),
         );
       default:
         return MaterialPageRoute(

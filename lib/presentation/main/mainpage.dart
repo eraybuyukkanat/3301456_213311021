@@ -3,7 +3,7 @@ import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 
 import '../pages/posts_page/posts/posts_page_view.dart';
-import '../pages/home_page/home_page.dart';
+import '../pages/home_page/home_page_view.dart';
 import '../pages/settings_page/settings_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -15,7 +15,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List? pages = [
-    HomePage(),
+    HomePageView(),
     PostsPageView(),
     SettingsPage(),
   ];

@@ -9,7 +9,7 @@ import 'package:social_media_app_demo/presentation/authpages/login/login_view.da
 
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
 import 'package:social_media_app_demo/presentation/main/onboarding.dart';
-import 'package:social_media_app_demo/presentation/pages/home_page/home_page.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/home_page_view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/theme/light_theme.dart';
 

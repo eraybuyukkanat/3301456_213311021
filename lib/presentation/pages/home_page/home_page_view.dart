@@ -6,63 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:social_media_app_demo/config/database.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/home_page_view_model.dart';
 import 'package:social_media_app_demo/sources/date.dart';
+import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
 
 import '../../../sources/colors.dart';
 import '../settings_page/pages/schedule/lesson_model.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomePageView extends StatefulWidget {
+  const HomePageView({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageView> createState() => _HomePageViewState();
 }
 
-class _HomePageState extends State<HomePage>
-    with TickerProviderStateMixin, projectDate {
-  DatabaseManager databaseManager = DatabaseManager();
-  List<Lesson> lessonList = [];
-
-  Future<void> getTodayList() async {
-    lessonList = await databaseManager.getTodayList();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getTodayList();
-  }
-
-  Map sosyalList = {
-    0: "Topluluklar",
-    1: "Sosyal Etkinlikler",
-    2: "Yakındaki Seminerler",
-    3: "Konserler"
-  };
-  Map dersList = {
-    0: "Akademik Takvim",
-    1: "Ders Programı",
-    2: "Notlar",
-  };
-
-  List imageNetworkList = [
-    "https://webadmin.selcuk.edu.tr/contents/GenelDosyalar/slider/11846/swis0/YO%CC%88K_slider_638162127146312176.jpg",
-    "https://webadmin.selcuk.edu.tr/contents/GenelDosyalar/slider/10950/swis0/Deprem_Slider_638127661897348673.jpg",
-    "https://webadmin.selcuk.edu.tr/contents/GenelDosyalar/slider/10490/swis0/Nakdi_Yard%C4%B1m_Slider_638116419399283047.jpg",
-    "https://webadmin.selcuk.edu.tr/contents/GenelDosyalar/slider/11518/swis0/I%CC%87lk_19'da_Slider_638150166776577771.jpg",
-    "https://webadmin.selcuk.edu.tr/contents/GenelDosyalar/slider/11541/swis0/Teknokent_Slider_638150815641478840.jpg",
-  ];
-
-  String? appBarTitle = "SAYFAM";
-  String? tabbarText1 = "ÜNİVERSİTE DUYURULARI";
-  String? listViewTitle1 = "Sosyal";
-  String? listViewTitle2 = "Ders";
-  String emptyListLesson = "Bugün hiç dersin yok";
-  PageController pageController = PageController();
-  PageController lessonsPageController = PageController();
-
+class _HomePageViewState extends HomePageViewModel {
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 2, vsync: this);
@@ -96,7 +55,9 @@ class _HomePageState extends State<HomePage>
                 flex: 7,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: imageWidget(imageNetworkList: imageNetworkList),
+                  child: isLoading
+                      ? Center(child: loadingWidget())
+                      : imageWidget(imageNetworkList: images),
                 ),
               ),
 
@@ -218,6 +179,9 @@ class _HomePageState extends State<HomePage>
                                     } else if (index == 1) {
                                       Navigator.pushNamed(
                                           context, "/socialevents");
+                                    } else if (index == 2) {
+                                      Navigator.pushNamed(
+                                          context, "/scienceevents");
                                     }
                                   },
                                   child: Container(
@@ -351,4 +315,12 @@ class appBarDate extends StatelessWidget with projectDate {
       ],
     );
   }
+}
+
+class ImageModel {
+  String image;
+
+  ImageModel({
+    required this.image,
+  });
 }

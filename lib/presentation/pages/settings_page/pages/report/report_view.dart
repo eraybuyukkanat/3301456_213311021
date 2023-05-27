@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sizer/sizer.dart';
-import 'package:social_media_app_demo/presentation/pages/home_page/home_page.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/home_page_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/report/report_view_model.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import '../../../../../sources/showalertdialog.dart';

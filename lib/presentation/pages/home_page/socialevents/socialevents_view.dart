@@ -8,6 +8,7 @@ import 'package:social_media_app_demo/sources/buttons.dart';
 
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../sources/colors.dart';
 
 class SocialEventsView extends StatefulWidget {
@@ -103,10 +104,30 @@ class _SocialEventsViewState extends SocialEventsViewModel {
                                               )
                                             ],
                                           ),
-                                          bodyMediumText(
-                                            text: events[index].date,
-                                            fontSize: 18,
-                                            color: ColorManager.white,
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              widthSizedButton(
+                                                color: ColorManager.primary,
+                                                text: "Detaylar",
+                                                onPressed: () {
+                                                  launchLink(
+                                                      "https://scckonya.com" +
+                                                          events[index]
+                                                              .detailLink
+                                                              .toString());
+                                                },
+                                              ),
+                                              bodyMediumText(
+                                                text: events[index].date,
+                                                fontSize: 18,
+                                                color: ColorManager.white,
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 10,
+                                                ),
+                                              )
+                                            ],
                                           )
                                         ],
                                       ),
