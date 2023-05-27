@@ -10,7 +10,7 @@ import 'package:social_media_app_demo/presentation/pages/settings_page/pages/chn
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/report/report_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view.dart';
 
-import '../presentation/pages/home_page/scienceevents/scienceevents_view.dart';
+import '../presentation/pages/home_page/scienceevents/menu_view.dart';
 
 class RouteNavigation {
   static Route<dynamic>? routeNavigation(RouteSettings settings) {
@@ -50,7 +50,7 @@ class RouteNavigation {
         );
       case '/scienceevents':
         return _createRoute(
-          ScienceEventsView(),
+          MenuView(),
         );
       default:
         return MaterialPageRoute(

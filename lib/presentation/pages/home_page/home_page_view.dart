@@ -316,11 +316,3 @@ class appBarDate extends StatelessWidget with projectDate {
     );
   }
 }
-
-class ImageModel {
-  String image;
-
-  ImageModel({
-    required this.image,
-  });
-}

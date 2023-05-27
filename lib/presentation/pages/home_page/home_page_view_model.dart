@@ -6,6 +6,14 @@ import 'package:social_media_app_demo/sources/date.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 
+class ImageModel {
+  String image;
+
+  ImageModel({
+    required this.image,
+  });
+}
+
 abstract class HomePageViewModel extends State<HomePageView>
     with TickerProviderStateMixin, projectDate {
   bool isLoading = false;
@@ -57,7 +65,7 @@ abstract class HomePageViewModel extends State<HomePageView>
   Map sosyalList = {
     0: "Topluluklar",
     1: "Sosyal Etkinlikler",
-    2: "Bilimsel Etkinlikler",
+    2: "Yemekhane Menüsü",
     3: "Konserler"
   };
 
