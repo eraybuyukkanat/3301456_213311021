@@ -2,5 +2,10 @@ class EventModel {
   String title;
   String date;
   String image;
-  EventModel({required this.title, required this.date, required this.image});
+  String place;
+  EventModel(
+      {required this.title,
+      required this.date,
+      required this.image,
+      required this.place});
 }

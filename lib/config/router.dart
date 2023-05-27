@@ -5,7 +5,7 @@ import 'package:social_media_app_demo/presentation/authpages/register/register_v
 
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/communities/communities.dart';
-import 'package:social_media_app_demo/presentation/pages/home_page/socialevents/socialevents.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/socialevents/socialevents_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/chngepasswd/chngepasswd_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/report/report_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view.dart';
@@ -40,7 +40,7 @@ class RouteNavigation {
         );
       case '/socialevents':
         return _createRoute(
-          SocialEventsPage(),
+          SocialEventsView(),
         );
       case '/schedulepage':
         return _createRoute(
