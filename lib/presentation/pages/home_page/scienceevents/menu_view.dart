@@ -60,7 +60,7 @@ class _MenuViewState extends MenuViewModel {
                                 child: Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      color: ColorManager.primary),
+                                      color: ColorManager.yellow),
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Column(

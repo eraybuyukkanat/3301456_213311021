@@ -38,7 +38,7 @@ class RouteNavigation {
         );
       case '/communities':
         return _createRoute(
-          CommunitiesPage(),
+          CommunitiesPageView(),
         );
       case '/socialevents':
         return _createRoute(

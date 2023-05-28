@@ -9,6 +9,7 @@ class ColorManager {
   static Color white = HexColor.fromHex("#FFFFFF");
   static Color red = HexColor.fromHex("#e61f34");
   static Color black = HexColor.fromHex("#000000");
+  static Color yellow = HexColor.fromHex("#FFD966");
 
   static Color gradient2 = Color.fromARGB(255, 0, 126, 158);
 }
