@@ -12,6 +12,13 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
 
   String text = "Hesabınız varsa giriş yapın!";
 
+  bool isLoading = false;
+  changeIsLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
   TextEditingController? emailTextEditingController = TextEditingController();
   TextEditingController? passwordTextEditingController =
       TextEditingController();
@@ -19,6 +26,7 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
       TextEditingController();
 
   Future<void> register() async {
+    changeIsLoading();
     String? email = emailTextEditingController!.value.text;
     String? password = passwordTextEditingController!.value.text;
     String? password2 = password2TextEditingController!.value.text;
@@ -41,6 +49,7 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
     } else {
       showAlertDialog("Şifreler aynı değil", context);
     }
+    changeIsLoading();
   }
 
   StreamController<bool> isPasswordVisibleController =

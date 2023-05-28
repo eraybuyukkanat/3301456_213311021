@@ -13,6 +13,13 @@ abstract class LoginScreenViewModel extends State<LoginScreenView> {
   String text = "Hesabınız yoksa kayıt olun!";
   final formKey = GlobalKey<FormState>();
 
+  bool isLoading = false;
+  changeIsLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
   String title = "Hoşgeldin!";
   String email = "E-mail ";
   String password = "Şifre";
@@ -22,6 +29,7 @@ abstract class LoginScreenViewModel extends State<LoginScreenView> {
   String forgetPassword = "Şifrenizi mi unuttunuz?";
 
   Future<void> login() async {
+    changeIsLoading();
     final email = emailTextEditingController!.value.text;
     final password = passwordTextEditingController!.value.text;
     try {
@@ -35,6 +43,7 @@ abstract class LoginScreenViewModel extends State<LoginScreenView> {
       showAlertDialog(e.message.toString(), context);
       passwordTextEditingController!.clear();
     }
+    changeIsLoading();
   }
 
   Future<void> resetPassword() async {

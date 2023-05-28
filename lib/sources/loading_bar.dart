@@ -19,9 +19,12 @@ class LoadingBar extends StatelessWidget {
 }
 
 class loadingWidget extends StatelessWidget {
-  const loadingWidget({
+  loadingWidget({
     super.key,
+    this.color,
   });
+
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class loadingWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         LoadingBar(
-          color: ColorManager.black,
+          color: color ?? ColorManager.primary,
           size: 45,
         ),
       ],

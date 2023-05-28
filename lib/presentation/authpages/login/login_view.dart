@@ -6,6 +6,7 @@ import 'package:social_media_app_demo/presentation/authpages/login/login_view_mo
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/customformfield.dart';
+import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
 
 class LoginScreenView extends StatefulWidget {
@@ -25,7 +26,6 @@ class _LoginScreenViewState extends LoginScreenViewModel {
           padding: EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               titleLargeText(
                 text: title,
@@ -77,14 +77,33 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                           text: forgetPassword,
                           fontSize: 17,
                         )),
-                    widthSizedButton(
+                    Container(
+                      height: 10.h,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
                         color: ColorManager.primary,
-                        text: loginText,
-                        onPressed: () {
-                          if (formKey.currentState?.validate() ?? false) {
-                            login();
-                          }
-                        }),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: isLoading
+                          ? loadingWidget(
+                              color: ColorManager.white,
+                            )
+                          : TextButton(
+                              onPressed: () {
+                                if (formKey.currentState?.validate() ?? false) {
+                                  login();
+                                }
+                              },
+                              child: Text(
+                                "Giriş Yap",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                      color: ColorManager.white,
+                                    ),
+                              )),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
