@@ -22,6 +22,7 @@ class _SettingsPageState extends ProfilePageViewModel {
   String profileText = "PROFİLİM";
   String chngPsswdText = "ŞİFRE DEĞİŞTİR";
   String scheduleText = "DERS PROGRAMIM";
+  String calculatorText = "NOT HESAPLA";
   String reportText = "HATA BİLDİR";
   String exitText = "Çıkış Yap";
   @override
@@ -34,6 +35,23 @@ class _SettingsPageState extends ProfilePageViewModel {
           backgroundColor: ColorManager.white,
           toolbarHeight: 10.h,
           centerTitle: false,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                icon: Icon(
+                  Icons.logout,
+                  size: 25,
+                  color: ColorManager.red,
+                ),
+                onPressed: () {
+                  Auth().signOut(
+                      FirebaseAuth.instance.currentUser!.email.toString());
+                  Navigator.pushNamed(context, "/loginpage");
+                },
+              ),
+            )
+          ],
           title: Text(
             pageTitle!,
             style: Theme.of(context)
@@ -80,39 +98,20 @@ class _SettingsPageState extends ProfilePageViewModel {
                       padding: const EdgeInsets.only(top: 20),
                       child: widthSizedButton(
                           color: ColorManager.primary,
+                          text: calculatorText,
+                          onPressed: (() {
+                            Navigator.pushNamed(context, "/calculator");
+                          })),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: widthSizedButton(
+                          color: ColorManager.primary,
                           text: reportText,
                           onPressed: () {
                             Navigator.pushNamed(context, "/report");
                           }),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: Container(
-                        height: 8.h,
-                        width: double.maxFinite,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Auth().signOut(FirebaseAuth
-                                .instance.currentUser!.email
-                                .toString());
-                            Navigator.pushNamed(context, "/loginpage");
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(exitText),
-                              SizedBox(
-                                width: 2.w,
-                              ),
-                              Icon(Icons.exit_to_app),
-                            ],
-                          ),
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll<Color>(
-                                  ColorManager.red)),
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),

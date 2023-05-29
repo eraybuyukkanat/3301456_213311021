@@ -4,6 +4,7 @@ import 'package:social_media_app_demo/presentation/pages/home_page/scienceevents
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
+import 'package:path_provider/path_provider.dart';
 
 class MenuView extends StatefulWidget {
   const MenuView({super.key});

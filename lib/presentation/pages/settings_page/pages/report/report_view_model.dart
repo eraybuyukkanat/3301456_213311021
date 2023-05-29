@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/report/report_view.dart';
 
 abstract class ReportErrorViewModel extends State<ReportErrorView> {
-  String pageTitle = "HATA BİLDİR";
+  String pageTitle = "Hata Bildir";
   String title = "Hata Başlığı";
   String description = "Açıklama";
   String buttonText = "Hata Bildir";
@@ -15,12 +15,12 @@ abstract class ReportErrorViewModel extends State<ReportErrorView> {
       TextEditingController();
 
   Future<void> _showAlertDialog(String mesaj) async {
+    const String? title = 'Hata Bildir';
+    String? okButton = 'Tamam';
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        const String? title = 'Hata Bildir';
-        String? okButton = 'Tamam';
         return AlertDialog(
           title: const Text(title),
           content: SingleChildScrollView(

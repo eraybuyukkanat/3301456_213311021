@@ -11,6 +11,7 @@ import 'package:social_media_app_demo/presentation/pages/settings_page/pages/rep
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view.dart';
 
 import '../presentation/pages/home_page/scienceevents/menu_view.dart';
+import '../presentation/pages/settings_page/pages/calculator/calculator_view.dart';
 
 class RouteNavigation {
   static Route<dynamic>? routeNavigation(RouteSettings settings) {
@@ -52,6 +53,10 @@ class RouteNavigation {
         return _createRoute(
           MenuView(),
         );
+      case '/calculator':
+        return _createRoute(
+          CalculatorViewPage(),
+        );
       default:
         return MaterialPageRoute(
           builder: (context) => Scaffold(
@@ -60,7 +65,6 @@ class RouteNavigation {
             ),
           ),
         );
-        break;
     }
   }
 
