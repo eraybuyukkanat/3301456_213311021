@@ -74,67 +74,74 @@ class _HomePageViewState extends HomePageViewModel {
                 flex: 4,
                 child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Card(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: ColorManager.primary,
-                            borderRadius: BorderRadius.circular(10)),
-                        width: double.maxFinite,
-                        child: lessonList.isEmpty
-                            ? Center(
-                                child: bodyMediumText(
-                                    text: emptyListLesson,
-                                    fontSize: 18,
-                                    color: ColorManager.white))
-                            : PageView.builder(
-                                controller: lessonsPageController,
-                                scrollDirection: Axis.vertical,
-                                itemCount: lessonList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ListTile(
-                                          title: bodyLargeText(
-                                            text: lessonList[index]
-                                                .lessonName
-                                                .toString(),
-                                            fontSize: 18,
-                                            color: ColorManager.white,
-                                          ),
-                                          subtitle: bodyMediumText(
-                                            text: lessonList[index]
-                                                .lessonDay
-                                                .toString(),
-                                            fontSize: 14,
-                                            color: ColorManager.white,
-                                          ),
-                                          trailing: Column(
-                                            children: [
-                                              bodyMediumText(
-                                                text: lessonList[index]
-                                                    .lessonClass
-                                                    .toString(),
-                                                fontSize: 16,
-                                                color: ColorManager.white,
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 5),
-                                              ),
-                                              bodyMediumText(
-                                                text: lessonList[index]
-                                                    .lessonTime
-                                                    .toString(),
-                                                fontSize: 16,
-                                                color: ColorManager.white,
-                                              ),
-                                            ],
-                                          )),
-                                    ],
-                                  );
-                                },
-                              ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, "/schedulepage");
+                      },
+                      child: Card(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: ColorManager.primary,
+                              borderRadius: BorderRadius.circular(10)),
+                          width: double.maxFinite,
+                          child: lessonList.isEmpty
+                              ? Center(
+                                  child: bodyMediumText(
+                                      text: emptyListLesson,
+                                      fontSize: 18,
+                                      color: ColorManager.white))
+                              : PageView.builder(
+                                  controller: lessonsPageController,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: lessonList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ListTile(
+                                            title: bodyLargeText(
+                                              text: lessonList[index]
+                                                  .lessonName
+                                                  .toString(),
+                                              fontSize: 18,
+                                              color: ColorManager.white,
+                                            ),
+                                            subtitle: bodyMediumText(
+                                              text: lessonList[index]
+                                                  .lessonDay
+                                                  .toString(),
+                                              fontSize: 14,
+                                              color: ColorManager.white,
+                                            ),
+                                            trailing: Column(
+                                              children: [
+                                                bodyMediumText(
+                                                  text: lessonList[index]
+                                                      .lessonClass
+                                                      .toString(),
+                                                  fontSize: 16,
+                                                  color: ColorManager.white,
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: 5),
+                                                ),
+                                                bodyMediumText(
+                                                  text: lessonList[index]
+                                                      .lessonTime
+                                                      .toString(),
+                                                  fontSize: 16,
+                                                  color: ColorManager.white,
+                                                ),
+                                              ],
+                                            )),
+                                      ],
+                                    );
+                                  },
+                                ),
+                        ),
                       ),
                     )),
               ),

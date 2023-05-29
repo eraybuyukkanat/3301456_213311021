@@ -63,15 +63,25 @@ class _MenuViewState extends MenuViewModel {
                                       color: ColorManager.yellow),
                                   child: Padding(
                                     padding: const EdgeInsets.all(10),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        headlineMediumText(
-                                          text: menu[index].day.toString(),
-                                          fontSize: 22,
-                                          color: ColorManager.white,
-                                          fontWeight: FontWeight.w700,
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            headlineMediumText(
+                                              text: menu[index].day.toString(),
+                                              fontSize: 22,
+                                              color: ColorManager.white,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ],
+                                        ), //gestures ve dosya işlemi yapacağım
+                                        Icon(
+                                          Icons.favorite_outline,
+                                          color: ColorManager.red,
                                         ),
                                       ],
                                     ),

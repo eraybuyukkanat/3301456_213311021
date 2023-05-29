@@ -66,7 +66,6 @@ abstract class HomePageViewModel extends State<HomePageView>
     0: "Topluluklar",
     1: "Sosyal Etkinlikler",
     2: "Yemekhane Menüsü",
-    3: "Konserler"
   };
 
   String? appBarTitle = "SAYFAM";
