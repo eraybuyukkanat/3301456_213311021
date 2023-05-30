@@ -34,14 +34,15 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
     if (password == password2) {
       try {
         await Auth().registerWithEmailAndPassword(email, password);
+        await FirebaseAuth.instance.currentUser!.sendEmailVerification();
         await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Kayıt olma başarılı, anasayfaya yönlendiriliyorsunuz"),
+          content: Text("DOĞRULA"),
           duration: Duration(seconds: 1),
         ));
         await FirebaseAuth.instance.currentUser
             ?.updateDisplayName(email.split('@')[0]);
 
-        Navigator.pushNamed(context, "/mainpage");
+        Navigator.pushNamed(context, "/loginpage");
       } on FirebaseAuthException catch (e) {
         showAlertDialog(e.message.toString(), context);
         passwordTextEditingController!.clear();

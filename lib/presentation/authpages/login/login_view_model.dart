@@ -35,11 +35,19 @@ abstract class LoginScreenViewModel extends State<LoginScreenView> {
     final password = passwordTextEditingController!.value.text;
     try {
       await Auth().signInWithEmailAndPassword(email, password);
-      await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Giriş başarılı, anasayfaya yönlendiriliyorsunuz"),
-        duration: Duration(seconds: 1),
-      ));
-      Navigator.pushNamed(context, "/mainpage");
+      if (FirebaseAuth.instance.currentUser!.emailVerified) {
+        await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Giriş başarılı, anasayfaya yönlendiriliyorsunuz"),
+          duration: Duration(seconds: 1),
+        ));
+        Navigator.pushNamed(context, "/mainpage");
+      } else {
+        await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Email doğrulanmamış"),
+          duration: Duration(seconds: 1),
+        ));
+        Auth().signOut(FirebaseAuth.instance.currentUser!.email.toString());
+      }
     } on FirebaseAuthException catch (e) {
       showAlertDialog(e.message.toString(), context);
       passwordTextEditingController!.clear();
