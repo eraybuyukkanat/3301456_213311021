@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
 import 'package:social_media_app_demo/presentation/authpages/login/login_view.dart';

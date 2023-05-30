@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/calculator/calculator_view.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/calculator/graphic.dart';
 
 abstract class CalculatorViewModel extends State<CalculatorViewPage> {
   String pageTitle = "Not Hesapla";
-
+  bool chartIsVisible = false;
   String? inputVizeValue = "0";
   String? inputFinalValue = "0";
   double avg = 0;

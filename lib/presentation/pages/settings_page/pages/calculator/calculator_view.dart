@@ -4,10 +4,14 @@ import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/config/file_utils.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/calculator/calculator_view_model.dart';
+import 'package:social_media_app_demo/presentation/pages/settings_page/pages/calculator/graphic.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import 'package:social_media_app_demo/sources/colors.dart';
 
 class CalculatorViewPage extends StatefulWidget {
   const CalculatorViewPage({super.key});
@@ -46,12 +50,11 @@ class _CalculatorViewPageState extends CalculatorViewModel {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(5),
             child: Column(
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -164,6 +167,7 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                                 setState(() {
                                   inputVizeValue = value.split(",").first;
                                   inputFinalValue = value.split(",").last;
+                                  chartIsVisible = true;
                                 });
                               },
                             )
@@ -225,6 +229,7 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                     ],
                   ),
                 ),
+                chartIsVisible ? LineChartSample2() : SizedBox(),
               ],
             ),
           ),
