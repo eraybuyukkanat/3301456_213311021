@@ -36,7 +36,7 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
         await Auth().registerWithEmailAndPassword(email, password);
         await FirebaseAuth.instance.currentUser!.sendEmailVerification();
         await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("DOĞRULA"),
+          content: Text("Email adresine doğrulama bağlantısı gönderildi"),
           duration: Duration(seconds: 1),
         ));
         await FirebaseAuth.instance.currentUser
