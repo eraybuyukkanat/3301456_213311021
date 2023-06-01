@@ -47,9 +47,9 @@ abstract class MenuViewModel extends State<MenuView> {
         .forEach(
       (element) {
         setState(() {
-          element.children[1].text == "Öğün Yok"
+          element.children.length == 0
               ? menu.add(Menu(
-                  day: element.children[0].text.toString(),
+                  day: "",
                   emptyText: "Öğün Yok",
                   isThere: false,
                 ))

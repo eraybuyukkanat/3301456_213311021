@@ -40,9 +40,10 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
           duration: Duration(seconds: 1),
         ));
         await FirebaseAuth.instance.currentUser
-            ?.updateDisplayName(email.split('@')[0]);
+            ?.updateDisplayName(email.split('@')[0].substring(0, 10));
 
         Navigator.pushNamed(context, "/loginpage");
+        Auth().signOut(FirebaseAuth.instance.currentUser!.email.toString());
       } on FirebaseAuthException catch (e) {
         showAlertDialog(e.message.toString(), context);
         passwordTextEditingController!.clear();
