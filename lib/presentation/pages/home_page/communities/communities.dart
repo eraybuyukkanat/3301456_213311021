@@ -3,6 +3,7 @@ import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/communities/communities_view_model.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
+import 'package:social_media_app_demo/sources/loading_bar.dart';
 
 import '../../../../sources/colors.dart';
 
@@ -45,14 +46,16 @@ class _CommunitiesPageViewState extends CommunitiesViewModel {
                 .headlineMedium
                 ?.copyWith(color: ColorManager.black),
           )),
-      body: ListView.builder(
-        itemCount: communities.length,
-        itemBuilder: (_, index) => Card(
-          child: ListTile(
-            title: Text(communities[index].name),
-          ),
-        ),
-      ),
+      body: isLoading
+          ? loadingWidget()
+          : ListView.builder(
+              itemCount: communities.length,
+              itemBuilder: (_, index) => Card(
+                child: ListTile(
+                  title: Text(communities[index].name),
+                ),
+              ),
+            ),
     );
   }
 }

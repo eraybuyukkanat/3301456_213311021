@@ -6,10 +6,18 @@ import 'package:html/parser.dart' as parser;
 abstract class CommunitiesViewModel extends State<CommunitiesPageView> {
   List<CommunityModel> communities = [];
 
+  bool isLoading = false;
+  changeLoading() {
+    setState(() {
+      isLoading = !isLoading;
+    });
+  }
+
   var url = Uri.parse(
       "https://www.selcuk.edu.tr/Birim/coordinatorships/ogrenci_topluluklari/2122/ogrenci-topluluklari-listesi/40110");
 
   Future<void> getDatas() async {
+    changeLoading();
     var res = await http.get(url);
     final body = res.body;
     final document = parser.parse(body);
@@ -26,6 +34,7 @@ abstract class CommunitiesViewModel extends State<CommunitiesPageView> {
             : null;
       },
     );
+    changeLoading();
   }
 
   @override

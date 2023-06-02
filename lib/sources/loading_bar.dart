@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
+import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 
 class LoadingBar extends StatelessWidget {
@@ -10,9 +12,23 @@ class LoadingBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SpinKitFadingCircle(
-        color: color,
-        size: size,
+      child: Column(
+        children: [
+          SpinKitFadingCircle(
+            color: color,
+            size: size,
+          ),
+          ColorFiltered(
+            colorFilter:
+                ColorFilter.mode(ColorManager.primary, BlendMode.modulate),
+            child: Lottie.asset(
+              "assets/json_assets/loading.json",
+              width: 30.w,
+              height: 15.h,
+              fit: BoxFit.fill,
+            ),
+          ),
+        ],
       ),
     );
   }
