@@ -53,11 +53,16 @@ class _HomePageViewState extends HomePageViewModel {
               // IMAGES
               Expanded(
                 flex: 7,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: isLoading
-                      ? Center(child: loadingWidget())
-                      : imageWidget(imageNetworkList: images),
+                child: GestureDetector(
+                  onLongPress: () {
+                    launchLink(url.toString());
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: isLoading
+                        ? Center(child: loadingWidget())
+                        : imageWidget(imageNetworkList: images),
+                  ),
                 ),
               ),
 
