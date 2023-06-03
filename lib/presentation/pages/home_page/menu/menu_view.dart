@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:social_media_app_demo/presentation/pages/home_page/scienceevents/menu_view_model.dart';
+import 'package:social_media_app_demo/presentation/pages/home_page/menu/menu_view_model.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
@@ -104,30 +104,30 @@ class _MenuViewState extends MenuViewModel {
                                                   vertical: 2),
                                               text:
                                                   menu[index].item1.toString(),
-                                              fontSize: 14),
+                                              fontSize: 13),
                                           bodyMediumText(
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 2),
                                               text:
                                                   menu[index].item2.toString(),
-                                              fontSize: 14),
+                                              fontSize: 13),
                                           bodyMediumText(
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 2),
                                               text:
                                                   menu[index].item3.toString(),
-                                              fontSize: 14),
+                                              fontSize: 12),
                                           bodyMediumText(
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 2),
                                               text:
                                                   menu[index].item4.toString(),
-                                              fontSize: 14),
+                                              fontSize: 13),
                                           bodyMediumText(
                                               padding: EdgeInsets.symmetric(
                                                   vertical: 2),
                                               text: menu[index].cal.toString(),
-                                              fontSize: 14),
+                                              fontSize: 13),
                                         ],
                                       ),
                                     ),
