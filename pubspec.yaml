@@ -63,6 +63,7 @@ dependencies:
   flutter_multi_formatter: ^2.11.0
 
   fl_chart: ^0.62.0
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:

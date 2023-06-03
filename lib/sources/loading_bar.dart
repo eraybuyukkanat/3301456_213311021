@@ -18,16 +18,6 @@ class LoadingBar extends StatelessWidget {
             color: color,
             size: size,
           ),
-          ColorFiltered(
-            colorFilter:
-                ColorFilter.mode(ColorManager.primary, BlendMode.modulate),
-            child: Lottie.asset(
-              "assets/json_assets/loading.json",
-              width: 30.w,
-              height: 15.h,
-              fit: BoxFit.fill,
-            ),
-          ),
         ],
       ),
     );
@@ -49,7 +39,7 @@ class loadingWidget extends StatelessWidget {
       children: [
         LoadingBar(
           color: color ?? ColorManager.primary,
-          size: 45,
+          size: 35,
         ),
       ],
     );
