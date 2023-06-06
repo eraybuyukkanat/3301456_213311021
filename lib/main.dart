@@ -12,14 +12,23 @@ import 'package:social_media_app_demo/presentation/main/onboarding.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/home_page_view.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/theme/light_theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 int? isViewed;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   isViewed = preferences.getInt('onboarding');
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+        supportedLocales: [Locale('en', 'US'), Locale('de', 'DE')],
+        path:
+            'assets/translations', // <-- change the path of the translation files
+        fallbackLocale: Locale('en', 'US'),
+        child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
