@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 
 class bodySmallText extends StatelessWidget {
   bodySmallText(
@@ -20,7 +21,7 @@ class bodySmallText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
-        text,
+        text.locale,
         style: Theme.of(context).textTheme.bodySmall?.copyWith(
             fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
@@ -48,7 +49,7 @@ class bodyMediumText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
-        text,
+        text.locale,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
@@ -76,7 +77,7 @@ class bodyLargeText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
-        text,
+        text.locale,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             fontWeight: fontWeight, fontSize: fontSize, color: color),
       ),
@@ -104,7 +105,7 @@ class titleSmallText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
-        text,
+        text.locale,
         style: Theme.of(context).textTheme.titleSmall?.copyWith(
             fontWeight: fontWeight, fontSize: fontSize, color: color),
       ),
@@ -132,7 +133,7 @@ class titleMediumText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
-        text,
+        text.locale,
         style: Theme.of(context).textTheme.titleMedium?.copyWith(
             fontWeight: fontWeight, fontSize: fontSize, color: color),
       ),
@@ -160,7 +161,7 @@ class titleLargeText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
-        text,
+        text.locale,
         style: Theme.of(context).textTheme.titleLarge?.copyWith(
             fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
@@ -188,7 +189,7 @@ class headlineSmallText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
-        text,
+        text.locale,
         style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
@@ -216,7 +217,7 @@ class headlineMediumText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
-        text,
+        text.locale,
         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),
@@ -244,7 +245,7 @@ class headlineLargeText extends StatelessWidget {
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
       child: Text(
-        text,
+        text.locale,
         style: Theme.of(context).textTheme.headlineLarge?.copyWith(
             fontSize: fontSize, color: color, fontWeight: fontWeight),
       ),

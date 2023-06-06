@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/cache/shared_manager.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/authpages/login/login_view_model.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
@@ -17,6 +19,7 @@ class LoginScreenView extends StatefulWidget {
 }
 
 class _LoginScreenViewState extends LoginScreenViewModel {
+  SharedManager sharedManager = SharedManager();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,11 +30,16 @@ class _LoginScreenViewState extends LoginScreenViewModel {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              titleLargeText(
-                text: title,
-                fontSize: 38,
-                color: ColorManager.primary,
-                padding: EdgeInsets.symmetric(vertical: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  titleLargeText(
+                    text: title,
+                    fontSize: 38,
+                    color: ColorManager.primary,
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                ],
               ),
               Container(
                 height: 2,
@@ -95,7 +103,7 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                                 }
                               },
                               child: Text(
-                                "Giriş Yap",
+                                loginText.locale,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -121,7 +129,7 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                           bodySmallText(
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             text: text,
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ],
                       ),

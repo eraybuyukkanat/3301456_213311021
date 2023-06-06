@@ -155,6 +155,7 @@ class passwordTextFormField extends StatelessWidget {
                       width: 2.0,
                     )),
                 errorText: snapshot.data,
+                errorStyle: TextStyle(height: 0),
                 suffixIcon: IconButton(
                   icon: isVisible.data!
                       ? Icon(Icons.visibility)
@@ -370,10 +371,6 @@ class postDescriptionInputFormField extends StatelessWidget {
 
 class FormFieldValidator {
   String? isNotEmpty(String? data) {
-    return (data?.isNotEmpty ?? false) ? null : ValidateMessage._isNotEmpty;
+    return (data?.isNotEmpty ?? false) ? null : "";
   }
-}
-
-class ValidateMessage {
-  static const String _isNotEmpty = "Bu alan boş geçilemez";
 }

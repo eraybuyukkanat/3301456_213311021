@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:social_media_app_demo/config/database.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/home_page_view_model.dart';
 import 'package:social_media_app_demo/sources/date.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
 
@@ -200,7 +202,8 @@ class _HomePageViewState extends HomePageViewModel {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    child: Text(sosyalList[index].toString()),
+                                    child: Text(
+                                        sosyalList[index].toString().locale),
                                   ),
                                 ),
                               ),
@@ -286,7 +289,7 @@ class welcomingText extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         headlineSmallText(
-          text: "Tekrar Hoşgeldin,",
+          text: LocaleKeys.homepage_appBarTitle,
           fontSize: 20,
           color: ColorManager.primary,
           fontWeight: FontWeight.w500,

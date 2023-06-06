@@ -1,0 +1,72 @@
+{
+    "login":{
+        "welcome":"Hoşgeldin",
+        "loginText":"Giriş Yap",
+        "emailTitle":"E-mail",
+        "passwordTitle":"Şifre",
+        "forgetPassword":"Şifrenizi mi unuttunuz?",
+        "loginButtonText":"Giriş Yap",
+        "registerButtonText":"Kayıt Ol",
+        "registerText":"Hesabınız yoksa kayıt olun!"   
+    },
+    "register":{
+        "welcome":"Hoşgeldin",
+        "registerText":"Kayıt Ol",
+        "emailTitle":"E-mail",
+        "passwordTitle":"Şifre",
+        "passwordAgainTitle":"Tekrar Şifre",
+        "registerButtonText":"Kayıt Ol",
+        "loginButtonText":"Giriş Yap",
+        "loginText":"Hesabınız varsa giriş yapın!"
+    },
+    "homepage":{
+        "appBarTitle":"Tekrar Hoşgeldin",
+        "emptyLessonList":"Bugün hiç dersin yok",
+        "communitiesText":"Topluluklar",
+        "socialText":"Sosyal Etkinlikler",
+        "menuText":"Yemekhane Menüsü"
+    },
+    "postsPage":{
+        "appBarTitle":"AKIŞ",
+        "sharePostTitle":"Gönderi Paylaş",
+        "postTitleText":"Konu Başlığı",
+        "descriptionTitleText":"Açıklama",
+        "shareButton":"YAYINLA"
+    },
+    "settingsPage":{
+        "appBarTitle":"AYARLAR",
+        "chngePasswordTitle":"ŞİFRE DEĞİŞTİR",
+        "lessonsTitle":"DERS PROGRAMIM",
+        "calculateTitle":"NOT HESAPLA",
+        "reportTitle":"HATA BİLDİR"
+    },
+    "changePasswordPage":{
+        "appBarTitle":"ŞİFRE DEĞİŞTİR",
+        "newPasswordTitle":"Yeni Şifre",
+        "saveButton":"KAYDET",
+        "warningText":"Şifreler aynı ve 6 karakterden uzun olmalıdır"
+    },
+    "lessonsPage":{
+        "appBarTitle":"DERS PROGRAMI",
+        "addLessonTitle":"Ders Ekle",
+        "lessonNameHint":"Dersin Adı",
+        "lessonDayHint":"Dersin Günü",
+        "lessonTimeHint":"Dersin Saati",
+        "lessonClassHint":"Dersin Sınıfı",
+        "addButton":"EKLE",
+        "cancelButton":"İPTAL"
+    },
+    "calculatePage":{
+        "midtermText":"Vize",
+        "finalText":"Final",
+        "saveButton":"NOTLARI KAYDET",
+        "getDatasButton":"SONUÇLARI GETİR",
+        "avgText":"Ortalama",
+        "letterText":"Harf"
+    },
+    "reportPage":{
+        "reportTitle":"Hata Başlığı",
+        "reportDescription":"Açıklama",
+        "saveButton":"HATA BİLDİR"
+    }
+}

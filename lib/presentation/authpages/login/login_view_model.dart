@@ -1,17 +1,19 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
 import 'package:social_media_app_demo/presentation/authpages/login/login_view.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
 
 abstract class LoginScreenViewModel extends State<LoginScreenView> {
   TextEditingController? emailTextEditingController = TextEditingController();
   TextEditingController? passwordTextEditingController =
       TextEditingController();
-  String text = "Hesabınız yoksa kayıt olun!";
+  String text = LocaleKeys.login_registerText;
   final formKey = GlobalKey<FormState>();
 
   bool isLoading = false;
@@ -21,13 +23,13 @@ abstract class LoginScreenViewModel extends State<LoginScreenView> {
     });
   }
 
-  String title = "Hoşgeldin!";
-  String email = "E-mail ";
-  String password = "Şifre";
-  String loginText = "Giriş Yap";
-  String signInText = "Kayıt Ol";
-  String resetPasswordText = "Şifremi Unuttum";
-  String forgetPassword = "Şifrenizi mi unuttunuz?";
+  String title = LocaleKeys.login_welcome;
+  String email = LocaleKeys.login_emailTitle;
+  String password = LocaleKeys.login_passwordTitle;
+  String loginText = LocaleKeys.login_loginText;
+  String signInText = LocaleKeys.login_registerButtonText;
+
+  String forgetPassword = LocaleKeys.login_forgetPassword;
 
   Future<void> login() async {
     changeIsLoading();

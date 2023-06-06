@@ -5,6 +5,7 @@ import 'package:social_media_app_demo/presentation/pages/settings_page/pages/sch
 import 'package:social_media_app_demo/sources/date.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ImageModel {
@@ -73,16 +74,12 @@ abstract class HomePageViewModel extends State<HomePageView>
   }
 
   Map sosyalList = {
-    0: "Topluluklar",
-    1: "Sosyal Etkinlikler",
-    2: "Yemekhane Menüsü",
+    0: LocaleKeys.homepage_communitiesText,
+    1: LocaleKeys.homepage_socialText,
+    2: LocaleKeys.homepage_menuText,
   };
 
-  String? appBarTitle = "SAYFAM";
-  String? tabbarText1 = "ÜNİVERSİTE DUYURULARI";
-  String? listViewTitle1 = "Sosyal";
-  String? listViewTitle2 = "Ders";
-  String emptyListLesson = "Bugün hiç dersin yok";
+  String emptyListLesson = LocaleKeys.homepage_emptyLessonList;
   PageController pageController = PageController();
   PageController lessonsPageController = PageController();
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 
 import 'colors.dart';
 
@@ -30,7 +31,7 @@ class widthSizedButton extends StatelessWidget {
       child: TextButton(
           onPressed: onPressed,
           child: Text(
-            text!,
+            text!.locale,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: textColor ?? ColorManager.white,
                 ),

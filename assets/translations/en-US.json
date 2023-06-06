@@ -1,3 +1,72 @@
 {
-    
+    "login":{
+        "welcome":"Welcome",
+        "loginText":"Login",
+        "emailTitle":"Email",
+        "passwordTitle":"Password",
+        "forgetPassword":"Did you forget your password?",
+        "loginButtonText":"Login",
+        "registerButtonText":"Register",
+        "registerText":"Register if you don't have an account!"   
+    },
+    "register":{
+        "welcome":"Welcome",
+        "registerText":"Register",
+        "emailTitle":"Email",
+        "passwordTitle":"Password",
+        "passwordAgainTitle":"Password Again",
+        "registerButtonText":"Register",
+        "loginButtonText":"Login",
+        "loginText":"If you have an account, log in!"
+    },
+    "homepage":{
+        "appBarTitle":"Welcome again",
+        "emptyLessonList":"You have no lessons today",
+        "communitiesText":"Communities",
+        "socialText":"Social Events",
+        "menuText":"Cafeteria Menu"
+    },
+    "postsPage":{
+        "appBarTitle":"POSTS",
+        "sharePostTitle":"Share Post",
+        "postTitleText":"Title",
+        "descriptionTitleText":"Description",
+        "shareButton":"SHARE"
+    },
+    "settingsPage":{
+        "appBarTitle":"SETTINGS",
+        "chngePasswordTitle":"CHANGE PASSWORD",
+        "lessonsTitle":"LESSONS",
+        "calculateTitle":"CALCULATE",
+        "reportTitle":"REPORT ERROR"
+    },
+    "changePasswordPage":{
+        "appBarTitle":"CHANGE PASSWORD",
+        "newPasswordTitle":"New Password",
+        "saveButton":"SAVE",
+        "warningText":"The passwords should be the same and longer than 6 characters"
+    },
+    "lessonsPage":{
+        "appBarTitle":"LESSONS",
+        "addLessonTitle":"Add Lesson",
+        "lessonNameHint":"Lesson Name",
+        "lessonDayHint":"Lesson Day",
+        "lessonTimeHint":"Lesson Time",
+        "lessonClassHint":"Lesson Class",
+        "addButton":"ADD",
+        "cancelButton":"CANCEL"
+    },
+    "calculatePage":{
+        "midtermText":"Midterm",
+        "finalText":"Final",
+        "saveButton":"SAVE RESULTS",
+        "getDatasButton":"GET RESULTS",
+        "avgText":"Average",
+        "letterText":"Letter"
+    },
+    "reportPage":{
+        "reportTitle":"Title",
+        "reportDescription":"Description",
+        "saveButton":"SUBMIT"
+    }
 }

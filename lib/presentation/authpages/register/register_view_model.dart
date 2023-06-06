@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/presentation/authpages/register/register_view.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 
 import '../../../auth/auth.dart';
 import '../../../sources/showalertdialog.dart';
@@ -10,7 +11,7 @@ import '../../../sources/showalertdialog.dart';
 abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
   final formKey = GlobalKey<FormState>();
 
-  String text = "Hesabınız varsa giriş yapın!";
+  String text = LocaleKeys.register_loginText;
 
   bool isLoading = false;
   changeIsLoading() {
@@ -67,11 +68,10 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
     super.dispose();
   }
 
-  String title = "Hoşgeldin!";
-  String email = "E-mail ";
-  String password = "Şifre";
-  String password2 = "Tekrar Şifre";
-  String loginText = "Giriş Yap";
-  String signInText = "Kayıt Ol";
-  String resetPasswordText = "Şifremi Unuttum";
+  String title = LocaleKeys.register_welcome;
+  String email = LocaleKeys.register_emailTitle;
+  String password = LocaleKeys.register_passwordTitle;
+  String password2 = LocaleKeys.register_passwordAgainTitle;
+  String loginText = LocaleKeys.register_loginButtonText;
+  String signInText = LocaleKeys.register_registerText;
 }
