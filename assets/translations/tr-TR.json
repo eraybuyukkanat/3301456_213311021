@@ -31,20 +31,30 @@
         "sharePostTitle":"Gönderi Paylaş",
         "postTitleText":"Konu Başlığı",
         "descriptionTitleText":"Açıklama",
-        "shareButton":"YAYINLA"
+        "shareButton":"YAYINLA",
+        "deletePostText":"Gönderiyi Sil",
+        "editPostText":"Gönderiyi Düzenle",
+        "emptyPostList":"Henüz hiç gönderi yok"
     },
     "settingsPage":{
         "appBarTitle":"AYARLAR",
         "chngePasswordTitle":"ŞİFRE DEĞİŞTİR",
         "lessonsTitle":"DERS PROGRAMIM",
         "calculateTitle":"NOT HESAPLA",
-        "reportTitle":"HATA BİLDİR"
+        "reportTitle":"HATA BİLDİR",
+        "chngNameTitle":"Öğrenci Adı",
+        "chngNameHint":"Öğrenci Adını Giriniz...",
+        "chngSaveButton":"KAYDET"
     },
     "changePasswordPage":{
         "appBarTitle":"ŞİFRE DEĞİŞTİR",
         "newPasswordTitle":"Yeni Şifre",
         "saveButton":"KAYDET",
-        "warningText":"Şifreler aynı ve 6 karakterden uzun olmalıdır"
+        "warningText":"Şifreler aynı ve 6 karakterden uzun olmalıdır",
+        "errorTitle":"Şifre Değiştirme",
+        "errorOKButton":"TAMAM",
+        "errorPasswordText":"Şifreler aynı değil, değiştirilemedi",
+        "okPasswordText":"Şifre Değiştirildi"
     },
     "lessonsPage":{
         "appBarTitle":"DERS PROGRAMI",
@@ -57,6 +67,7 @@
         "cancelButton":"İPTAL"
     },
     "calculatePage":{
+        "appBarTitle":"NOT HESAPLA",
         "midtermText":"Vize",
         "finalText":"Final",
         "saveButton":"NOTLARI KAYDET",
@@ -65,8 +76,20 @@
         "letterText":"Harf"
     },
     "reportPage":{
+        "appBarTitle":"HATA BİLDİR",
         "reportTitle":"Hata Başlığı",
         "reportDescription":"Açıklama",
-        "saveButton":"HATA BİLDİR"
+        "saveButton":"HATA BİLDİR",
+        "successMessage":"Hata bildirildi!",
+        "errorMessage":"Hata bildirilemedi!"
+    },
+    "showModelDialog":{
+        "okText":"Tamam",
+        "cancelText":"İptal",
+        "addText":"Ekle",
+        "shareText":"Paylaş",
+        "emptyError":"Boş bırakamazsınız...",
+        "somethingWrong":"Bazı şeyler yolunda gitmedi..",
+        "emptyTitleDesc":"Başlık ve açıklamayı boş bırakamazsınız..."
     }
 }

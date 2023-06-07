@@ -2,11 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/settings_view_model.dart';
 
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
+import 'package:social_media_app_demo/sources/texts.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -18,13 +21,12 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends ProfilePageViewModel {
   String? src =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
-  String? pageTitle = "AYARLAR";
-  String profileText = "PROFİLİM";
-  String chngPsswdText = "ŞİFRE DEĞİŞTİR";
-  String scheduleText = "DERS PROGRAMIM";
-  String calculatorText = "NOT HESAPLA";
-  String reportText = "HATA BİLDİR";
-  String exitText = "Çıkış Yap";
+  String? pageTitle = LocaleKeys.settingsPage_appBarTitle;
+  String chngPsswdText = LocaleKeys.settingsPage_chngePasswordTitle;
+  String scheduleText = LocaleKeys.settingsPage_lessonsTitle;
+  String calculatorText = LocaleKeys.settingsPage_calculateTitle;
+  String reportText = LocaleKeys.settingsPage_reportTitle;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,12 +54,10 @@ class _SettingsPageState extends ProfilePageViewModel {
               ),
             )
           ],
-          title: Text(
-            pageTitle!,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(color: ColorManager.black),
+          title: headlineMediumText(
+            text: pageTitle!,
+            color: ColorManager.black,
+            fontSize: 32,
           )),
       body: StreamBuilder<FirebaseAuth>(
         stream: streamController.stream,
@@ -165,19 +165,25 @@ class _SettingsPageState extends ProfilePageViewModel {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {
+                              String title =
+                                  LocaleKeys.settingsPage_chngNameTitle.locale;
+                              String hintText2 =
+                                  LocaleKeys.settingsPage_chngNameHint.locale;
+                              String saveButton =
+                                  LocaleKeys.settingsPage_chngSaveButton.locale;
                               return AlertDialog(
-                                title: Text("Öğrenci Adı"),
+                                title: Text(title.locale),
                                 content: TextFormField(
                                   maxLength: 10,
                                   controller: displayNameController,
-                                  decoration: InputDecoration(
-                                      hintText: "Öğrenci Adınızı Giriniz..."),
+                                  decoration:
+                                      InputDecoration(hintText: hintText2),
                                 ),
                                 actions: [
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: widthSizedButton(
-                                        text: "Kaydet",
+                                        text: saveButton,
                                         color: ColorManager.primary,
                                         onPressed: () {
                                           Navigator.pop(context);

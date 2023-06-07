@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/calculator/calculator_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/calculator/graphic.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 
 abstract class CalculatorViewModel extends State<CalculatorViewPage> {
-  String pageTitle = "Not Hesapla";
+  String pageTitle = LocaleKeys.calculatePage_appBarTitle;
   bool chartIsVisible = false;
   String? inputVizeValue = "0";
   String? inputFinalValue = "0";

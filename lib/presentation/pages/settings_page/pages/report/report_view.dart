@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/home_page_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/report/report_view_model.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
+import 'package:social_media_app_demo/sources/texts.dart';
 import '../../../../../sources/showalertdialog.dart';
 import '../../../../main/mainpage.dart';
 
@@ -38,12 +40,10 @@ class _ReportErrorViewState extends ReportErrorViewModel {
               color: ColorManager.black,
             ),
           ),
-          title: Text(
-            pageTitle,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(color: ColorManager.black),
+          title: headlineMediumText(
+            text: pageTitle,
+            fontSize: 32,
+            color: ColorManager.black,
           )),
       body: SingleChildScrollView(
         child: SafeArea(
@@ -57,10 +57,7 @@ class _ReportErrorViewState extends ReportErrorViewModel {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
+                      bodyMediumText(text: title, fontSize: 18),
                     ],
                   ),
                 ),
@@ -91,12 +88,7 @@ class _ReportErrorViewState extends ReportErrorViewModel {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        description,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
+                    children: [bodyMediumText(text: description, fontSize: 18)],
                   ),
                 ),
                 Form(
@@ -144,7 +136,7 @@ class _ReportErrorViewState extends ReportErrorViewModel {
                                 strokeWidth: 2,
                               ),
                             )
-                          : Text(buttonText),
+                          : Text(buttonText.locale),
                     ),
                   ),
                 ),

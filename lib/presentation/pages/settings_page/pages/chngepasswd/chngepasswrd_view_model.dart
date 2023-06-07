@@ -2,15 +2,18 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
+import 'package:social_media_app_demo/sources/texts.dart';
 
 import 'chngepasswd_view.dart';
 
 abstract class ChangePasswdPageViewModel extends State<ChangePasswdPageView> {
-  String pageTitle = "Şifre Değiştir";
-  String field1Title = "Yeni Şifre";
-  String field2Title = "Yeni Şifre";
-  String buttonText = "Kaydet";
-  String infoText = "*Şifreler aynı ve 6 karakterden uzun olmalıdır";
+  String pageTitle = LocaleKeys.changePasswordPage_appBarTitle;
+  String field1Title = LocaleKeys.changePasswordPage_newPasswordTitle;
+  String field2Title = LocaleKeys.changePasswordPage_newPasswordTitle;
+  String buttonText = LocaleKeys.changePasswordPage_saveButton;
+  String infoText = LocaleKeys.changePasswordPage_warningText;
 
   TextEditingController? newpasswdTextEditingController =
       TextEditingController();
@@ -33,10 +36,8 @@ abstract class ChangePasswdPageViewModel extends State<ChangePasswdPageView> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        const String? title = 'Şifre Değiştirme';
-        String? okButton = 'Tamam';
         return AlertDialog(
-          title: const Text(title),
+          title: Text(LocaleKeys.changePasswordPage_errorTitle.locale),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -46,9 +47,9 @@ abstract class ChangePasswdPageViewModel extends State<ChangePasswdPageView> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text(
-                okButton,
-                style: Theme.of(context).textTheme.bodyLarge,
+              child: bodyLargeText(
+                text: LocaleKeys.changePasswordPage_errorOKButton,
+                fontSize: 18,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -67,13 +68,14 @@ abstract class ChangePasswdPageViewModel extends State<ChangePasswdPageView> {
     if (newpasswd == newpasswd2) {
       try {
         await FirebaseAuth.instance.currentUser?.updatePassword(newpasswd2);
-        String? message = "Şifre Değiştirildi";
+        String? message = LocaleKeys.changePasswordPage_okPasswordText.locale;
         _showAlertDialog(message);
       } on FirebaseAuthException catch (e) {
         _showAlertDialog(e.message.toString());
       }
     } else {
-      String? errorMessasge = "Şifreler aynı değil, değiştirilemedi";
+      String? errorMessasge =
+          LocaleKeys.changePasswordPage_errorPasswordText.locale;
       _showAlertDialog(errorMessasge);
     }
 

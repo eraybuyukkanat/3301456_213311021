@@ -30,17 +30,27 @@ abstract class  LocaleKeys {
   static const postsPage_postTitleText = 'postsPage.postTitleText';
   static const postsPage_descriptionTitleText = 'postsPage.descriptionTitleText';
   static const postsPage_shareButton = 'postsPage.shareButton';
+  static const postsPage_deletePostText = 'postsPage.deletePostText';
+  static const postsPage_editPostText = 'postsPage.editPostText';
+  static const postsPage_emptyPostList = 'postsPage.emptyPostList';
   static const postsPage = 'postsPage';
   static const settingsPage_appBarTitle = 'settingsPage.appBarTitle';
   static const settingsPage_chngePasswordTitle = 'settingsPage.chngePasswordTitle';
   static const settingsPage_lessonsTitle = 'settingsPage.lessonsTitle';
   static const settingsPage_calculateTitle = 'settingsPage.calculateTitle';
   static const settingsPage_reportTitle = 'settingsPage.reportTitle';
+  static const settingsPage_chngNameTitle = 'settingsPage.chngNameTitle';
+  static const settingsPage_chngNameHint = 'settingsPage.chngNameHint';
+  static const settingsPage_chngSaveButton = 'settingsPage.chngSaveButton';
   static const settingsPage = 'settingsPage';
   static const changePasswordPage_appBarTitle = 'changePasswordPage.appBarTitle';
   static const changePasswordPage_newPasswordTitle = 'changePasswordPage.newPasswordTitle';
   static const changePasswordPage_saveButton = 'changePasswordPage.saveButton';
   static const changePasswordPage_warningText = 'changePasswordPage.warningText';
+  static const changePasswordPage_errorTitle = 'changePasswordPage.errorTitle';
+  static const changePasswordPage_errorOKButton = 'changePasswordPage.errorOKButton';
+  static const changePasswordPage_errorPasswordText = 'changePasswordPage.errorPasswordText';
+  static const changePasswordPage_okPasswordText = 'changePasswordPage.okPasswordText';
   static const changePasswordPage = 'changePasswordPage';
   static const lessonsPage_appBarTitle = 'lessonsPage.appBarTitle';
   static const lessonsPage_addLessonTitle = 'lessonsPage.addLessonTitle';
@@ -51,6 +61,7 @@ abstract class  LocaleKeys {
   static const lessonsPage_addButton = 'lessonsPage.addButton';
   static const lessonsPage_cancelButton = 'lessonsPage.cancelButton';
   static const lessonsPage = 'lessonsPage';
+  static const calculatePage_appBarTitle = 'calculatePage.appBarTitle';
   static const calculatePage_midtermText = 'calculatePage.midtermText';
   static const calculatePage_finalText = 'calculatePage.finalText';
   static const calculatePage_saveButton = 'calculatePage.saveButton';
@@ -58,9 +69,20 @@ abstract class  LocaleKeys {
   static const calculatePage_avgText = 'calculatePage.avgText';
   static const calculatePage_letterText = 'calculatePage.letterText';
   static const calculatePage = 'calculatePage';
+  static const reportPage_appBarTitle = 'reportPage.appBarTitle';
   static const reportPage_reportTitle = 'reportPage.reportTitle';
   static const reportPage_reportDescription = 'reportPage.reportDescription';
   static const reportPage_saveButton = 'reportPage.saveButton';
+  static const reportPage_successMessage = 'reportPage.successMessage';
+  static const reportPage_errorMessage = 'reportPage.errorMessage';
   static const reportPage = 'reportPage';
+  static const showModelDialog_okText = 'showModelDialog.okText';
+  static const showModelDialog_cancelText = 'showModelDialog.cancelText';
+  static const showModelDialog_addText = 'showModelDialog.addText';
+  static const showModelDialog_shareText = 'showModelDialog.shareText';
+  static const showModelDialog_emptyError = 'showModelDialog.emptyError';
+  static const showModelDialog_somethingWrong = 'showModelDialog.somethingWrong';
+  static const showModelDialog_emptyTitleDesc = 'showModelDialog.emptyTitleDesc';
+  static const showModelDialog = 'showModelDialog';
 
 }

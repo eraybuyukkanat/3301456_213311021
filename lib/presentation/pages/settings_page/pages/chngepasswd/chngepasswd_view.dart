@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/chngepasswd/chngepasswrd_view_model.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
@@ -79,10 +80,10 @@ class _ChangePasswdPageViewState extends ChangePasswdPageViewModel {
                         onPressed: () {
                           changepasswd();
                         },
-                        child: Text(buttonText),
+                        child: Text(buttonText.locale),
                       ),
                     ),
-                    Text(infoText)
+                    Text(infoText.locale)
                   ],
                 ),
               ),

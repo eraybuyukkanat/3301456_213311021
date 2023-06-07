@@ -5,9 +5,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/posts/posts_page_view_model.dart';
 import 'package:social_media_app_demo/sources/customformfield.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/post/post_model.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
@@ -78,7 +80,8 @@ class _PostsPageViewState extends PostsPageViewModel {
                       ),
                     ),
                   )
-                : Center(child: Text("Henüz hiç gönderi yok"));
+                : Center(
+                    child: Text(LocaleKeys.postsPage_emptyPostList.locale));
           }),
     );
   }
@@ -182,7 +185,10 @@ class _PostsPageViewState extends PostsPageViewModel {
                                       } else {
                                         changeIsEditingNow("", "", "");
                                         showAlertDialog(
-                                            "Boş bırakamazsınız..", context);
+                                            LocaleKeys
+                                                .showModelDialog_emptyError
+                                                .locale,
+                                            context);
                                       }
                                     },
                                     icon: Icon(
@@ -194,14 +200,16 @@ class _PostsPageViewState extends PostsPageViewModel {
                                     itemBuilder: (BuildContext context) {
                                       return [
                                         PopupMenuItem(
-                                          child: Text("Gönderiyi Sil"),
+                                          child: Text(LocaleKeys
+                                              .postsPage_deletePostText.locale),
                                           onTap: () {
                                             deletePost(
                                                 resources.data![index].sId);
                                           },
                                         ),
                                         PopupMenuItem(
-                                          child: Text("Gönderiyi Güncelle"),
+                                          child: Text(LocaleKeys
+                                              .postsPage_editPostText.locale),
                                           onTap: () {
                                             changeIsEditingNow(
                                                 resources.data![index].sId,
@@ -303,10 +311,10 @@ class _PostsPageViewState extends PostsPageViewModel {
   }
 
   Future<dynamic> addPostPage(BuildContext context) {
-    String? pageTitle = "Gönderi Paylaş";
-    String? title = "Konu Başlığı";
-    String? description = "Açıklama";
-    String? buttonText = "YAYINLA";
+    String? pageTitle = LocaleKeys.postsPage_sharePostTitle;
+    String? title = LocaleKeys.postsPage_postTitleText;
+    String? description = LocaleKeys.postsPage_descriptionTitleText;
+    String? buttonText = LocaleKeys.postsPage_shareButton;
     return showModalBottomSheet(
         isScrollControlled: true,
         context: context,

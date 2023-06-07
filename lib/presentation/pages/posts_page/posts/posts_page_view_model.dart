@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/posts/posts_page_view.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 
 import '../../../../sources/post/post_model.dart';
 import '../../../../sources/post/service.dart';
@@ -81,11 +83,11 @@ abstract class PostsPageViewModel extends State<PostsPageView>
   Future<void> postValues() async {
     String title = postTitleTextEditingController!.value.text;
     String description = postDescriptionTextEditingController!.value.text;
-    String faculty = "Fakülte";
+
     String email = FirebaseAuth.instance.currentUser!.email.toString();
     Navigator.pop(context);
 
-    if (title.isNotEmpty && description.isNotEmpty && faculty.isNotEmpty) {
+    if (title.isNotEmpty && description.isNotEmpty) {
       await postService.postResourceItem(title, description, email,
           FirebaseAuth.instance.currentUser!.displayName.toString());
 
@@ -93,7 +95,7 @@ abstract class PostsPageViewModel extends State<PostsPageView>
       postTitleTextEditingController!.clear();
       bind();
     } else {
-      showAlertDialog("Boş bırakamazsınız..", context);
+      showAlertDialog(LocaleKeys.showModelDialog_emptyError.locale, context);
     }
   }
 
@@ -123,5 +125,5 @@ abstract class PostsPageViewModel extends State<PostsPageView>
 
   String src =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
-  String appBarTitle = "AKIŞ";
+  String appBarTitle = LocaleKeys.postsPage_appBarTitle;
 }

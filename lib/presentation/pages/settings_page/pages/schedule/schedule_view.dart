@@ -2,12 +2,15 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view_model.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/lesson_model.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/date.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
+import 'package:social_media_app_demo/sources/texts.dart';
 import 'package:sqflite_common/sqlite_api.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 
@@ -19,7 +22,7 @@ class SchedulePageView extends StatefulWidget {
 }
 
 class _SchedulePageViewState extends SchedulePageViewModel {
-  String pageTitle = "Ders Programı";
+  String pageTitle = LocaleKeys.lessonsPage_appBarTitle.locale;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,12 +42,10 @@ class _SchedulePageViewState extends SchedulePageViewModel {
               color: ColorManager.black,
             ),
           ),
-          title: Text(
-            pageTitle,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(color: ColorManager.black),
+          title: headlineMediumText(
+            text: LocaleKeys.lessonsPage_appBarTitle,
+            fontSize: 32,
+            color: ColorManager.black,
           )),
       body: SafeArea(
         child: ekleniyoMu == true
@@ -58,7 +59,8 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
-                            child: Text("Ders Ekle"),
+                            child: Text(
+                                LocaleKeys.lessonsPage_addLessonTitle.locale),
                           ),
                           Column(
                             children: [
@@ -70,7 +72,8 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                   controller: lessonNameEditingController,
                                   decoration: InputDecoration(
                                     counterText: "",
-                                    hintText: "Dersin Adı..",
+                                    hintText: LocaleKeys
+                                        .lessonsPage_lessonNameHint.locale,
                                     border: OutlineInputBorder(),
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
@@ -95,7 +98,8 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                     hint: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        'Dersin Günü',
+                                        LocaleKeys
+                                            .lessonsPage_lessonDayHint.locale,
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: Theme.of(context).hintColor,
@@ -153,7 +157,8 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                   controller: lessonTimeEditingController,
                                   decoration: InputDecoration(
                                     counterText: "",
-                                    hintText: "Dersin Saati..",
+                                    hintText: LocaleKeys
+                                        .lessonsPage_lessonTimeHint.locale,
                                     border: OutlineInputBorder(),
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
@@ -176,7 +181,8 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                 child: TextFormField(
                                   controller: lessonClassEditingController,
                                   decoration: InputDecoration(
-                                    hintText: "Dersin Sınıfı..",
+                                    hintText: LocaleKeys
+                                        .lessonsPage_lessonClassHint.locale,
                                     border: OutlineInputBorder(),
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
@@ -201,7 +207,7 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                 padding: const EdgeInsets.only(top: 10),
                                 child: widthSizedButton(
                                   color: ColorManager.primary,
-                                  text: "Ekle",
+                                  text: LocaleKeys.lessonsPage_addButton.locale,
                                   onPressed: () {
                                     if (lessonNameEditingController.value.text != null &&
                                         selectedValue != null &&
@@ -228,7 +234,9 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                       ekleniyor();
                                     } else {
                                       showAlertDialog(
-                                          "Boş bırakamazsınız", context);
+                                          LocaleKeys.showModelDialog_emptyError
+                                              .locale,
+                                          context);
                                     }
                                   },
                                 ),
@@ -237,7 +245,8 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                 padding: const EdgeInsets.only(top: 10),
                                 child: widthSizedButton(
                                   color: ColorManager.red,
-                                  text: "İptal",
+                                  text: LocaleKeys
+                                      .lessonsPage_cancelButton.locale,
                                   onPressed: () {
                                     ekleniyor();
                                   },

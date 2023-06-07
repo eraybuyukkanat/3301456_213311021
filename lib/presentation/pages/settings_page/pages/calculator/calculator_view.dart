@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/config/file_utils.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/calculator/calculator_view_model.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/calculator/graphic.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -40,12 +42,10 @@ class _CalculatorViewPageState extends CalculatorViewModel {
               color: ColorManager.black,
             ),
           ),
-          title: Text(
-            pageTitle,
-            style: Theme.of(context)
-                .textTheme
-                .headlineMedium
-                ?.copyWith(color: ColorManager.black),
+          title: headlineMediumText(
+            text: pageTitle,
+            fontSize: 32,
+            color: ColorManager.black,
           )),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -61,7 +61,7 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                       Column(
                         children: [
                           bodyMediumText(
-                            text: "Vize",
+                            text: LocaleKeys.calculatePage_midtermText,
                             fontSize: 20,
                             padding: EdgeInsets.symmetric(vertical: 10),
                           ),
@@ -99,7 +99,7 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                       Column(
                         children: [
                           bodyMediumText(
-                              text: "Final",
+                              text: LocaleKeys.calculatePage_finalText,
                               fontSize: 20,
                               padding: EdgeInsets.symmetric(vertical: 10)),
                           Container(
@@ -140,14 +140,16 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                   padding: const EdgeInsets.all(15),
                   child: widthSizedButton(
                     color: ColorManager.primary,
-                    text: "Notları Kaydet",
+                    text: LocaleKeys.calculatePage_saveButton,
                     onPressed: () {
                       vizeNotuController.text != "" &&
                               finalNotuController.text != ""
                           ? FileUtils.saveToFile(vizeNotuController.text +
                               "," +
                               finalNotuController.text)
-                          : showAlertDialog("Boş bırakamazsınız", context);
+                          : showAlertDialog(
+                              LocaleKeys.showModelDialog_emptyError.locale,
+                              context);
                     },
                   ),
                 ),
@@ -158,7 +160,7 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                   padding: const EdgeInsets.all(15),
                   child: widthSizedButton(
                     color: ColorManager.primary,
-                    text: "Sonuçları Getir",
+                    text: LocaleKeys.calculatePage_getDatasButton,
                     onPressed: () {
                       vizeNotuController.text != "" &&
                               finalNotuController.text != ""
@@ -171,7 +173,9 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                                 });
                               },
                             )
-                          : showAlertDialog("Boş bırakamazsınız", context);
+                          : showAlertDialog(
+                              LocaleKeys.showModelDialog_emptyError.locale,
+                              context);
                       vizeNotuController.clear();
                       finalNotuController.clear();
                     },
@@ -184,7 +188,9 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                     children: [
                       Column(
                         children: [
-                          bodyMediumText(text: "Vize", fontSize: 18),
+                          bodyMediumText(
+                              text: LocaleKeys.calculatePage_midtermText,
+                              fontSize: 18),
                           bodyMediumText(
                             text: "${inputVizeValue ?? ""}",
                             fontSize: 25,
@@ -194,7 +200,9 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                       ),
                       Column(
                         children: [
-                          bodyMediumText(text: "Final", fontSize: 18),
+                          bodyMediumText(
+                              text: LocaleKeys.calculatePage_finalText,
+                              fontSize: 18),
                           bodyMediumText(
                             text: "${inputFinalValue ?? ""} ",
                             fontSize: 25,
@@ -204,7 +212,9 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                       ),
                       Column(
                         children: [
-                          bodyMediumText(text: "Ortalama", fontSize: 18),
+                          bodyMediumText(
+                              text: LocaleKeys.calculatePage_avgText,
+                              fontSize: 18),
                           bodyMediumText(
                             text:
                                 "${calculateAvg(inputVizeValue, inputFinalValue).toStringAsFixed(3)}",
@@ -216,7 +226,7 @@ class _CalculatorViewPageState extends CalculatorViewModel {
                       Column(
                         children: [
                           bodyMediumText(
-                            text: "Harf",
+                            text: LocaleKeys.calculatePage_letterText,
                             fontSize: 18,
                           ),
                           bodyMediumText(

@@ -31,20 +31,30 @@
         "sharePostTitle":"Share Post",
         "postTitleText":"Title",
         "descriptionTitleText":"Description",
-        "shareButton":"SHARE"
+        "shareButton":"SHARE",
+        "deletePostText":"Delete Post",
+        "editPostText":"Edit Post",
+        "emptyPostList":"There is no post yet"
     },
     "settingsPage":{
         "appBarTitle":"SETTINGS",
         "chngePasswordTitle":"CHANGE PASSWORD",
         "lessonsTitle":"LESSONS",
         "calculateTitle":"CALCULATE",
-        "reportTitle":"REPORT ERROR"
+        "reportTitle":"REPORT ERROR",
+        "chngNameTitle":"Student Name",
+        "chngNameHint":"Enter the student name ...",
+        "chngSaveButton":"SAVE"
     },
     "changePasswordPage":{
         "appBarTitle":"CHANGE PASSWORD",
         "newPasswordTitle":"New Password",
         "saveButton":"SAVE",
-        "warningText":"The passwords should be the same and longer than 6 characters"
+        "warningText":"The passwords should be the same and longer than 6 characters",
+        "errorTitle":"Change Password",
+        "errorOKButton":"Okay",
+        "errorPasswordText":"The passwords are not the same, could not be changed",
+        "okPasswordText":"The password was changed"
     },
     "lessonsPage":{
         "appBarTitle":"LESSONS",
@@ -57,6 +67,7 @@
         "cancelButton":"CANCEL"
     },
     "calculatePage":{
+        "appBarTitle":"CALCULATE",
         "midtermText":"Midterm",
         "finalText":"Final",
         "saveButton":"SAVE RESULTS",
@@ -65,8 +76,20 @@
         "letterText":"Letter"
     },
     "reportPage":{
+        "appBarTitle":"REPORT ERROR",
         "reportTitle":"Title",
         "reportDescription":"Description",
-        "saveButton":"SUBMIT"
+        "saveButton":"SUBMIT",
+        "successMessage":"The error has been reported!",
+        "errorMessage":"The error could not be reported!"
+    },
+    "showModelDialog":{
+        "okText":"Okey",
+        "cancelText":"Cancel",
+        "addText":"Add",
+        "shareText":"Share",
+        "emptyError":"You can't leave it empty ...",
+        "somethingWrong":"Something wrong...",
+        "emptyTitleDesc":"You cannot leave the title and the explanation empty ..."
     }
 }
