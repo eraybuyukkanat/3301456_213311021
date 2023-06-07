@@ -1,16 +1,22 @@
-import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class projectDate {
   DateTime date = DateTime.now();
 
-  Map days = {
+  Map daysTR = {
     1: "Pazartesi",
     2: "Salı",
     3: "Çarşamba",
     4: "Perşembe",
     5: "Cuma",
-    6: "Cumartesi",
-    7: "Pazar"
+  };
+  Map daysEN = {
+    1: "Monday",
+    2: "Tuesday",
+    3: "Wednesday",
+    4: "Thursday",
+    5: "Friday",
   };
 
   Map<int, String> months = {
@@ -45,6 +51,6 @@ class projectDate {
   }
 
   String currentDayTR() {
-    return days[date.weekday].toString();
+    return daysTR[date.weekday].toString();
   }
 }

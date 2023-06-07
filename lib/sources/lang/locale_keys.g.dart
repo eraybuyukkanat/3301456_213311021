@@ -9,6 +9,9 @@ abstract class  LocaleKeys {
   static const login_loginButtonText = 'login.loginButtonText';
   static const login_registerButtonText = 'login.registerButtonText';
   static const login_registerText = 'login.registerText';
+  static const login_loginsuccess = 'login.loginsuccess';
+  static const login_emailVerifyError = 'login.emailVerifyError';
+  static const login_forgetPasswordSent = 'login.forgetPasswordSent';
   static const login = 'login';
   static const register_welcome = 'register.welcome';
   static const register_registerText = 'register.registerText';
@@ -18,6 +21,8 @@ abstract class  LocaleKeys {
   static const register_registerButtonText = 'register.registerButtonText';
   static const register_loginButtonText = 'register.loginButtonText';
   static const register_loginText = 'register.loginText';
+  static const register_emailVerifySent = 'register.emailVerifySent';
+  static const register_passwordMatchError = 'register.passwordMatchError';
   static const register = 'register';
   static const homepage_appBarTitle = 'homepage.appBarTitle';
   static const homepage_emptyLessonList = 'homepage.emptyLessonList';
@@ -84,5 +89,13 @@ abstract class  LocaleKeys {
   static const showModelDialog_somethingWrong = 'showModelDialog.somethingWrong';
   static const showModelDialog_emptyTitleDesc = 'showModelDialog.emptyTitleDesc';
   static const showModelDialog = 'showModelDialog';
+  static const onboarding_slide1Title = 'onboarding.slide1Title';
+  static const onboarding_slide1Description = 'onboarding.slide1Description';
+  static const onboarding_slide2Title = 'onboarding.slide2Title';
+  static const onboarding_slide2Description = 'onboarding.slide2Description';
+  static const onboarding_slide3Title = 'onboarding.slide3Title';
+  static const onboarding_slide3Description = 'onboarding.slide3Description';
+  static const onboarding_appName = 'onboarding.appName';
+  static const onboarding = 'onboarding';
 
 }

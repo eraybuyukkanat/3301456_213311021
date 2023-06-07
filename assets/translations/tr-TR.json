@@ -7,7 +7,10 @@
         "forgetPassword":"Şifrenizi mi unuttunuz?",
         "loginButtonText":"Giriş Yap",
         "registerButtonText":"Kayıt Ol",
-        "registerText":"Hesabınız yoksa kayıt olun!"   
+        "registerText":"Hesabınız yoksa kayıt olun!",
+        "loginsuccess":"Giriş başarılı, anasayfaya yönlendiriliyorsunuz...",
+        "emailVerifyError":"Email doğrulanmamış",
+        "forgetPasswordSent":"Şifre değiştirme bağlantısı gönderildi!"
     },
     "register":{
         "welcome":"Hoşgeldin",
@@ -17,7 +20,9 @@
         "passwordAgainTitle":"Tekrar Şifre",
         "registerButtonText":"Kayıt Ol",
         "loginButtonText":"Giriş Yap",
-        "loginText":"Hesabınız varsa giriş yapın!"
+        "loginText":"Hesabınız varsa giriş yapın!",
+        "emailVerifySent":"Email adresine doğrulama bağlantısı gönderildi",
+        "passwordMatchError":"Şifreler aynı değil"
     },
     "homepage":{
         "appBarTitle":"Tekrar Hoşgeldin",
@@ -91,5 +96,14 @@
         "emptyError":"Boş bırakamazsınız...",
         "somethingWrong":"Bazı şeyler yolunda gitmedi..",
         "emptyTitleDesc":"Başlık ve açıklamayı boş bırakamazsınız..."
+    },
+    "onboarding":{
+        "slide1Title":"Uygulamaya Hoşgeldin!",
+        "slide1Description":"Uygulama ile üniversitenden haberdar olabilir, topluluklara katılabilirsin. Akademik takvim, bilimsel ve sosyal etkinlikleri keşfedebilirsin.",
+        "slide2Title":"Kampüs Elinde",
+        "slide2Description":"Bölümüne göre istediğin alanları takip et, sınav haftası hazırlıksız yakalanma. Arkadaşlarınla çalış.",
+        "slide3Title":"Hemen Katıl!",
+        "slide3Description":"Devam etmek için butona tıkla, hesabın var ise giriş yap yok ise üye ol.",
+        "appName":"Üniversitem"
     }
 }

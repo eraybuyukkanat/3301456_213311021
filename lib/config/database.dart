@@ -4,6 +4,7 @@ import 'package:path/path.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/lesson_model.dart';
 import 'package:social_media_app_demo/sources/date.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseManager with projectDate {
@@ -31,7 +32,14 @@ class DatabaseManager with projectDate {
     return userMaps.map((e) => Lesson.fromMap(e)).toList();
   }
 
-  Future<List<Lesson>> getTodayList() async {
+  Future<List<Lesson>> getTodayListTR() async {
+    final db = await getDB();
+    List<Map> userMaps = await db.query(userTableName,
+        where: '$columnDay = ?', whereArgs: [currentDayTR()]);
+    return userMaps.map((e) => Lesson.fromMap(e)).toList();
+  }
+
+  Future<List<Lesson>> getTodayListEN() async {
     final db = await getDB();
     List<Map> userMaps = await db.query(userTableName,
         where: '$columnDay = ?', whereArgs: [currentDayTR()]);

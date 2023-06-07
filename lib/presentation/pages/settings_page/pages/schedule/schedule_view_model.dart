@@ -24,13 +24,21 @@ abstract class SchedulePageViewModel extends State<SchedulePageView> {
     setState(() {});
   }
 
-  final List<String> items = [
-    'Pazartesi',
-    'Salı',
-    'Çarşamba',
-    'Perşembe',
-    'Cuma'
-  ];
+  Map daysTR = {
+    1: "Pazartesi",
+    2: "Salı",
+    3: "Çarşamba",
+    4: "Perşembe",
+    5: "Cuma",
+  };
+  Map daysEN = {
+    1: "Monday",
+    2: "Tuesday",
+    3: "Wednesday",
+    4: "Thursday",
+    5: "Friday",
+  };
+
   String? selectedValue;
 
   Future getLessonsList() async {

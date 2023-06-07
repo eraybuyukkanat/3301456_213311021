@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/cache/shared_manager.dart';
+import 'package:social_media_app_demo/config/constants.dart';
 import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/authpages/login/login_view_model.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
@@ -10,6 +11,7 @@ import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/customformfield.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoginScreenView extends StatefulWidget {
   const LoginScreenView({super.key});
@@ -39,6 +41,18 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                     color: ColorManager.primary,
                     padding: EdgeInsets.symmetric(vertical: 5),
                   ),
+                  TextButton(
+                      onPressed: () {
+                        print(context.locale.languageCode);
+                        context.locale.languageCode == "tr"
+                            ? context.setLocale(AppConstants.EN_LOCALE)
+                            : context.setLocale(AppConstants.TR_LOCALE);
+                      },
+                      child: headlineMediumText(
+                        text: context.locale.languageCode.toUpperCase(),
+                        fontSize: 18,
+                        color: ColorManager.black,
+                      )),
                 ],
               ),
               Container(

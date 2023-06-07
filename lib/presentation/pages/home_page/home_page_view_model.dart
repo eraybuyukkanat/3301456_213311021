@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/config/database.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/home_page_view.dart';
@@ -62,7 +63,7 @@ abstract class HomePageViewModel extends State<HomePageView>
   List<Lesson> lessonList = [];
 
   Future<void> getTodayList() async {
-    lessonList = await databaseManager.getTodayList();
+    lessonList = await databaseManager.getTodayListTR();
     setState(() {});
   }
 

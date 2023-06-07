@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/authpages/register/register_view.dart';
 import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 
@@ -36,8 +37,8 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
       try {
         await Auth().registerWithEmailAndPassword(email, password);
         await FirebaseAuth.instance.currentUser!.sendEmailVerification();
-        await ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Email adresine doğrulama bağlantısı gönderildi"),
+        await ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(LocaleKeys.register_emailVerifySent.locale),
           duration: Duration(seconds: 1),
         ));
         await FirebaseAuth.instance.currentUser
@@ -50,7 +51,7 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
         passwordTextEditingController!.clear();
       }
     } else {
-      showAlertDialog("Şifreler aynı değil", context);
+      showAlertDialog(LocaleKeys.register_passwordMatchError.locale, context);
     }
     changeIsLoading();
   }

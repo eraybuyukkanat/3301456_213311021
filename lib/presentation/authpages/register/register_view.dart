@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/config/constants.dart';
 import 'package:social_media_app_demo/presentation/authpages/register/register_view_model.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
 import 'package:social_media_app_demo/sources/customformfield.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class RegisterScreenView extends StatefulWidget {
   const RegisterScreenView({super.key});
@@ -25,11 +27,28 @@ class _RegisterScreenViewState extends RegisterScreenViewModel {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              titleLargeText(
-                text: title,
-                fontSize: 38,
-                color: ColorManager.primary,
-                padding: EdgeInsets.symmetric(vertical: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  titleLargeText(
+                    text: title,
+                    fontSize: 38,
+                    color: ColorManager.primary,
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        print(context.locale.languageCode);
+                        context.locale.languageCode == "tr"
+                            ? context.setLocale(AppConstants.EN_LOCALE)
+                            : context.setLocale(AppConstants.TR_LOCALE);
+                      },
+                      child: headlineMediumText(
+                        text: context.locale.languageCode.toUpperCase(),
+                        fontSize: 18,
+                        color: ColorManager.black,
+                      )),
+                ],
               ),
               Container(
                 height: 2,

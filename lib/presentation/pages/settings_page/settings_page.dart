@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/auth/auth.dart';
+import 'package:social_media_app_demo/config/constants.dart';
 import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/settings_view_model.dart';
 
@@ -38,6 +40,18 @@ class _SettingsPageState extends ProfilePageViewModel {
           toolbarHeight: 10.h,
           centerTitle: false,
           actions: [
+            TextButton(
+                onPressed: () {
+                  print(context.locale.languageCode);
+                  context.locale.languageCode == "tr"
+                      ? context.setLocale(AppConstants.EN_LOCALE)
+                      : context.setLocale(AppConstants.TR_LOCALE);
+                },
+                child: headlineMediumText(
+                  text: context.locale.languageCode.toUpperCase(),
+                  fontSize: 18,
+                  color: ColorManager.black,
+                )),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: IconButton(

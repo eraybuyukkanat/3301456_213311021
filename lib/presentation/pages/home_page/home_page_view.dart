@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:intl/intl.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import 'package:social_media_app_demo/config/database.dart';
 import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/home_page_view_model.dart';
 import 'package:social_media_app_demo/sources/date.dart';
@@ -14,7 +13,6 @@ import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
 
 import '../../../sources/colors.dart';
-import '../settings_page/pages/schedule/lesson_model.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({super.key});
@@ -238,7 +236,9 @@ class scheduleDayWidget extends StatelessWidget with projectDate {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             bodyMediumText(
-              text: currentDayTR().toString(),
+              text: context.locale.languageCode == "tr"
+                  ? currentDayTR().toString()
+                  : DateFormat('EEEE').format(date),
               fontSize: 22,
               fontWeight: FontWeight.w500,
             )
@@ -317,12 +317,16 @@ class appBarDate extends StatelessWidget with projectDate {
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: bodyMediumText(
-              text: currentDateTR(),
+              text: context.locale.languageCode == "tr"
+                  ? currentDateTR()
+                  : DateFormat('MMM-d-yyyy').format(date),
               fontWeight: FontWeight.w500,
               fontSize: 18,
             )),
         bodySmallText(
-          text: currentDayTR().toString(),
+          text: context.locale.languageCode == "tr"
+              ? currentDayTR().toString()
+              : DateFormat('EEEE').format(date),
           fontSize: 14,
           fontWeight: FontWeight.w500,
           color: ColorManager.primary,

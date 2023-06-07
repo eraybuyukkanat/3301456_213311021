@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
@@ -106,26 +107,48 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                         ),
                                       ),
                                     ),
-                                    items: items
-                                        .map((item) => DropdownMenuItem<String>(
-                                              value: item,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  item,
-                                                  style: const TextStyle(
-                                                    fontSize: 18,
+                                    items: context.locale.languageCode == "tr"
+                                        ? daysTR.values
+                                            .map((item) =>
+                                                DropdownMenuItem<String>(
+                                                  value: item,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      item,
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                            ))
-                                        .toList(),
+                                                ))
+                                            .toList()
+                                        : daysEN.values
+                                            .map((item) =>
+                                                DropdownMenuItem<String>(
+                                                  value: item,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      item,
+                                                      style: const TextStyle(
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ))
+                                            .toList(),
                                     value: selectedValue,
                                     onChanged: (value) {
                                       setState(() {
                                         selectedValue = value as String;
                                       });
+                                      print(value);
+                                      print(selectedValue);
                                     },
                                     buttonStyleData: ButtonStyleData(
                                       decoration: BoxDecoration(

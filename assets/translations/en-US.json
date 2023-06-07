@@ -7,7 +7,10 @@
         "forgetPassword":"Did you forget your password?",
         "loginButtonText":"Login",
         "registerButtonText":"Register",
-        "registerText":"Register if you don't have an account!"   
+        "registerText":"Register if you don't have an account!",
+        "loginsuccess":"Successfully logged, you are directed to the homepage ...",
+        "emailVerifyError":"Email not yet verified ",
+        "forgetPasswordSent":"Link sent to your email!"
     },
     "register":{
         "welcome":"Welcome",
@@ -17,7 +20,9 @@
         "passwordAgainTitle":"Password Again",
         "registerButtonText":"Register",
         "loginButtonText":"Login",
-        "loginText":"If you have an account, log in!"
+        "loginText":"If you have an account, log in!",
+        "emailVerifySent":"A verification link was sent to email address",
+        "passwordMatchError":"The passwords are not the same"
     },
     "homepage":{
         "appBarTitle":"Welcome again",
@@ -91,5 +96,14 @@
         "emptyError":"You can't leave it empty ...",
         "somethingWrong":"Something wrong...",
         "emptyTitleDesc":"You cannot leave the title and the explanation empty ..."
+    },
+    "onboarding":{
+        "slide1Title":"Welcome to app!",
+        "slide1Description":"With the application you can be aware of your university, you can join communities.You can discover academic calendar, scientific and social activities.",
+        "slide2Title":"Campus in your hand!",
+        "slide2Description":"Follow the fields you want according to the section, don't be caught unprepared for the exam week. Work with your friends.",
+        "slide3Title":"Join now!",
+        "slide3Description":"Click the button to continue, if you have an account, if you do not log in, become a member.",
+        "appName":"Üniversitem"
     }
 }
