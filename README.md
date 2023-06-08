@@ -11,7 +11,7 @@ This project is a social media application developed with Flutter, NodeJS RestAP
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/f2481f55-8270-48c1-aea3-f0b62a6af3bb" width="350">
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/ed40b047-4c73-457a-8f1d-a26dadfa90c8" width="350">
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/2593349a-12fc-4bbb-8689-5dac6df29820" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/aa50ca33-0bb4-4b6f-8380-c8085b178fc7" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/6675a966-3ad4-41da-9488-9c4dc4ba8fd5" width="350">
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/bf9536a0-eed7-42fe-b043-c687f8a66759" width="350">
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/a7bb167a-c3e7-4159-9d9f-45f05ec27033" width="350">
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/47ed4496-165a-41f5-9b1a-e7bc2f72c86a" width="350">

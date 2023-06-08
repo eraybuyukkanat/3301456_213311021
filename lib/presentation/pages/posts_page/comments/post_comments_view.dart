@@ -52,12 +52,10 @@ class _PostCommentsViewState extends PostCommentsViewModel {
                 color: ColorManager.black,
               ),
             ),
-            title: Text(
-              pageTitle!,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium
-                  ?.copyWith(color: ColorManager.black),
+            title: headlineMediumText(
+              text: pageTitle!,
+              fontSize: 32,
+              color: ColorManager.black,
             )),
         body: SafeArea(
           child: Padding(

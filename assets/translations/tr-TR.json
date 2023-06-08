@@ -111,5 +111,8 @@
     },
     "menupage":{
         "menuAppBar":"YEMEKHANE MENÜSÜ"
+    },
+    "commentsPage":{
+        "commentsAppBar":"Yorumlar"
     }
 }

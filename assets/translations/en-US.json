@@ -111,5 +111,8 @@
     },
     "menupage":{
         "menuAppBar":"CAFETERIA MENU"
+    },
+    "commentsPage":{
+        "commentsAppBar":"COMMENTS"
     }
 }

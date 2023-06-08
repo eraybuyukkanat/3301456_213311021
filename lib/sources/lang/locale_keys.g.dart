@@ -101,5 +101,7 @@ abstract class  LocaleKeys {
   static const socialevents = 'socialevents';
   static const menupage_menuAppBar = 'menupage.menuAppBar';
   static const menupage = 'menupage';
+  static const commentsPage_commentsAppBar = 'commentsPage.commentsAppBar';
+  static const commentsPage = 'commentsPage';
 
 }

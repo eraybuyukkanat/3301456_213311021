@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 
 import '../../../../sources/comment/comment_model.dart';
 import '../../../../sources/comment/service.dart';
@@ -82,5 +83,5 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
     changeLoading();
   }
 
-  String? pageTitle = "Yorumlar";
+  String? pageTitle = LocaleKeys.commentsPage_commentsAppBar;
 }
