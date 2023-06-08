@@ -105,5 +105,11 @@
         "slide3Title":"Hemen Katıl!",
         "slide3Description":"Devam etmek için butona tıkla, hesabın var ise giriş yap yok ise üye ol.",
         "appName":"Üniversitem"
+    },
+    "socialevents":{
+        "socialAppBar":"SOSYAL ETKİNLİKLER"
+    },
+    "menupage":{
+        "menuAppBar":"YEMEKHANE MENÜSÜ"
     }
 }

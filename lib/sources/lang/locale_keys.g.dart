@@ -97,5 +97,9 @@ abstract class  LocaleKeys {
   static const onboarding_slide3Description = 'onboarding.slide3Description';
   static const onboarding_appName = 'onboarding.appName';
   static const onboarding = 'onboarding';
+  static const socialevents_socialAppBar = 'socialevents.socialAppBar';
+  static const socialevents = 'socialevents';
+  static const menupage_menuAppBar = 'menupage.menuAppBar';
+  static const menupage = 'menupage';
 
 }

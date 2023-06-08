@@ -105,5 +105,11 @@
         "slide3Title":"Join now!",
         "slide3Description":"Click the button to continue, if you have an account, if you do not log in, become a member.",
         "appName":"Üniversitem"
+    },
+    "socialevents":{
+        "socialAppBar":"SOCIAL EVENTS"
+    },
+    "menupage":{
+        "menuAppBar":"CAFETERIA MENU"
     }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/menu/menu_view_model.dart';
 import 'package:social_media_app_demo/sources/colors.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
 import 'package:path_provider/path_provider.dart';
@@ -14,33 +15,30 @@ class MenuView extends StatefulWidget {
 }
 
 class _MenuViewState extends MenuViewModel {
-  String pageTitle = "Yemekhane Menüsü";
+  String pageTitle = LocaleKeys.menupage_menuAppBar;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 3.h,
-        elevation: 10,
-        backgroundColor: ColorManager.white,
-        toolbarHeight: 10.h,
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, "/mainpage");
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: ColorManager.black,
+          titleSpacing: 3.h,
+          elevation: 10,
+          backgroundColor: ColorManager.white,
+          toolbarHeight: 10.h,
+          centerTitle: false,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/mainpage");
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: ColorManager.black,
+            ),
           ),
-        ),
-        title: Text(
-          pageTitle,
-          style: Theme.of(context)
-              .textTheme
-              .headlineMedium
-              ?.copyWith(color: ColorManager.black),
-        ),
-      ),
+          title: headlineMediumText(
+            text: pageTitle,
+            fontSize: 32,
+            color: ColorManager.black,
+          )),
       body: SafeArea(
           child: isLoading
               ? Center(child: loadingWidget())

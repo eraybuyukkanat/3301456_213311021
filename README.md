@@ -5,17 +5,17 @@
 This project is a social media application developed with Flutter, NodeJS RestAPI, Firebase. Users authentication was provided in via Firebase and the sharing of posts was built via NodeJS RestAPI. In addition, users can store the school schedule in their own database with SQLite. The images of social activities and announcements have been fetched from the web.
 
 
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/fabc59f4-8af4-49a8-863e-00ae3d9e0394" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/fabc59f4-8af4-49a8-863e-00ae3d9e0394" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/de660e61-9f29-4156-b2c2-c172ae9036a6" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/64ca2b35-1730-4ebb-b12c-63aea08b07b2" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/9a5bd58e-d6ad-480f-baff-b352fcad625b" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/4c9a77dc-6326-4095-99e7-f3854894d8fb" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/7090d843-22e2-4120-8fc0-d9c5c8b65233" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/4f7c6afd-f17f-4eb5-95cf-f49fb6c88d71" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/341d2280-5b03-44cc-839c-8aca012d3ace" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/33b388a7-f3c9-4157-adee-a47637139702" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/626e5239-5045-4076-918f-79cc8500079a" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/9073dccd-d8b9-42bd-9f1b-385fab3b0f24" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/61fd7cb0-2492-4d3d-93c7-6a16f37f4315" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/462675ae-b9d8-4f95-a9ea-46a3600239f5" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/d1ac949f-5a8c-486f-9cba-806e79c41f46" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/447d2219-c9cc-4d17-b8b4-3d55f11de835" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/cb111729-5aa2-48cf-9719-d24c30285c10" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/f2481f55-8270-48c1-aea3-f0b62a6af3bb" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/ed40b047-4c73-457a-8f1d-a26dadfa90c8" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/2593349a-12fc-4bbb-8689-5dac6df29820" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/aa50ca33-0bb4-4b6f-8380-c8085b178fc7" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/bf9536a0-eed7-42fe-b043-c687f8a66759" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/a7bb167a-c3e7-4159-9d9f-45f05ec27033" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/47ed4496-165a-41f5-9b1a-e7bc2f72c86a" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/4cfc3d7f-468f-4680-9efc-3cfd3dd85d49" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/92c7b356-c120-483e-8fd5-13d3c15dd336" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/ed4282af-bbd4-431d-9a85-68dfeb7da69e" width="350">
+<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/7edd3045-44df-4c0b-8b6b-d21fe0f57848" width="350">

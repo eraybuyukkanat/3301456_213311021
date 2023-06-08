@@ -5,6 +5,7 @@ import 'package:social_media_app_demo/presentation/main/mainpage.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/socialevents/events_model.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/socialevents/socialevents_view_model.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
@@ -21,31 +22,28 @@ class SocialEventsView extends StatefulWidget {
 class _SocialEventsViewState extends SocialEventsViewModel {
   @override
   Widget build(BuildContext context) {
-    String? pageTitle = "Sosyal Etkinlikler";
+    String? pageTitle = LocaleKeys.socialevents_socialAppBar;
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 3.h,
-        elevation: 10,
-        backgroundColor: ColorManager.white,
-        toolbarHeight: 10.h,
-        centerTitle: false,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, "/mainpage");
-          },
-          icon: Icon(
-            Icons.arrow_back,
-            color: ColorManager.black,
+          titleSpacing: 3.h,
+          elevation: 10,
+          backgroundColor: ColorManager.white,
+          toolbarHeight: 10.h,
+          centerTitle: false,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, "/mainpage");
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: ColorManager.black,
+            ),
           ),
-        ),
-        title: Text(
-          pageTitle,
-          style: Theme.of(context)
-              .textTheme
-              .headlineMedium
-              ?.copyWith(color: ColorManager.black),
-        ),
-      ),
+          title: headlineMediumText(
+            text: pageTitle,
+            fontSize: 32,
+            color: ColorManager.black,
+          )),
       body: SafeArea(
           child: isLoading
               ? Center(child: loadingWidget())
