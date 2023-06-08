@@ -113,6 +113,7 @@
         "menuAppBar":"YEMEKHANE MENÜSÜ"
     },
     "commentsPage":{
-        "commentsAppBar":"Yorumlar"
+        "commentsAppBar":"Yorumlar",
+        "addCommentText":"Yorum Ekle"
     }
 }

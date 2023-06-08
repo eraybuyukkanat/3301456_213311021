@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view_model.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:social_media_app_demo/sources/customformfield.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 import 'package:social_media_app_demo/sources/showalertdialog.dart';
 import 'package:social_media_app_demo/sources/texts.dart';
@@ -124,7 +126,7 @@ class _PostCommentsViewState extends PostCommentsViewModel {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: Text("Yorum Ekle"),
+            child: Text(LocaleKeys.commentsPage_addCommentText.locale),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

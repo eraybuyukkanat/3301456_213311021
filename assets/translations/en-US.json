@@ -113,6 +113,8 @@
         "menuAppBar":"CAFETERIA MENU"
     },
     "commentsPage":{
-        "commentsAppBar":"COMMENTS"
+        "commentsAppBar":"COMMENTS",
+        "addCommentText":"Add Comment"
+
     }
 }

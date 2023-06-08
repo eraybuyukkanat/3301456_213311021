@@ -102,6 +102,7 @@ abstract class  LocaleKeys {
   static const menupage_menuAppBar = 'menupage.menuAppBar';
   static const menupage = 'menupage';
   static const commentsPage_commentsAppBar = 'commentsPage.commentsAppBar';
+  static const commentsPage_addCommentText = 'commentsPage.addCommentText';
   static const commentsPage = 'commentsPage';
 
 }
