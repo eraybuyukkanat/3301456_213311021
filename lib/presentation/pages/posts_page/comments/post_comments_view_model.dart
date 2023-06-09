@@ -11,12 +11,14 @@ import '../../../../sources/comment/service.dart';
 import '../../../../sources/showalertdialog.dart';
 
 class PostCommentsViewModel extends ChangeNotifier {
-  PostCommentsViewModel(widgetId) {
+  PostCommentsViewModel(widgetId, context) {
     this.widgetId = widgetId;
+    this.context = context;
     commentService = CommentService(service); //BASEURL
     _bind();
   }
   late String widgetId;
+  late BuildContext context;
 
   TextEditingController commentTextEditingController = TextEditingController();
 
@@ -56,7 +58,7 @@ class PostCommentsViewModel extends ChangeNotifier {
       commentTextEditingController.clear();
       _bind();
     } else {
-      print("test");
+      showAlertDialog("Boş bırakamazsınız", context);
     }
   }
 

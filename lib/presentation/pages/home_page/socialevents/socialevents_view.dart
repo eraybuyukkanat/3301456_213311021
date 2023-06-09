@@ -53,7 +53,7 @@ class _SocialEventsViewState extends State<SocialEventsView> {
                 : ListView.builder(
                     itemCount:
                         context.read<SocialEventsViewModel>().events.length,
-                    itemBuilder: (context, index) => Padding(
+                    itemBuilder: (_, index) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Card(
                             elevation: 10,
@@ -69,7 +69,12 @@ class _SocialEventsViewState extends State<SocialEventsView> {
                                       image: DecorationImage(
                                           opacity: 150,
                                           image: NetworkImage(
-                                              "https://scckonya.com/"),
+                                              "https://scckonya.com/" +
+                                                  context
+                                                      .watch<
+                                                          SocialEventsViewModel>()
+                                                      .events[index]
+                                                      .image),
                                           fit: BoxFit.cover),
                                     ),
                                     child: Container(
@@ -127,7 +132,7 @@ class _SocialEventsViewState extends State<SocialEventsView> {
                                                         .launchLink(
                                                             "https://scckonya.com" +
                                                                 context
-                                                                    .watch<
+                                                                    .read<
                                                                         SocialEventsViewModel>()
                                                                     .events[
                                                                         index]

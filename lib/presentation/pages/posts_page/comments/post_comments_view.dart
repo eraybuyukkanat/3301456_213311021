@@ -40,7 +40,7 @@ class _PostCommentsViewState extends State<PostCommentsView> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<PostCommentsViewModel>(
-      create: (context) => PostCommentsViewModel(widget.id),
+      create: (context) => PostCommentsViewModel(widget.id, context),
       builder: (context, child) => Scaffold(
           appBar: AppBar(
               titleSpacing: 3.h,
