@@ -41,7 +41,7 @@ class _SocialEventsViewState extends SocialEventsViewModel {
           ),
           title: headlineMediumText(
             text: pageTitle,
-            fontSize: 32,
+            fontSize: 30,
             color: ColorManager.black,
           )),
       body: SafeArea(
