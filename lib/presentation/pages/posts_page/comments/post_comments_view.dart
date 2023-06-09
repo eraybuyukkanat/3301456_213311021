@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view_model.dart';
@@ -33,92 +34,106 @@ class PostCommentsView extends StatefulWidget {
   State<PostCommentsView> createState() => _PostCommentsViewState();
 }
 
-class _PostCommentsViewState extends PostCommentsViewModel {
+class _PostCommentsViewState extends State<PostCommentsView> {
   String src =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            titleSpacing: 3.h,
-            elevation: 10,
-            backgroundColor: ColorManager.white,
-            toolbarHeight: 10.h,
-            centerTitle: false,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back,
+    return ChangeNotifierProvider<PostCommentsViewModel>(
+      create: (context) => PostCommentsViewModel(widget.id),
+      builder: (context, child) => Scaffold(
+          appBar: AppBar(
+              titleSpacing: 3.h,
+              elevation: 10,
+              backgroundColor: ColorManager.white,
+              toolbarHeight: 10.h,
+              centerTitle: false,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: ColorManager.black,
+                ),
+              ),
+              title: headlineMediumText(
+                text: context.read<PostCommentsViewModel>().pageTitle,
+                fontSize: 32,
                 color: ColorManager.black,
+              )),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  commentInputFormField(context),
+                  Expanded(
+                    flex: 4,
+                    child: StreamBuilder<List<Comment>>(
+                        stream: context
+                            .watch<PostCommentsViewModel>()
+                            .streamController
+                            .stream,
+                        builder: (_, snapshot) {
+                          if (context
+                              .watch<PostCommentsViewModel>()
+                              .isLoading) {
+                            return Center(child: loadingWidget());
+                          }
+                          return ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (_, index) => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: snapshot.data![index].email ==
+                                      FirebaseAuth.instance.currentUser!.email
+                                  ? Slidable(
+                                      endActionPane: ActionPane(
+                                        extentRatio: 0.35,
+                                        motion: const StretchMotion(),
+                                        children: [
+                                          SlidableAction(
+                                            onPressed: (_) {
+                                              context
+                                                  .read<PostCommentsViewModel>()
+                                                  .changeIsEditingNow(
+                                                      snapshot.data![index].sId,
+                                                      snapshot.data![index]
+                                                          .description);
+                                            },
+                                            foregroundColor: Colors.black,
+                                            icon: Icons.edit,
+                                          ),
+                                          SlidableAction(
+                                            onPressed: (_) {
+                                              context
+                                                  .read<PostCommentsViewModel>()
+                                                  .deleteComment(
+                                                      widget.id,
+                                                      snapshot
+                                                          .data![index].sId);
+                                            },
+                                            foregroundColor: Colors.red,
+                                            icon: Icons.delete,
+                                          ),
+                                        ],
+                                      ),
+                                      child:
+                                          commentView(snapshot, index, context),
+                                    )
+                                  : commentView(snapshot, index, context),
+                            ),
+                          );
+                        }),
+                  ),
+                ],
               ),
             ),
-            title: headlineMediumText(
-              text: pageTitle!,
-              fontSize: 32,
-              color: ColorManager.black,
-            )),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              children: [
-                commentInputFormField(),
-                Expanded(
-                  flex: 4,
-                  child: StreamBuilder<List<Comment>>(
-                      stream: streamController.stream,
-                      builder: (context, snapshot) {
-                        if (isLoading) {
-                          return Center(child: loadingWidget());
-                        }
-                        return ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (_, index) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: snapshot.data![index].email ==
-                                    FirebaseAuth.instance.currentUser!.email
-                                ? Slidable(
-                                    endActionPane: ActionPane(
-                                      extentRatio: 0.35,
-                                      motion: const StretchMotion(),
-                                      children: [
-                                        SlidableAction(
-                                          onPressed: (context) {
-                                            changeIsEditingNow(
-                                                snapshot.data![index].sId,
-                                                snapshot
-                                                    .data![index].description);
-                                          },
-                                          foregroundColor: Colors.black,
-                                          icon: Icons.edit,
-                                        ),
-                                        SlidableAction(
-                                          onPressed: (context) {
-                                            deleteComment(
-                                                snapshot.data![index].sId);
-                                          },
-                                          foregroundColor: Colors.red,
-                                          icon: Icons.delete,
-                                        ),
-                                      ],
-                                    ),
-                                    child:
-                                        commentView(snapshot, index, context),
-                                  )
-                                : commentView(snapshot, index, context),
-                          ),
-                        );
-                      }),
-                ),
-              ],
-            ),
-          ),
-        ));
+          )),
+    );
   }
 
-  Padding commentInputFormField() {
+  Padding commentInputFormField(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -132,10 +147,14 @@ class _PostCommentsViewState extends PostCommentsViewModel {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               addCommentFormFieldWidget(
-                  commentTextEditingController: commentTextEditingController),
+                  commentTextEditingController: context
+                      .read<PostCommentsViewModel>()
+                      .commentTextEditingController),
               IconButton(
                   onPressed: () {
-                    postComments();
+                    context
+                        .read<PostCommentsViewModel>()
+                        .postComments(widget.id);
                   },
                   icon: Icon(Icons.send))
             ],
@@ -199,16 +218,32 @@ class _PostCommentsViewState extends PostCommentsViewModel {
                           )),
                         ],
                       ),
-                      isEditingNow == snapshot.data![index].sId
+                      context.watch<PostCommentsViewModel>().isEditingNow ==
+                              snapshot.data![index].sId
                           ? IconButton(
                               onPressed: () {
-                                if (commentEditEditingController
-                                        .value.text.length !=
+                                if (context
+                                        .read<PostCommentsViewModel>()
+                                        .commentEditEditingController
+                                        .value
+                                        .text
+                                        .length !=
                                     0) {
-                                  updateComment(snapshot.data![index].sId,
-                                      commentEditEditingController.value.text);
+                                  context
+                                      .read<PostCommentsViewModel>()
+                                      .updateComment(
+                                          widget.id,
+                                          snapshot.data![index].sId,
+                                          context
+                                              .read<PostCommentsViewModel>()
+                                              .commentEditEditingController
+                                              .value
+                                              .text);
                                 } else {
-                                  changeIsEditingNow("", "");
+                                  print("hata");
+                                  context
+                                      .read<PostCommentsViewModel>()
+                                      .changeIsEditingNow("", "");
                                   showAlertDialog(
                                       "Boş bırakamazsınız", context);
                                 }
@@ -222,7 +257,10 @@ class _PostCommentsViewState extends PostCommentsViewModel {
                   ),
                   Padding(
                       padding: const EdgeInsets.all(10),
-                      child: isEditingNow == snapshot.data![index].sId
+                      child: context
+                                  .read<PostCommentsViewModel>()
+                                  .isEditingNow ==
+                              snapshot.data![index].sId
                           ? SizedBox(
                               height: 15.h,
                               child: Container(
@@ -257,7 +295,9 @@ class _PostCommentsViewState extends PostCommentsViewModel {
                                   maxLength: 100,
                                   maxLines: null,
                                   keyboardType: TextInputType.multiline,
-                                  controller: commentEditEditingController,
+                                  controller: context
+                                      .read<PostCommentsViewModel>()
+                                      .commentEditEditingController,
                                 ),
                               ),
                             )

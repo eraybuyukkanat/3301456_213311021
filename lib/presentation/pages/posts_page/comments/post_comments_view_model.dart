@@ -10,7 +10,14 @@ import '../../../../sources/comment/comment_model.dart';
 import '../../../../sources/comment/service.dart';
 import '../../../../sources/showalertdialog.dart';
 
-abstract class PostCommentsViewModel extends State<PostCommentsView> {
+class PostCommentsViewModel extends ChangeNotifier {
+  PostCommentsViewModel(widgetId) {
+    this.widgetId = widgetId;
+    commentService = CommentService(service); //BASEURL
+    _bind();
+  }
+  late String widgetId;
+
   TextEditingController commentTextEditingController = TextEditingController();
 
   TextEditingController commentEditEditingController = TextEditingController();
@@ -25,31 +32,23 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
 
   List<Comment> resources = [];
 
-  @override
-  void initState() {
-    super.initState();
-    commentService = CommentService(service); //BASEURL
-    _bind();
-  }
-
   String isEditingNow = "";
   void changeIsEditingNow(commentId, oldDescription) {
     commentEditEditingController.text = oldDescription;
-    setState(() {
-      isEditingNow = commentId;
-    });
+
+    isEditingNow = commentId;
+    notifyListeners();
   }
 
   bool isLoading = false;
   void changeLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
+    isLoading = !isLoading;
+    notifyListeners();
   }
 
-  Future<void> postComments() async {
+  Future<void> postComments(widgetId) async {
     String commentText = commentTextEditingController.value.text;
-    String id = widget.id.toString();
+    String id = widgetId.toString();
     if (commentText.isNotEmpty) {
       await commentService.postCommentItem(
           commentText, id, FirebaseAuth.instance.currentUser!.email.toString());
@@ -57,19 +56,20 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
       commentTextEditingController.clear();
       _bind();
     } else {
-      showAlertDialog("Boş bırakamazsınız..", context);
+      print("test");
     }
   }
 
-  Future<void> deleteComment(id) async {
-    await commentService.deleteCommentItem(widget.id, id);
+  Future<void> deleteComment(widgetId, id) async {
+    await commentService.deleteCommentItem(widgetId, id);
     _bind();
   }
 
-  Future<void> updateComment(commentId, description) async {
-    await commentService.updateCommentItem(widget.id, commentId, description);
+  Future<void> updateComment(widgetId, commentId, description) async {
+    await commentService.updateCommentItem(widgetId, commentId, description);
     _bind();
     isEditingNow = "";
+    notifyListeners();
   }
 
   Future<List<Comment>> fetch(String id) async {
@@ -78,10 +78,10 @@ abstract class PostCommentsViewModel extends State<PostCommentsView> {
 
   _bind() async {
     changeLoading();
-    resources = await fetch(widget.id);
+    resources = await fetch(widgetId);
     streamController.sink.add(resources.reversed.toList());
     changeLoading();
   }
 
-  String? pageTitle = LocaleKeys.commentsPage_commentsAppBar;
+  String pageTitle = LocaleKeys.commentsPage_commentsAppBar;
 }
