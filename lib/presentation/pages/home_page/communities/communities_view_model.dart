@@ -3,14 +3,17 @@ import 'package:social_media_app_demo/presentation/pages/home_page/communities/c
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 
-abstract class CommunitiesViewModel extends State<CommunitiesPageView> {
+class CommunitiesViewModel extends ChangeNotifier {
   List<CommunityModel> communities = [];
+
+  CommunitiesViewModel() {
+    getDatas();
+  }
 
   bool isLoading = false;
   changeLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
+    isLoading = !isLoading;
+    notifyListeners();
   }
 
   var url = Uri.parse(
@@ -28,18 +31,10 @@ abstract class CommunitiesViewModel extends State<CommunitiesPageView> {
         .forEach(
       (element) {
         element.text.trim().toString() != ""
-            ? setState(() {
-                communities.add(CommunityModel(name: element.text.toString()));
-              })
+            ? communities.add(CommunityModel(name: element.text.toString()))
             : null;
       },
     );
     changeLoading();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getDatas();
   }
 }

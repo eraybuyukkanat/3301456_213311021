@@ -11,8 +11,19 @@ import '../../../../sources/post/post_model.dart';
 import '../../../../sources/post/service.dart';
 import '../../../../sources/showalertdialog.dart';
 
-abstract class PostsPageViewModel extends State<PostsPageView>
-    with TickerProviderStateMixin {
+class PostsPageViewModel extends ChangeNotifier {
+  PostsPageViewModel(context) {
+    postService = PostService(service); //BASEURL
+    bind();
+    this.context = context;
+  }
+  late BuildContext context;
+
+  String? pageTitle = LocaleKeys.postsPage_sharePostTitle;
+  String? title = LocaleKeys.postsPage_postTitleText;
+  String? description = LocaleKeys.postsPage_descriptionTitleText;
+  String? buttonText = LocaleKeys.postsPage_shareButton;
+
   TextEditingController? postTitleTextEditingController =
       TextEditingController();
   TextEditingController? postDescriptionTextEditingController =
@@ -42,38 +53,24 @@ abstract class PostsPageViewModel extends State<PostsPageView>
 
   List<Post> resources = [];
 
-  @override
-  void dispose() {
-    postTitleTextEditingController!.dispose();
-    postDescriptionTextEditingController!.dispose();
-    postEditTitleTextEditingController!.dispose();
-    postEditDescriptionTextEditingController!.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    postService = PostService(service); //BASEURL
-    bind();
-  }
-
   String isEditingNow = "";
   void changeIsEditingNow(id, oldTitle, oldDescription) {
     postEditDescriptionTextEditingController!.text = oldDescription;
     postEditTitleTextEditingController!.text = oldTitle;
 
-    setState(() {
-      isEditingNow = id;
-    });
+    isEditingNow = id;
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   bool isLoading = false;
   void changeLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
+    isLoading = !isLoading;
+    notifyListeners();
   }
 
   Future<List<Post>> fetch() async {
@@ -121,6 +118,7 @@ abstract class PostsPageViewModel extends State<PostsPageView>
     resources = await fetch();
     streamController.sink.add(resources.reversed.toList());
     changeLoading();
+    notifyListeners();
   }
 
   String src =

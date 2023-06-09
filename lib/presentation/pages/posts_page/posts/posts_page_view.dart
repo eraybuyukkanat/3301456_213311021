@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:social_media_app_demo/config/extensions.dart';
@@ -24,65 +25,69 @@ class PostsPageView extends StatefulWidget {
   State<PostsPageView> createState() => _PostsPageViewState();
 }
 
-class _PostsPageViewState extends PostsPageViewModel {
+class _PostsPageViewState extends State<PostsPageView>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //APPBAR
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          titleSpacing: 5.w,
-          elevation: 10,
-          backgroundColor: ColorManager.white,
-          toolbarHeight: 10.h,
-          centerTitle: false,
-          title: headlineMediumText(
-            text: appBarTitle,
-            color: ColorManager.black,
-            fontSize: 32,
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                onPressed: () {
-                  addPostPage(context);
-                },
-                icon: Icon(
-                  Icons.add,
-                  color: ColorManager.black,
+    return ChangeNotifierProvider<PostsPageViewModel>(
+      create: (context) => PostsPageViewModel(context),
+      builder: (context, child) => Scaffold(
+        //APPBAR
+        appBar: AppBar(
+            automaticallyImplyLeading: false,
+            titleSpacing: 5.w,
+            elevation: 10,
+            backgroundColor: ColorManager.white,
+            toolbarHeight: 10.h,
+            centerTitle: false,
+            title: headlineMediumText(
+              text: context.read<PostsPageViewModel>().appBarTitle,
+              color: ColorManager.black,
+              fontSize: 32,
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: IconButton(
+                  onPressed: () {
+                    addPostPage(context);
+                  },
+                  icon: Icon(
+                    Icons.add,
+                    color: ColorManager.black,
+                  ),
                 ),
-              ),
-            )
-          ]),
+              )
+            ]),
 
-      //BODY
-      body: StreamBuilder<List<Post>>(
-          stream: streamController.stream,
-          builder: (context, resources) {
-            if (isLoading) {
-              return Center(child: loadingWidget());
-            }
-            return resources.data?.length != 0
-                ? RefreshIndicator(
-                    color: ColorManager.primary,
-                    strokeWidth: 3,
-                    onRefresh: bind,
-                    child: ListView.builder(
-                      itemCount: resources.data!.length,
-                      itemBuilder: (_, index) => Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            postView(resources, index, context),
-                          ],
+        //BODY
+        body: StreamBuilder<List<Post>>(
+            stream: context.watch<PostsPageViewModel>().streamController.stream,
+            builder: (context, resources) {
+              if (context.watch<PostsPageViewModel>().isLoading) {
+                return Center(child: loadingWidget());
+              }
+              return resources.data?.length != 0
+                  ? RefreshIndicator(
+                      color: ColorManager.primary,
+                      strokeWidth: 3,
+                      onRefresh: context.read<PostsPageViewModel>().bind,
+                      child: ListView.builder(
+                        itemCount: resources.data!.length,
+                        itemBuilder: (_, index) => Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              postView(resources, index, context),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                : Center(
-                    child: Text(LocaleKeys.postsPage_emptyPostList.locale));
-          }),
+                    )
+                  : Center(
+                      child: Text(LocaleKeys.postsPage_emptyPostList.locale));
+            }),
+      ),
     );
   }
 
@@ -137,19 +142,21 @@ class _PostsPageViewState extends PostsPageViewModel {
                                 radius: 35,
                                 child: ClipOval(
                                   child: Image.network(
-                                    src,
+                                    context.read<PostsPageViewModel>().src,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          isEditingNow == resources.data![index].sId
+                          context.read<PostsPageViewModel>().isEditingNow ==
+                                  resources.data![index].sId
                               ? Container(
                                   padding: EdgeInsets.all(5),
                                   width: 60.w,
                                   child: editPostTitleFormField(
-                                      postEditTitleTextEditingController:
-                                          postEditTitleTextEditingController),
+                                      postEditTitleTextEditingController: context
+                                          .read<PostsPageViewModel>()
+                                          .postEditTitleTextEditingController),
                                 )
                               : bodyLargeText(
                                   text: resources.data![index].title ?? "HATA",
@@ -162,28 +169,45 @@ class _PostsPageViewState extends PostsPageViewModel {
                         children: [
                           if (resources.data![index].email ==
                               FirebaseAuth.instance.currentUser!.email)
-                            isEditingNow == resources.data![index].sId
+                            context.read<PostsPageViewModel>().isEditingNow ==
+                                    resources.data![index].sId
                                 ? IconButton(
                                     onPressed: () {
-                                      if (postEditTitleTextEditingController!
-                                                  .value.text.length !=
+                                      if (context
+                                                  .read<PostsPageViewModel>()
+                                                  .postEditTitleTextEditingController!
+                                                  .value
+                                                  .text
+                                                  .length !=
                                               0 &&
-                                          postEditDescriptionTextEditingController!
-                                                  .value.text.length !=
+                                          context
+                                                  .read<PostsPageViewModel>()
+                                                  .postEditDescriptionTextEditingController!
+                                                  .value
+                                                  .text
+                                                  .length !=
                                               0) {
-                                        updatePost(
+                                        context.read<PostsPageViewModel>().updatePost(
                                             resources.data![index].sId,
-                                            postEditTitleTextEditingController!
-                                                .value.text,
-                                            postEditDescriptionTextEditingController!
-                                                .value.text,
+                                            context
+                                                .read<PostsPageViewModel>()
+                                                .postEditTitleTextEditingController!
+                                                .value
+                                                .text,
+                                            context
+                                                .read<PostsPageViewModel>()
+                                                .postEditDescriptionTextEditingController!
+                                                .value
+                                                .text,
                                             FirebaseAuth
                                                 .instance.currentUser!.email,
                                             FirebaseAuth.instance.currentUser!
                                                 .displayName,
                                             resources.data![index].description);
                                       } else {
-                                        changeIsEditingNow("", "", "");
+                                        context
+                                            .read<PostsPageViewModel>()
+                                            .changeIsEditingNow("", "", "");
                                         showAlertDialog(
                                             LocaleKeys
                                                 .showModelDialog_emptyError
@@ -203,19 +227,24 @@ class _PostsPageViewState extends PostsPageViewModel {
                                           child: Text(LocaleKeys
                                               .postsPage_deletePostText.locale),
                                           onTap: () {
-                                            deletePost(
-                                                resources.data![index].sId);
+                                            context
+                                                .read<PostsPageViewModel>()
+                                                .deletePost(
+                                                    resources.data![index].sId);
                                           },
                                         ),
                                         PopupMenuItem(
                                           child: Text(LocaleKeys
                                               .postsPage_editPostText.locale),
                                           onTap: () {
-                                            changeIsEditingNow(
-                                                resources.data![index].sId,
-                                                resources.data![index].title,
-                                                resources
-                                                    .data![index].description);
+                                            context
+                                                .read<PostsPageViewModel>()
+                                                .changeIsEditingNow(
+                                                    resources.data![index].sId,
+                                                    resources
+                                                        .data![index].title,
+                                                    resources.data![index]
+                                                        .description);
                                           },
                                         )
                                       ];
@@ -227,13 +256,15 @@ class _PostsPageViewState extends PostsPageViewModel {
                 ),
               ],
             ),
-            isEditingNow == resources.data![index].sId
+            context.read<PostsPageViewModel>().isEditingNow ==
+                    resources.data![index].sId
                 ? Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     width: double.maxFinite,
                     child: editPostDescriptionFormField(
-                        postEditDescriptionTextEditingController:
-                            postEditDescriptionTextEditingController),
+                        postEditDescriptionTextEditingController: context
+                            .read<PostsPageViewModel>()
+                            .postEditDescriptionTextEditingController),
                   )
                 : bodyMediumText(
                     padding: EdgeInsets.symmetric(vertical: 20),
@@ -304,7 +335,7 @@ class _PostsPageViewState extends PostsPageViewModel {
               ),
             ),
           );
-          changeIsEditingNow("", "", "");
+          context.read<PostsPageViewModel>().changeIsEditingNow("", "", "");
         },
       ),
     );
@@ -338,8 +369,9 @@ class _PostsPageViewState extends PostsPageViewModel {
                       fontSize: 20,
                     ),
                     postTitleInputFormField(
-                        postTitleTextEditingController:
-                            postTitleTextEditingController),
+                        postTitleTextEditingController: context
+                            .read<PostsPageViewModel>()
+                            .postTitleTextEditingController),
                   ],
                 ),
                 Container(
@@ -352,9 +384,12 @@ class _PostsPageViewState extends PostsPageViewModel {
                         fontSize: 20,
                       ),
                       postDescriptionInputFormField(
-                          scrollController: scrollController,
-                          postDescriptionTextEditingController:
-                              postDescriptionTextEditingController),
+                          scrollController: context
+                              .read<PostsPageViewModel>()
+                              .scrollController,
+                          postDescriptionTextEditingController: context
+                              .read<PostsPageViewModel>()
+                              .postEditDescriptionTextEditingController),
                     ],
                   ),
                 ),
@@ -364,7 +399,7 @@ class _PostsPageViewState extends PostsPageViewModel {
                     color: ColorManager.primary,
                     text: buttonText,
                     onPressed: () {
-                      postValues();
+                      context.read<PostsPageViewModel>().postValues();
                     },
                   ),
                 ),

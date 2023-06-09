@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:social_media_app_demo/config/extensions.dart';
@@ -21,200 +22,236 @@ class HomePageView extends StatefulWidget {
   State<HomePageView> createState() => _HomePageViewState();
 }
 
-class _HomePageViewState extends HomePageViewModel {
+class _HomePageViewState extends State<HomePageView>
+    with TickerProviderStateMixin, projectDate {
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 2, vsync: this);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Column(
-            children: [
-              // APPBAR
-              Expanded(
-                flex: 4,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          welcomingText(),
-                          appBarDate(),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              // IMAGES
-              Expanded(
-                flex: 7,
-                child: GestureDetector(
-                  onLongPress: () {
-                    launchLink(url.toString());
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: isLoading
-                        ? Center(child: loadingWidget())
-                        : imageWidget(imageNetworkList: images),
+    return ChangeNotifierProvider<HomePageViewModel>(
+      create: (context) => HomePageViewModel(),
+      builder: (context, child) => Scaffold(
+        body: SafeArea(
+          child: Container(
+            child: Column(
+              children: [
+                // APPBAR
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            welcomingText(),
+                            appBarDate(),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
-              ),
-
-              // DAY TITLE
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: scheduleDayWidget(),
-                ),
-              ),
-
-              Expanded(
-                flex: 4,
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "/schedulepage");
-                      },
-                      child: Card(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: ColorManager.primary,
-                              borderRadius: BorderRadius.circular(10)),
-                          width: double.maxFinite,
-                          child: lessonList.isEmpty
-                              ? Center(
-                                  child: bodyMediumText(
-                                      text: emptyListLesson,
-                                      fontSize: 18,
-                                      color: ColorManager.white))
-                              : PageView.builder(
-                                  controller: lessonsPageController,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: lessonList.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ListTile(
-                                            title: bodyLargeText(
-                                              text: lessonList[index]
-                                                  .lessonName
-                                                  .toString(),
-                                              fontSize: 18,
-                                              color: ColorManager.white,
-                                            ),
-                                            subtitle: bodyMediumText(
-                                              text: lessonList[index]
-                                                  .lessonDay
-                                                  .toString(),
-                                              fontSize: 14,
-                                              color: ColorManager.white,
-                                            ),
-                                            trailing: Column(
-                                              children: [
-                                                bodyMediumText(
-                                                  text: lessonList[index]
-                                                      .lessonClass
-                                                      .toString(),
-                                                  fontSize: 16,
-                                                  color: ColorManager.white,
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 5),
-                                                ),
-                                                bodyMediumText(
-                                                  text: lessonList[index]
-                                                      .lessonTime
-                                                      .toString(),
-                                                  fontSize: 16,
-                                                  color: ColorManager.white,
-                                                ),
-                                              ],
-                                            )),
-                                      ],
-                                    );
-                                  },
-                                ),
-                        ),
-                      ),
-                    )),
-              ),
-              // BUTTON
-              lessonList.isEmpty || lessonList.length == 1
-                  ? SizedBox()
-                  : IconButton(
-                      onPressed: () {
-                        lessonsPageController.nextPage(
-                            duration: Duration(milliseconds: 400),
-                            curve: Curves.easeIn);
-                      },
-                      icon: Icon(Icons.arrow_drop_down),
+                // IMAGES
+                Expanded(
+                  flex: 7,
+                  child: GestureDetector(
+                    onLongPress: () {
+                      context.read<HomePageViewModel>().launchLink(
+                          context.read<HomePageViewModel>().url.toString());
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: context.watch<HomePageViewModel>().isLoading
+                          ? Center(child: loadingWidget())
+                          : imageWidget(
+                              imageNetworkList:
+                                  context.read<HomePageViewModel>().images),
                     ),
+                  ),
+                ),
 
-              //KAYDIRILABİLİR MENÜ
-              Expanded(
-                flex: 3,
-                child: Container(
-                  margin: const EdgeInsets.only(left: 20, right: 20),
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: sosyalList.length,
-                      itemBuilder: (_, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 7.h,
-                                width: 40.w,
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStatePropertyAll<Color>(
-                                              ColorManager.primary)),
-                                  onPressed: () {
-                                    if (index == 0) {
-                                      Navigator.pushNamed(
-                                          context, "/communities");
-                                    } else if (index == 1) {
-                                      Navigator.pushNamed(
-                                          context, "/socialevents");
-                                    } else if (index == 2) {
-                                      Navigator.pushNamed(
-                                          context, "/scienceevents");
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
+                // DAY TITLE
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: scheduleDayWidget(),
+                  ),
+                ),
+
+                Expanded(
+                  flex: 4,
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "/schedulepage");
+                        },
+                        child: Card(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: ColorManager.primary,
+                                borderRadius: BorderRadius.circular(10)),
+                            width: double.maxFinite,
+                            child: context
+                                    .read<HomePageViewModel>()
+                                    .lessonList
+                                    .isEmpty
+                                ? Center(
+                                    child: bodyMediumText(
+                                        text: context
+                                            .read<HomePageViewModel>()
+                                            .emptyListLesson,
+                                        fontSize: 18,
+                                        color: ColorManager.white))
+                                : PageView.builder(
+                                    controller: context
+                                        .read<HomePageViewModel>()
+                                        .lessonsPageController,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: context
+                                        .read<HomePageViewModel>()
+                                        .lessonList
+                                        .length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          ListTile(
+                                              title: bodyLargeText(
+                                                text: context
+                                                    .read<HomePageViewModel>()
+                                                    .lessonList[index]
+                                                    .lessonName
+                                                    .toString(),
+                                                fontSize: 18,
+                                                color: ColorManager.white,
+                                              ),
+                                              subtitle: bodyMediumText(
+                                                text: context
+                                                    .read<HomePageViewModel>()
+                                                    .lessonList[index]
+                                                    .lessonDay
+                                                    .toString(),
+                                                fontSize: 14,
+                                                color: ColorManager.white,
+                                              ),
+                                              trailing: Column(
+                                                children: [
+                                                  bodyMediumText(
+                                                    text: context
+                                                        .read<
+                                                            HomePageViewModel>()
+                                                        .lessonList[index]
+                                                        .lessonClass
+                                                        .toString(),
+                                                    fontSize: 16,
+                                                    color: ColorManager.white,
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 5),
+                                                  ),
+                                                  bodyMediumText(
+                                                    text: context
+                                                        .read<
+                                                            HomePageViewModel>()
+                                                        .lessonList[index]
+                                                        .lessonTime
+                                                        .toString(),
+                                                    fontSize: 16,
+                                                    color: ColorManager.white,
+                                                  ),
+                                                ],
+                                              )),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                          ),
+                        ),
+                      )),
+                ),
+                // BUTTON
+                context.read<HomePageViewModel>().lessonList.isEmpty ||
+                        context.read<HomePageViewModel>().lessonList.length == 1
+                    ? SizedBox()
+                    : IconButton(
+                        onPressed: () {
+                          context
+                              .read<HomePageViewModel>()
+                              .lessonsPageController
+                              .nextPage(
+                                  duration: Duration(milliseconds: 400),
+                                  curve: Curves.easeIn);
+                        },
+                        icon: Icon(Icons.arrow_drop_down),
+                      ),
+
+                //KAYDIRILABİLİR MENÜ
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            context.read<HomePageViewModel>().sosyalList.length,
+                        itemBuilder: (_, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 7.h,
+                                  width: 40.w,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll<Color>(
+                                                ColorManager.primary)),
+                                    onPressed: () {
+                                      if (index == 0) {
+                                        Navigator.pushNamed(
+                                            context, "/communities");
+                                      } else if (index == 1) {
+                                        Navigator.pushNamed(
+                                            context, "/socialevents");
+                                      } else if (index == 2) {
+                                        Navigator.pushNamed(
+                                            context, "/scienceevents");
+                                      }
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Text(context
+                                          .read<HomePageViewModel>()
+                                          .sosyalList[index]
+                                          .toString()
+                                          .locale),
                                     ),
-                                    child: Text(
-                                        sosyalList[index].toString().locale),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
                 ),
-              ),
-              Spacer(
-                flex: 1,
-              ),
-            ],
+                Spacer(
+                  flex: 1,
+                ),
+              ],
+            ),
           ),
         ),
       ),

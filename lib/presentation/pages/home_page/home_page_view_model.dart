@@ -17,13 +17,15 @@ class ImageModel {
   });
 }
 
-abstract class HomePageViewModel extends State<HomePageView>
-    with TickerProviderStateMixin, projectDate {
+class HomePageViewModel extends ChangeNotifier {
+  HomePageViewModel() {
+    getData();
+  }
+
   bool isLoading = false;
   changeIsLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
+    isLoading = !isLoading;
+    notifyListeners();
   }
 
   var url = Uri.parse("https://selcuk.edu.tr/");
@@ -47,12 +49,8 @@ abstract class HomePageViewModel extends State<HomePageView>
         .getElementsByClassName("carousel-item")
         .forEach(
       (element) {
-        setState(
-          () {
-            images.add(
-              element.children[0].children[0].attributes["src"].toString(),
-            );
-          },
+        images.add(
+          element.children[0].children[0].attributes["src"].toString(),
         );
       },
     );
@@ -64,14 +62,6 @@ abstract class HomePageViewModel extends State<HomePageView>
 
   Future<void> getTodayList() async {
     lessonList = await databaseManager.getTodayListTR();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-    getTodayList();
   }
 
   Map sosyalList = {
@@ -83,9 +73,4 @@ abstract class HomePageViewModel extends State<HomePageView>
   String emptyListLesson = LocaleKeys.homepage_emptyLessonList;
   PageController pageController = PageController();
   PageController lessonsPageController = PageController();
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

@@ -24,14 +24,17 @@ class Menu {
       this.isThere});
 }
 
-abstract class MenuViewModel extends State<MenuView> {
+class MenuViewModel extends ChangeNotifier {
+  MenuViewModel() {
+    getDays();
+  }
+
   List<Menu> menu = [];
 
   bool isLoading = false;
   changeIsLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
+    isLoading = !isLoading;
+    notifyListeners();
   }
 
   var url = Uri.parse("https://yemek.selcuk.edu.tr/Menu/MenuGetir");
@@ -46,44 +49,36 @@ abstract class MenuViewModel extends State<MenuView> {
         .getElementsByTagName("td")
         .forEach(
       (element) {
-        setState(() {
-          element.children.length == 0
-              ? menu.add(Menu(
-                  day: "",
-                  emptyText: "Öğün Yok",
-                  isThere: false,
-                ))
-              : menu.add(Menu(
-                  day: element.children[0].text.toString(),
-                  item1: element.children[1].children[0].children[0].children[0]
-                      .children[0].text
-                      .trim()
-                      .toString(),
-                  item2: element.children[1].children[0].children[0].children[0]
-                      .children[1].text
-                      .trim()
-                      .toString(),
-                  item3: element.children[1].children[0].children[0].children[0]
-                      .children[2].text
-                      .trim()
-                      .toString(),
-                  item4: element.children[1].children[0].children[0].children[0]
-                      .children[3].text
-                      .trim()
-                      .toString(),
-                  cal: element.children[1].children[1].children[0].children[0]
-                      .children[0].text
-                      .trim()
-                      .toString()));
-        });
+        element.children.length == 0
+            ? menu.add(Menu(
+                day: "",
+                emptyText: "Öğün Yok",
+                isThere: false,
+              ))
+            : menu.add(Menu(
+                day: element.children[0].text.toString(),
+                item1: element.children[1].children[0].children[0].children[0]
+                    .children[0].text
+                    .trim()
+                    .toString(),
+                item2: element.children[1].children[0].children[0].children[0]
+                    .children[1].text
+                    .trim()
+                    .toString(),
+                item3: element.children[1].children[0].children[0].children[0]
+                    .children[2].text
+                    .trim()
+                    .toString(),
+                item4: element.children[1].children[0].children[0].children[0]
+                    .children[3].text
+                    .trim()
+                    .toString(),
+                cal: element.children[1].children[1].children[0].children[0]
+                    .children[0].text
+                    .trim()
+                    .toString()));
       },
     );
     changeIsLoading();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getDays();
   }
 }

@@ -5,14 +5,17 @@ import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:url_launcher/url_launcher.dart';
 
-abstract class SocialEventsViewModel extends State<SocialEventsView> {
+class SocialEventsViewModel extends ChangeNotifier {
+  SocialEventsViewModel() {
+    getData();
+  }
+
   var url = Uri.parse("https://scckonya.com/Etkinlik/EtkinlikListesi");
 
   bool isLoading = false;
   changeLoading() {
-    setState(() {
-      isLoading = !isLoading;
-    });
+    isLoading = !isLoading;
+    notifyListeners();
   }
 
   Future<void> launchLink(link) async {
@@ -35,62 +38,52 @@ abstract class SocialEventsViewModel extends State<SocialEventsView> {
         .getElementsByClassName("HomeBodyEventsSmallBox EventBoxItem")
         .forEach(
       (element) {
-        setState(
-          () {
-            events.add(
-              EventModel(
-                  image: element.attributes["style"].toString().split('\'')[1],
-                  title: element.children[0].children[0].children[0].children[1]
-                      .children[0].children[0].nodes[0].text
-                      .toString(),
-                  place: element.children[0].children[0].children[0].children[1]
-                      .children[0].children[0].nodes[2].text
-                      .toString(),
-                  date: element.children[0].children[0].children[0].children[1].children[2].nodes[1].text
-                      .toString(),
-                  detailLink: element
-                              .children[0]
-                              .children[0]
-                              .children[0]
-                              .children[1]
-                              .children[4]
-                              .children[0]
-                              .children
-                              .length ==
-                          2
-                      ? element
+        events.add(
+          EventModel(
+              image: element.attributes["style"].toString().split('\'')[1],
+              title: element.children[0].children[0].children[0].children[1]
+                  .children[0].children[0].nodes[0].text
+                  .toString(),
+              place: element.children[0].children[0].children[0].children[1]
+                  .children[0].children[0].nodes[2].text
+                  .toString(),
+              date: element.children[0].children[0].children[0].children[1].children[2].nodes[1].text
+                  .toString(),
+              detailLink: element
                           .children[0]
                           .children[0]
                           .children[0]
                           .children[1]
                           .children[4]
                           .children[0]
-                          .children[1]
-                          .children[0]
-                          .attributes["href"]
-                          .toString()
-                      : element
-                          .children[0]
-                          .children[0]
-                          .children[0]
-                          .children[1]
-                          .children[4]
-                          .children[0]
-                          .children[0]
-                          .children[0]
-                          .attributes["href"]
-                          .toString()),
-            );
-          },
+                          .children
+                          .length ==
+                      2
+                  ? element
+                      .children[0]
+                      .children[0]
+                      .children[0]
+                      .children[1]
+                      .children[4]
+                      .children[0]
+                      .children[1]
+                      .children[0]
+                      .attributes["href"]
+                      .toString()
+                  : element
+                      .children[0]
+                      .children[0]
+                      .children[0]
+                      .children[1]
+                      .children[4]
+                      .children[0]
+                      .children[0]
+                      .children[0]
+                      .attributes["href"]
+                      .toString()),
         );
       },
     );
     changeLoading();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
   }
 }
