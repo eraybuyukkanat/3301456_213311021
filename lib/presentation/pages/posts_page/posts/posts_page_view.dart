@@ -342,21 +342,17 @@ class _PostsPageViewState extends State<PostsPageView>
   }
 
   Future<dynamic> addPostPage(BuildContext context) {
-    String? pageTitle = LocaleKeys.postsPage_sharePostTitle;
-    String? title = LocaleKeys.postsPage_postTitleText;
-    String? description = LocaleKeys.postsPage_descriptionTitleText;
-    String? buttonText = LocaleKeys.postsPage_shareButton;
     return showModalBottomSheet(
         isScrollControlled: true,
         context: context,
-        builder: (BuildContext context) {
+        builder: (_) {
           return Padding(
             padding: EdgeInsets.only(top: 60, right: 20, left: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 titleLargeText(
-                  text: pageTitle,
+                  text: context.read<PostsPageViewModel>().appBarTitle,
                   fontSize: 25,
                   padding: EdgeInsets.only(bottom: 30),
                 ),
@@ -365,12 +361,12 @@ class _PostsPageViewState extends State<PostsPageView>
                   children: [
                     bodyMediumText(
                       padding: EdgeInsets.symmetric(vertical: 15),
-                      text: title,
+                      text: context.read<PostsPageViewModel>().title,
                       fontSize: 20,
                     ),
                     postTitleInputFormField(
                         postTitleTextEditingController: context
-                            .read<PostsPageViewModel>()
+                            .watch<PostsPageViewModel>()
                             .postTitleTextEditingController),
                   ],
                 ),
@@ -380,16 +376,16 @@ class _PostsPageViewState extends State<PostsPageView>
                     children: [
                       bodyMediumText(
                         padding: EdgeInsets.symmetric(vertical: 10),
-                        text: description,
+                        text: context.read<PostsPageViewModel>().description,
                         fontSize: 20,
                       ),
                       postDescriptionInputFormField(
                           scrollController: context
-                              .read<PostsPageViewModel>()
+                              .watch<PostsPageViewModel>()
                               .scrollController,
                           postDescriptionTextEditingController: context
-                              .read<PostsPageViewModel>()
-                              .postEditDescriptionTextEditingController),
+                              .watch<PostsPageViewModel>()
+                              .postDescriptionTextEditingController),
                     ],
                   ),
                 ),
@@ -397,7 +393,7 @@ class _PostsPageViewState extends State<PostsPageView>
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: widthSizedButton(
                     color: ColorManager.primary,
-                    text: buttonText,
+                    text: context.read<PostsPageViewModel>().buttonText,
                     onPressed: () {
                       context.read<PostsPageViewModel>().postValues();
                     },

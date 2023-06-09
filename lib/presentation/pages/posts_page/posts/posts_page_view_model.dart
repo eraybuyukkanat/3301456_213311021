@@ -19,10 +19,10 @@ class PostsPageViewModel extends ChangeNotifier {
   }
   late BuildContext context;
 
-  String? pageTitle = LocaleKeys.postsPage_sharePostTitle;
-  String? title = LocaleKeys.postsPage_postTitleText;
-  String? description = LocaleKeys.postsPage_descriptionTitleText;
-  String? buttonText = LocaleKeys.postsPage_shareButton;
+  String pageTitle = LocaleKeys.postsPage_sharePostTitle;
+  String title = LocaleKeys.postsPage_postTitleText;
+  String description = LocaleKeys.postsPage_descriptionTitleText;
+  String buttonText = LocaleKeys.postsPage_shareButton;
 
   TextEditingController? postTitleTextEditingController =
       TextEditingController();
@@ -82,7 +82,6 @@ class PostsPageViewModel extends ChangeNotifier {
     String description = postDescriptionTextEditingController!.value.text;
 
     String email = FirebaseAuth.instance.currentUser!.email.toString();
-    Navigator.pop(context);
 
     if (title.isNotEmpty && description.isNotEmpty) {
       await postService.postResourceItem(title, description, email,
@@ -90,6 +89,7 @@ class PostsPageViewModel extends ChangeNotifier {
 
       postDescriptionTextEditingController!.clear();
       postTitleTextEditingController!.clear();
+      Navigator.pop(context);
       bind();
     } else {
       showAlertDialog(LocaleKeys.showModelDialog_emptyError.locale, context);
