@@ -245,7 +245,9 @@ class _PostCommentsViewState extends State<PostCommentsView> {
                                       .read<PostCommentsViewModel>()
                                       .changeIsEditingNow("", "");
                                   showAlertDialog(
-                                      "Boş bırakamazsınız", context);
+                                      LocaleKeys
+                                          .showModelDialog_emptyError.locale,
+                                      context);
                                 }
                               },
                               icon: Icon(

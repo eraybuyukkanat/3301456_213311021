@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/posts_page/comments/post_comments_view.dart';
 import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 
@@ -58,7 +59,7 @@ class PostCommentsViewModel extends ChangeNotifier {
       commentTextEditingController.clear();
       _bind();
     } else {
-      showAlertDialog("Boş bırakamazsınız", context);
+      showAlertDialog(LocaleKeys.showModelDialog_emptyError.locale, context);
     }
   }
 

@@ -6,13 +6,23 @@ import 'package:html/parser.dart' as parser;
 class CommunitiesViewModel extends ChangeNotifier {
   List<CommunityModel> communities = [];
 
+  String? searchedValue = "";
+  bool searchButtonHandler = false;
+
   CommunitiesViewModel() {
     getDatas();
   }
 
+  TextEditingController searchTextEditingController = TextEditingController();
+
   bool isLoading = false;
   changeLoading() {
     isLoading = !isLoading;
+    notifyListeners();
+  }
+
+  Future<void> searchButtonHandlerFunc() async {
+    searchButtonHandler = !searchButtonHandler;
     notifyListeners();
   }
 
@@ -36,5 +46,23 @@ class CommunitiesViewModel extends ChangeNotifier {
       },
     );
     changeLoading();
+  }
+
+  Future<void> checkSearchValue() async {
+    searchedValue = communities
+        .firstWhere((element) => element.name
+            .toLowerCase()
+            .startsWith(searchTextEditingController.value.text))
+        .name;
+    notifyListeners();
+  }
+
+  Future<void> bind() async {
+    if (searchTextEditingController.value.text.length == 0) {
+      searchedValue = "";
+      notifyListeners();
+    } else {
+      checkSearchValue();
+    }
   }
 }

@@ -352,7 +352,7 @@ class _PostsPageViewState extends State<PostsPageView>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 titleLargeText(
-                  text: context.read<PostsPageViewModel>().appBarTitle,
+                  text: context.read<PostsPageViewModel>().pageTitle,
                   fontSize: 25,
                   padding: EdgeInsets.only(bottom: 30),
                 ),

@@ -42,26 +42,93 @@ class _CommunitiesPageViewState extends State<CommunitiesPageView> {
                 color: ColorManager.black,
               ),
             ),
-            title: Text(
-              pageTitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium
-                  ?.copyWith(color: ColorManager.black),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  pageTitle,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.copyWith(color: ColorManager.black),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.search,
+                    color: ColorManager.black,
+                  ),
+                  onPressed: () {
+                    context
+                        .read<CommunitiesViewModel>()
+                        .searchButtonHandlerFunc();
+                  },
+                ),
+              ],
             )),
         body: context.watch<CommunitiesViewModel>().isLoading
             ? loadingWidget()
-            : ListView.builder(
-                itemCount:
-                    context.read<CommunitiesViewModel>().communities.length,
-                itemBuilder: (_, index) => Card(
-                  child: ListTile(
-                    title: Text(context
-                        .read<CommunitiesViewModel>()
-                        .communities[index]
-                        .name),
-                  ),
-                ),
+            : Column(
+                children: [
+                  context.read<CommunitiesViewModel>().searchButtonHandler ==
+                          true
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            maxLength: 30,
+                            decoration: InputDecoration(
+                              counterText: "",
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide(
+                                    color: ColorManager.third,
+                                    width: 2.0,
+                                  )),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: BorderSide(
+                                    color: ColorManager.primary,
+                                    width: 2.0,
+                                  )),
+                            ),
+                            controller: context
+                                .read<CommunitiesViewModel>()
+                                .searchTextEditingController,
+                            onChanged: (value) =>
+                                context.read<CommunitiesViewModel>().bind(),
+                          ),
+                        )
+                      : SizedBox(),
+                  context.read<CommunitiesViewModel>().searchedValue == ""
+                      ? Expanded(
+                          child: ListView.builder(
+                            itemCount: context
+                                .read<CommunitiesViewModel>()
+                                .communities
+                                .length,
+                            itemBuilder: (_, index) => Card(
+                              child: ListTile(
+                                title: Text(context
+                                    .read<CommunitiesViewModel>()
+                                    .communities[index]
+                                    .name),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: 1,
+                            itemBuilder: (_, index) => Card(
+                              child: ListTile(
+                                title: Text(context
+                                    .read<CommunitiesViewModel>()
+                                    .searchedValue
+                                    .toString()),
+                              ),
+                            ),
+                          ),
+                        )
+                ],
               ),
       ),
     );

@@ -10,6 +10,8 @@ class projectDate {
     3: "Çarşamba",
     4: "Perşembe",
     5: "Cuma",
+    6: "Cumartesi",
+    7: "Pazar"
   };
   Map daysEN = {
     1: "Monday",
@@ -17,6 +19,8 @@ class projectDate {
     3: "Wednesday",
     4: "Thursday",
     5: "Friday",
+    6: "Saturday",
+    7: "Sunday"
   };
 
   Map<int, String> months = {
