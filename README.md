@@ -4,7 +4,18 @@
 
 This project is a social media application developed with Flutter, NodeJS RestAPI, Firebase. Users authentication was provided in via Firebase and the sharing of posts was built via NodeJS RestAPI. In addition, users can store the school schedule in their own database with SQLite. The images of social activities and announcements have been fetched from the web.
 
-I used MVVM architecture, StreamBuilder, Dio, Shared Preferences, Provider, Localization, Sizer...
+## Features Used in the Application
+| Name  | Version |
+| ------------- | ------------- |
+| Flutter | 3.7.10 |
+| Firebase Auth  | 4.2.6  |
+| Cloud Firestore  | 4.2.6  |
+| Provider  | 6.0.5  |
+| Localization  | 3.0.2 |
+| SQLite  | 2.2.8  |
+| Sizer  | 2.0.15  |
+| Dio  | 5.1.1  |
+| Shared Preferences  | 2.1.1 |
 
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/d1ac949f-5a8c-486f-9cba-806e79c41f46" width="350">
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/447d2219-c9cc-4d17-b8b4-3d55f11de835" width="350">
