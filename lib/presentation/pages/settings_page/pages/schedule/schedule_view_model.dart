@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:social_media_app_demo/config/database.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/schedule_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/lesson_model.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:sqflite/sqflite.dart';
 
 abstract class SchedulePageViewModel extends State<SchedulePageView> {
@@ -24,22 +26,15 @@ abstract class SchedulePageViewModel extends State<SchedulePageView> {
     setState(() {});
   }
 
-  Map daysTR = {
-    1: "Pazartesi",
-    2: "Salı",
-    3: "Çarşamba",
-    4: "Perşembe",
-    5: "Cuma",
-  };
-  Map daysEN = {
-    1: "Monday",
-    2: "Tuesday",
-    3: "Wednesday",
-    4: "Thursday",
-    5: "Friday",
+  Map days = {
+    1: LocaleKeys.days_1.locale,
+    2: LocaleKeys.days_2.locale,
+    3: LocaleKeys.days_3.locale,
+    4: LocaleKeys.days_4.locale,
+    5: LocaleKeys.days_5.locale,
   };
 
-  String? selectedValue;
+  int? selectedValue;
 
   Future getLessonsList() async {
     lessonList = await databaseManager.getList();

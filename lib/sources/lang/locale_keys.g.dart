@@ -104,5 +104,13 @@ abstract class  LocaleKeys {
   static const commentsPage_commentsAppBar = 'commentsPage.commentsAppBar';
   static const commentsPage_addCommentText = 'commentsPage.addCommentText';
   static const commentsPage = 'commentsPage';
+  static const communities_appBarTitle = 'communities.appBarTitle';
+  static const communities = 'communities';
+  static const days_1 = 'days.1';
+  static const days_2 = 'days.2';
+  static const days_3 = 'days.3';
+  static const days_4 = 'days.4';
+  static const days_5 = 'days.5';
+  static const days = 'days';
 
 }

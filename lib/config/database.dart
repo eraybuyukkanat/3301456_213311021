@@ -12,7 +12,7 @@ class DatabaseManager with projectDate {
   String userTableName = "db_${FirebaseAuth.instance.currentUser!.uid}_lessons";
 
   String columnLessonName = "lessonName";
-  String columnDay = "lessonDay";
+  String columnWeekDay = "lessonWeekDay";
   String columnTime = "lessonTime";
   String columnId = "id";
   String columnClass = "lessonClass";
@@ -22,7 +22,7 @@ class DatabaseManager with projectDate {
   Future<Database> getDB() async {
     return openDatabase(join(await getDatabasesPath(), userDatabaseName),
         onCreate: (db, version) async => await db.execute(
-            "CREATE TABLE $userTableName($columnId INTEGER PRIMARY KEY AUTOINCREMENT, $columnLessonName VARCHAR(10), $columnDay VARCHAR(10), $columnTime VARCHAR(10), $columnClass VARCHAR(10))"),
+            "CREATE TABLE $userTableName($columnId INTEGER PRIMARY KEY AUTOINCREMENT, $columnLessonName VARCHAR(10), $columnWeekDay INTEGER, $columnTime VARCHAR(10), $columnClass VARCHAR(10))"),
         version: version);
   }
 
@@ -32,65 +32,11 @@ class DatabaseManager with projectDate {
     return userMaps.map((e) => Lesson.fromMap(e)).toList();
   }
 
-  Future<List<Lesson>> getTodayListTR() async {
+  Future<List<Lesson>> getTodayList() async {
     final db = await getDB();
     List<Map> userMaps = await db.query(userTableName,
-        where: '$columnDay = ?', whereArgs: [currentDayTR()]);
+        where: '$columnWeekDay = ?', whereArgs: [currentWeekDay()]);
     return userMaps.map((e) => Lesson.fromMap(e)).toList();
-  }
-
-  Future<List<Lesson>> getTodayListEN() async {
-    final db = await getDB();
-    List<Map> userMaps = await db.query(userTableName,
-        where: '$columnDay = ?', whereArgs: [currentDayTR()]);
-    return userMaps.map((e) => Lesson.fromMap(e)).toList();
-  }
-
-  Future<List<Lesson>> getPazartesiList() async {
-    final db = await getDB();
-    List<Map> userMaps = await db.query(userTableName,
-        where: '$columnDay = ?', whereArgs: ["Pazartesi"]);
-    return userMaps.map((e) => Lesson.fromMap(e)).toList();
-  }
-
-  Future<List<Lesson>> getSaliList() async {
-    final db = await getDB();
-    List<Map> userMaps = await db
-        .query(userTableName, where: '$columnDay = ?', whereArgs: ["Salı"]);
-    return userMaps.map((e) => Lesson.fromMap(e)).toList();
-  }
-
-  Future<List<Lesson>> getCarsambaList() async {
-    final db = await getDB();
-    List<Map> userMaps = await db
-        .query(userTableName, where: '$columnDay = ?', whereArgs: ["Çarşamba"]);
-    return userMaps.map((e) => Lesson.fromMap(e)).toList();
-  }
-
-  Future<List<Lesson>> getPersembeList() async {
-    final db = await getDB();
-    List<Map> userMaps = await db
-        .query(userTableName, where: '$columnDay = ?', whereArgs: ["Perşembe"]);
-    return userMaps.map((e) => Lesson.fromMap(e)).toList();
-  }
-
-  Future<List<Lesson>> getCumaList() async {
-    final db = await getDB();
-    List<Map> userMaps = await db
-        .query(userTableName, where: '$columnDay = ?', whereArgs: ["Cuma"]);
-    return userMaps.map((e) => Lesson.fromMap(e)).toList();
-  }
-
-  Future<Lesson?> getItem(int id) async {
-    final db = await getDB();
-    final lessonMaps = await db.query(userTableName,
-        where: '$columnId = ?', whereArgs: [id], columns: [columnId]);
-
-    if (lessonMaps.isNotEmpty) {
-      return Lesson.fromMap(lessonMaps.first);
-    } else {
-      return null;
-    }
   }
 
   Future<void> insert(Lesson lesson) async {

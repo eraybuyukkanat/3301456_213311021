@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/main/mainpage.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/communities/communities_view_model.dart';
 import 'package:social_media_app_demo/sources/buttons.dart';
+import 'package:social_media_app_demo/sources/lang/locale_keys.g.dart';
 import 'package:social_media_app_demo/sources/loading_bar.dart';
 
 import '../../../../sources/colors.dart';
@@ -21,7 +23,7 @@ class CommunitiesPageView extends StatefulWidget {
 }
 
 class _CommunitiesPageViewState extends State<CommunitiesPageView> {
-  String pageTitle = "Topluluklar";
+  String pageTitle = LocaleKeys.communities_appBarTitle.locale;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CommunitiesViewModel>(

@@ -136,10 +136,13 @@ class _HomePageViewState extends State<HomePageView>
                                               ),
                                               subtitle: bodyMediumText(
                                                 text: context
-                                                    .read<HomePageViewModel>()
-                                                    .lessonList[index]
-                                                    .lessonDay
-                                                    .toString(),
+                                                        .read<HomePageViewModel>()
+                                                        .days[
+                                                    context
+                                                        .read<
+                                                            HomePageViewModel>()
+                                                        .lessonList[index]
+                                                        .lessonDay],
                                                 fontSize: 14,
                                                 color: ColorManager.white,
                                               ),

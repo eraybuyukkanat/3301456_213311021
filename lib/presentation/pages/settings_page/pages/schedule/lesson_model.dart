@@ -1,7 +1,7 @@
 class Lesson {
   int? id;
   String? lessonName;
-  String? lessonDay;
+  int? lessonDay;
   String? lessonTime;
   String? lessonClass;
 
@@ -15,7 +15,7 @@ class Lesson {
   Lesson.fromMap(Map<dynamic, dynamic> item) {
     id = item['id'];
     lessonName = item['lessonName'];
-    lessonDay = item['lessonDay'];
+    lessonDay = item['lessonWeekDay'];
     lessonTime = item['lessonTime'];
     lessonClass = item['lessonClass'];
   }
@@ -24,7 +24,7 @@ class Lesson {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['lessonName'] = this.lessonName;
-    data['lessonDay'] = this.lessonDay;
+    data['lessonWeekDay'] = this.lessonDay;
     data['lessonTime'] = this.lessonTime;
     data['lessonClass'] = this.lessonClass;
     return data;

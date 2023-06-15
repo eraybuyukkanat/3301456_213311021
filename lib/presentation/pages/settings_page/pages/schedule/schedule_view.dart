@@ -107,48 +107,26 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                         ),
                                       ),
                                     ),
-                                    items: context.locale.languageCode == "tr"
-                                        ? daysTR.values
-                                            .map((item) =>
-                                                DropdownMenuItem<String>(
-                                                  value: item,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(
-                                                      item,
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
+                                    items: days.entries
+                                        .map((item) => DropdownMenuItem<int>(
+                                              value: item.key,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  item.value,
+                                                  style: const TextStyle(
+                                                    fontSize: 18,
                                                   ),
-                                                ))
-                                            .toList()
-                                        : daysEN.values
-                                            .map((item) =>
-                                                DropdownMenuItem<String>(
-                                                  value: item,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(
-                                                      item,
-                                                      style: const TextStyle(
-                                                        fontSize: 18,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ))
-                                            .toList(),
+                                                ),
+                                              ),
+                                            ))
+                                        .toList(),
                                     value: selectedValue,
                                     onChanged: (value) {
                                       setState(() {
-                                        selectedValue = value as String;
+                                        selectedValue = value;
                                       });
-                                      print(value);
-                                      print(selectedValue);
                                     },
                                     buttonStyleData: ButtonStyleData(
                                       decoration: BoxDecoration(
@@ -331,7 +309,7 @@ class _SchedulePageViewState extends SchedulePageViewModel {
                                       ],
                                     ),
                                     Text(
-                                      lessonList[index].lessonDay.toString(),
+                                      days[lessonList[index].lessonDay],
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium

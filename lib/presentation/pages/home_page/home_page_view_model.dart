@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:social_media_app_demo/config/database.dart';
+import 'package:social_media_app_demo/config/extensions.dart';
 import 'package:social_media_app_demo/presentation/pages/home_page/home_page_view.dart';
 import 'package:social_media_app_demo/presentation/pages/settings_page/pages/schedule/lesson_model.dart';
 import 'package:social_media_app_demo/sources/date.dart';
@@ -19,6 +20,7 @@ class ImageModel {
 
 class HomePageViewModel extends ChangeNotifier {
   HomePageViewModel() {
+    getTodayList();
     getData();
   }
 
@@ -60,8 +62,16 @@ class HomePageViewModel extends ChangeNotifier {
   DatabaseManager databaseManager = DatabaseManager();
   List<Lesson> lessonList = [];
 
+  Map days = {
+    1: LocaleKeys.days_1.locale,
+    2: LocaleKeys.days_2.locale,
+    3: LocaleKeys.days_3.locale,
+    4: LocaleKeys.days_4.locale,
+    5: LocaleKeys.days_5.locale,
+  };
   Future<void> getTodayList() async {
-    lessonList = await databaseManager.getTodayListTR();
+    lessonList = await databaseManager.getTodayList();
+    notifyListeners();
   }
 
   Map sosyalList = {
