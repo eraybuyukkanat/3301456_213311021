@@ -16,6 +16,7 @@ class PostsPageViewModel extends ChangeNotifier {
     postService = PostService(service); //BASEURL
     bind();
     this.context = context;
+    errorHandler = false;
   }
   late BuildContext context;
 
@@ -41,6 +42,7 @@ class PostsPageViewModel extends ChangeNotifier {
   ScrollController scrollController = ScrollController();
 
   String? selected_faculty = "";
+  static bool errorHandler = false;
 
   late final IPostService postService;
 

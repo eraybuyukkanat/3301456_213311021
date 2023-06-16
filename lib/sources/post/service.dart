@@ -3,7 +3,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:social_media_app_demo/presentation/pages/posts_page/posts/posts_page_view_model.dart';
 
 import 'post_model.dart';
 
@@ -27,14 +30,17 @@ class PostService extends IPostService {
 
   @override
   Future<postModel?> fetchResourceItem() async {
-    final response = await dio.get('allPosts');
-    if (response.statusCode == HttpStatus.ok) {
-      final jsonBody = response.data;
-      if (jsonBody is Map<String, dynamic>) {
-        return postModel.fromJson(jsonBody);
+    try {
+      final response = await dio.get('allPosts');
+      if (response.statusCode == HttpStatus.ok) {
+        final jsonBody = response.data;
+        if (jsonBody is Map<String, dynamic>) {
+          return postModel.fromJson(jsonBody);
+        }
       }
+    } catch (e) {
+      PostsPageViewModel.errorHandler = true;
     }
-    return null;
   }
 
   Future<postModel?> postResourceItem(

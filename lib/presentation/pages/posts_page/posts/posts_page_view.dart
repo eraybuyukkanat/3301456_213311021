@@ -85,7 +85,9 @@ class _PostsPageViewState extends State<PostsPageView>
                       ),
                     )
                   : Center(
-                      child: Text(LocaleKeys.postsPage_emptyPostList.locale));
+                      child: Text(PostsPageViewModel.errorHandler
+                          ? "404"
+                          : LocaleKeys.postsPage_emptyPostList.locale));
             }),
       ),
     );
