@@ -45,16 +45,12 @@ class PostService extends IPostService {
 
   Future<postModel?> postResourceItem(
       String title, String description, String email, String creator) async {
-    try {
-      final response = await dio.post('createPost', data: {
-        'title': title,
-        'description': description,
-        'email': email,
-        'creator': creator
-      });
-    } catch (e) {
-      PostsPageViewModel.errorHandler = true;
-    }
+    final response = await dio.post('createPost', data: {
+      'title': title,
+      'description': description,
+      'email': email,
+      'creator': creator
+    });
   }
 
   Future<void> deleteResourceItem(id) async {
