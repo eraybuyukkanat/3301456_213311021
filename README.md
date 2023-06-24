@@ -17,8 +17,8 @@ This project is a social media application developed with Flutter, NodeJS RestAP
 | Dio  | 5.1.1  |
 | Shared Preferences  | 2.1.1 |
 
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/d1ac949f-5a8c-486f-9cba-806e79c41f46" width="350">
-<img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/447d2219-c9cc-4d17-b8b4-3d55f11de835" width="350">
+<img src="https://github.com/eraybuyukkanat/uniSocial_Flutter/assets/89808574/d08b4d24-6a0c-476a-9a22-931f7e12b4ad" width="350">
+<img src="https://github.com/eraybuyukkanat/uniSocial_Flutter/assets/89808574/8399d02b-43aa-48ab-994a-2c2da663e945" width="350">
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/cb111729-5aa2-48cf-9719-d24c30285c10" width="350">
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/f2481f55-8270-48c1-aea3-f0b62a6af3bb" width="350">
 <img src="https://github.com/eraybuyukkanat/uni_social_app_flutter/assets/89808574/ed40b047-4c73-457a-8f1d-a26dadfa90c8" width="350">
