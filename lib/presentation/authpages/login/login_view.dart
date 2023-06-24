@@ -33,14 +33,8 @@ class _LoginScreenViewState extends LoginScreenViewModel {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  titleLargeText(
-                    text: title,
-                    fontSize: 38,
-                    color: ColorManager.primary,
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                  ),
                   TextButton(
                       onPressed: () {
                         print(context.locale.languageCode);
@@ -55,95 +49,104 @@ class _LoginScreenViewState extends LoginScreenViewModel {
                       )),
                 ],
               ),
-              Container(
-                height: 2,
-                width: double.maxFinite,
-                color: ColorManager.third,
+              titleLargeText(
+                text: title,
+                fontSize: 58,
+                color: ColorManager.black,
               ),
               titleMediumText(
-                text: loginText,
-                fontSize: 25,
-                color: ColorManager.primary,
-                padding: EdgeInsets.symmetric(vertical: 5),
-              ),
+                  text: loginText, fontSize: 45, color: ColorManager.primary),
               Form(
                 autovalidateMode: AutovalidateMode.always,
                 key: formKey,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    titleSmallText(
-                      text: email,
-                      fontSize: 17,
-                      padding: EdgeInsets.only(top: 20, bottom: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        titleSmallText(
+                          text: email,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          padding: EdgeInsets.only(top: 20, bottom: 10),
+                        ),
+                        emailTextFormField(
+                          titleTextEditingController:
+                              emailTextEditingController,
+                          icon: Icon(Icons.person_outline_outlined),
+                        ),
+                        titleMediumText(
+                          text: password,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          padding: EdgeInsets.only(top: 20, bottom: 10),
+                        ),
+                        passwordTextFormField(
+                            isPasswordVisibleController:
+                                isPasswordVisibleController,
+                            passwordTextEditingController:
+                                passwordTextEditingController),
+                        TextButton(
+                            onPressed: () {
+                              resetPassword();
+                            },
+                            child: bodyMediumText(
+                              text: forgetPassword,
+                              fontSize: 17,
+                            )),
+                      ],
                     ),
-                    emailTextFormField(
-                      titleTextEditingController: emailTextEditingController,
-                      icon: Icon(Icons.person_outline_outlined),
-                    ),
-                    titleMediumText(
-                      text: password,
-                      fontSize: 18,
-                      padding: EdgeInsets.only(top: 20, bottom: 10),
-                    ),
-                    passwordTextFormField(
-                        isPasswordVisibleController:
-                            isPasswordVisibleController,
-                        passwordTextEditingController:
-                            passwordTextEditingController),
-                    TextButton(
-                        onPressed: () {
-                          resetPassword();
-                        },
-                        child: bodyMediumText(
-                          text: forgetPassword,
-                          fontSize: 17,
-                        )),
-                    Container(
-                      height: 10.h,
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                        color: ColorManager.primary,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: isLoading
-                          ? loadingWidget(
-                              color: ColorManager.white,
-                            )
-                          : TextButton(
-                              onPressed: () {
-                                if (formKey.currentState?.validate() ?? false) {
-                                  login();
-                                }
-                              },
-                              child: Text(
-                                loginText.locale,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(
-                                      color: ColorManager.white,
-                                    ),
-                              )),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 8.h,
+                          width: 50.w,
+                          decoration: BoxDecoration(
+                            color: ColorManager.primary,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: isLoading
+                              ? loadingWidget(
+                                  color: ColorManager.white,
+                                )
+                              : TextButton(
+                                  onPressed: () {
+                                    if (formKey.currentState?.validate() ??
+                                        false) {
+                                      login();
+                                    }
+                                  },
+                                  child: Text(
+                                    loginText.locale,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                          color: ColorManager.white,
+                                        ),
+                                  )),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         children: [
-                          Container(
-                            width: 30.w,
-                            child: widthSizedButton(
-                                color: ColorManager.primary,
-                                text: signInText,
-                                textColor: ColorManager.white,
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "/registerpage");
-                                }),
-                          ),
                           bodySmallText(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            text: text,
-                            fontSize: 14,
+                            text: register1Text,
+                            fontSize: 18,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/registerpage");
+                            },
+                            child: bodySmallText(
+                              text: register2Text,
+                              color: ColorManager.primary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ],
                       ),

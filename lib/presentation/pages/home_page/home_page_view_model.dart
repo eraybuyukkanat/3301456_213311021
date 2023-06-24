@@ -51,9 +51,16 @@ class HomePageViewModel extends ChangeNotifier {
         .getElementsByClassName("carousel-item")
         .forEach(
       (element) {
-        images.add(
-          element.children[0].children[0].attributes["src"].toString(),
-        );
+        if (element.children[0].children[0].attributes["src"]
+            .toString()
+            .startsWith("https")) {
+          images.add(
+            element.children[0].children[0].attributes["src"],
+          );
+        } else {
+          images.add("https://selcuk.edu.tr/" +
+              element.children[0].children[0].attributes["src"].toString());
+        }
       },
     );
     changeIsLoading();

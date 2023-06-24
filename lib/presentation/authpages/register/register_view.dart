@@ -28,14 +28,8 @@ class _RegisterScreenViewState extends RegisterScreenViewModel {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  titleLargeText(
-                    text: title,
-                    fontSize: 38,
-                    color: ColorManager.primary,
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                  ),
                   TextButton(
                       onPressed: () {
                         print(context.locale.languageCode);
@@ -50,86 +44,103 @@ class _RegisterScreenViewState extends RegisterScreenViewModel {
                       )),
                 ],
               ),
-              Container(
-                height: 2,
-                width: double.maxFinite,
-                color: ColorManager.third,
+              titleLargeText(
+                text: title,
+                fontSize: 58,
+                color: ColorManager.black,
               ),
               titleMediumText(
                 text: signInText,
-                fontSize: 25,
+                fontSize: 45,
                 color: ColorManager.primary,
-                padding: EdgeInsets.symmetric(vertical: 5),
               ),
               Form(
                 autovalidateMode: AutovalidateMode.always,
                 key: formKey,
                 child: Container(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      titleSmallText(
-                        text: email,
-                        fontSize: 17,
-                        padding: EdgeInsets.only(top: 20, bottom: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          titleSmallText(
+                            text: email,
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                          ),
+                          emailTextFormField(
+                            titleTextEditingController:
+                                emailTextEditingController,
+                            icon: Icon(Icons.person_outline_outlined),
+                          ),
+                          titleMediumText(
+                            text: password,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          passwordTextFormField(
+                              isPasswordVisibleController:
+                                  isPasswordVisibleController,
+                              passwordTextEditingController:
+                                  passwordTextEditingController),
+                          titleMediumText(
+                            text: password2,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          passwordTextFormField(
+                              isPasswordVisibleController:
+                                  isPasswordVisible2Controller,
+                              passwordTextEditingController:
+                                  password2TextEditingController),
+                        ],
                       ),
-                      emailTextFormField(
-                        titleTextEditingController: emailTextEditingController,
-                        icon: Icon(Icons.person_outline_outlined),
-                      ),
-                      titleMediumText(
-                        text: password,
-                        fontSize: 18,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                      ),
-                      passwordTextFormField(
-                          isPasswordVisibleController:
-                              isPasswordVisibleController,
-                          passwordTextEditingController:
-                              passwordTextEditingController),
-                      titleMediumText(
-                        text: password2,
-                        fontSize: 18,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                      ),
-                      passwordTextFormField(
-                          isPasswordVisibleController:
-                              isPasswordVisible2Controller,
-                          passwordTextEditingController:
-                              password2TextEditingController),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: widthSizedButton(
-                          color: ColorManager.primary,
-                          text: signInText,
-                          onPressed: () {
-                            if (formKey.currentState?.validate() ?? false) {
-                              register();
-                            }
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 30.w,
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: Container(
+                              width: 50.w,
+                              height: 8.h,
+                              decoration: BoxDecoration(
+                                color: ColorManager.primary,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
                               child: widthSizedButton(
-                                  color: ColorManager.primary,
-                                  text: loginText,
-                                  textColor: ColorManager.white,
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, "/loginpage");
-                                  }),
+                                color: ColorManager.primary,
+                                text: registerText,
+                                onPressed: () {
+                                  if (formKey.currentState?.validate() ??
+                                      false) {
+                                    register();
+                                  }
+                                },
+                              ),
                             ),
-                            bodySmallText(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              text: text,
-                              fontSize: 16,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          bodySmallText(
+                            text: login1Text,
+                            fontSize: 18,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/loginpage");
+                            },
+                            child: bodySmallText(
+                              text: login2Text,
+                              fontWeight: FontWeight.w700,
+                              color: ColorManager.primary,
+                              fontSize: 18,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

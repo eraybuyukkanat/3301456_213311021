@@ -12,7 +12,8 @@ import '../../../sources/showalertdialog.dart';
 abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
   final formKey = GlobalKey<FormState>();
 
-  String text = LocaleKeys.register_loginText;
+  String login1Text = LocaleKeys.register_login1Text;
+  String login2Text = LocaleKeys.register_login2Text;
 
   bool isLoading = false;
   changeIsLoading() {
@@ -69,8 +70,12 @@ abstract class RegisterScreenViewModel extends State<RegisterScreenView> {
     super.dispose();
   }
 
+  int sectionNumber = 0;
+
   String title = LocaleKeys.register_welcome;
   String email = LocaleKeys.register_emailTitle;
+  String next = LocaleKeys.register_next;
+  String registerText = LocaleKeys.register_registerText;
   String password = LocaleKeys.register_passwordTitle;
   String password2 = LocaleKeys.register_passwordAgainTitle;
   String loginText = LocaleKeys.register_loginButtonText;

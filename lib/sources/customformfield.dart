@@ -99,6 +99,10 @@ class emailTextFormField extends StatelessWidget {
               )),
           suffixIcon: icon ?? SizedBox(),
           errorText: snapshot.data,
+          errorStyle: TextStyle(
+            height: 0,
+            fontSize: 0,
+          ),
         ),
       );
     });

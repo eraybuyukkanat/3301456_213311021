@@ -14,7 +14,9 @@ abstract class LoginScreenViewModel extends State<LoginScreenView> {
   TextEditingController? emailTextEditingController = TextEditingController();
   TextEditingController? passwordTextEditingController =
       TextEditingController();
-  String text = LocaleKeys.login_registerText;
+  String register1Text = LocaleKeys.login_register1Text;
+  String register2Text = LocaleKeys.login_register2Text;
+
   final formKey = GlobalKey<FormState>();
 
   bool isLoading = false;
